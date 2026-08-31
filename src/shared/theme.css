@@ -1,0 +1,15 @@
+/* Tailwind for everything past the landing page (onboarding + the app) — theme + utilities,
+   deliberately WITHOUT the preflight/reset layer, so it can't touch the landing page's own CSS. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-sky: #cfeffd;
+  --color-leaf: #3b844c;
+  --color-leaf-dark: #2c5433;
+  --color-dot-inactive: #d8d4d3;
+  --color-field-border: #545454;
+  --color-location-bg: #f6ffe3;
+}
