@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 /**
@@ -9,6 +10,7 @@ import Icon from '../../lib/icons.jsx'
  */
 export default function ScanCropCard() {
   const navigate = useNavigate()
+  const t = useT()
 
   return (
     <button
@@ -26,19 +28,17 @@ export default function ScanCropCard() {
       </svg>
 
       <span className="relative inline-block rounded-full bg-black/40 px-3 py-1 text-[10px] font-bold tracking-wide text-white uppercase">
-        AI Crop Scanner
+        {t('home.scannerBadge')}
       </span>
 
       <h2 className="relative mt-3 text-lg leading-snug font-bold text-white">
-        Scan your crop for
-        <br />
-        instant insights
+        {t('home.scanTitle')}
       </h2>
-      <p className="relative mt-1 text-xs text-white/80">Detect disease, pests & nutrient deficiencies</p>
+      <p className="relative mt-1 text-xs text-white/80">{t('home.scanSubtitle')}</p>
 
       <span className="relative mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-black">
         <Icon name="scan" className="h-4 w-4" />
-        Scan Crop
+        {t('home.scanCta')}
       </span>
 
       <span className="absolute right-4 bottom-4 flex h-9 w-9 items-center justify-center rounded-full bg-black/30 text-white">

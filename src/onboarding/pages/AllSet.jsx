@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { loadProfile, saveProfile } from '../../app/lib/profile.js'
+import { useLanguage } from '../../i18n/context.js'
 import PrimaryButton from '../components/PrimaryButton.jsx'
 import AllSetScene from '../components/scenes/AllSetScene.jsx'
 
@@ -23,6 +24,11 @@ function SummaryRow({ label, value }) {
 export default function AllSet() {
   const navigate = useNavigate()
   const { state } = useLocation()
+  const { t, languages } = useLanguage()
+
+  // state.language holds a language code ('mr'); show its native name, not 'Mr'.
+  const languageLabel = languages.find((l) => l.code === state?.language)?.native ?? '—'
+  const cropLabel = state?.crop ? t(`crops.${state.crop}`) : '—'
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden">
@@ -31,15 +37,17 @@ export default function AllSet() {
       </div>
 
       <div className="relative z-10 -mt-5 flex flex-1 flex-col items-center rounded-t-[28px] bg-white px-5 py-4 text-center">
-        <h1 className="text-leaf-dark text-xl font-bold">You are all set!</h1>
-        <p className="mt-1 text-xs text-gray-600">Here's a quick summary of what you told us.</p>
+        <h1 className="text-leaf-dark text-xl font-bold">{t('onboarding.allSetTitle')}</h1>
+        <p className="mt-1 text-xs text-gray-600">{t('onboarding.allSetSub')}</p>
 
         <div className="mt-3 w-full rounded-2xl bg-[#f6f4ee] px-4 py-1">
-          <SummaryRow label="Name" value={formatValue(state?.name)} />
-          <SummaryRow label="Language" value={formatValue(state?.language)} />
-          <SummaryRow label="Field" value={formatValue(state?.fieldName)} />
-          <SummaryRow label="Crop" value={formatValue(state?.crop)} />
-          {state?.variety && <SummaryRow label="Variety" value={formatValue(state.variety)} />}
+          <SummaryRow label={t('onboarding.name')} value={formatValue(state?.name)} />
+          <SummaryRow label={t('onboarding.sLanguage')} value={languageLabel} />
+          <SummaryRow label={t('onboarding.sField')} value={formatValue(state?.fieldName)} />
+          <SummaryRow label={t('onboarding.crop')} value={cropLabel} />
+          {state?.variety && (
+            <SummaryRow label={t('onboarding.variety')} value={formatValue(state.variety)} />
+          )}
         </div>
 
         <div className="mt-4 w-full">
@@ -51,7 +59,7 @@ export default function AllSet() {
               navigate('/home')
             }}
           >
-            Go to Home
+            {t('onboarding.goHome')}
           </PrimaryButton>
         </div>
       </div>

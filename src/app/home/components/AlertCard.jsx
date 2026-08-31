@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom'
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 /** Mock alert — this is what a real disease-detection result would populate. */
 export default function AlertCard() {
+  const t = useT()
+
   return (
     <section>
       <div className="mb-2 flex items-center justify-between">
-        <h2 className="text-sm font-bold text-black">Attention Needed</h2>
+        <h2 className="text-sm font-bold text-black">{t('home.attention')}</h2>
         <span className="flex items-center gap-1 text-[11px] font-semibold text-green-600">
           <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-          Live
+          {t('common.live')}
         </span>
       </div>
 
@@ -19,18 +22,18 @@ export default function AlertCard() {
             <Icon name="shield" className="h-[18px] w-[18px]" />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-bold tracking-wide text-red-500 uppercase">Disease Detected</p>
-            <p className="text-sm font-bold text-black">Early blight</p>
-            <p className="text-[11px] text-gray-500">Tomato · North Field</p>
+            <p className="text-[10px] font-bold tracking-wide text-red-500 uppercase">{t('home.diseaseDetected')}</p>
+            <p className="text-sm font-bold text-black">{t('home.diseaseName')}</p>
+            <p className="text-[11px] text-gray-500">{t('crops.tomato')} · North Field</p>
           </div>
           <span className="shrink-0 rounded-full bg-red-100 px-2.5 py-1 text-[10px] font-bold text-red-500">
-            Medium
+            {t('common.medium')}
           </span>
         </div>
 
         <div className="mt-3">
           <p className="text-[11px] text-gray-600">
-            <span className="font-bold text-black">18%</span> of field affected
+            <span className="font-bold text-black">18%</span> {t('home.fieldAffected')}
           </p>
           <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-red-100">
             <div className="h-full w-[18%] rounded-full bg-red-500" />
@@ -41,7 +44,7 @@ export default function AlertCard() {
           to="/advisory"
           className="mt-3 flex items-center gap-0.5 text-xs font-bold text-red-500"
         >
-          View AI treatment
+          {t('home.viewTreatment')}
           <Icon name="chevronRight" className="h-3 w-3" />
         </Link>
       </div>

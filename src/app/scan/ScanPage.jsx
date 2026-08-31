@@ -1,11 +1,14 @@
+import { useT } from '../../i18n/context.js'
 import ComingSoon from '../lib/ComingSoon.jsx'
 
 export default function ScanPage() {
+  const t = useT()
+
   return (
     <ComingSoon
       icon="camera"
-      title="Scan Crop"
-      description="Camera capture and AI disease detection land here — this is where 'Scan Crop' on Home will open into."
+      title={t('scan.title')}
+      description={t('scan.description')}
     />
   )
 }

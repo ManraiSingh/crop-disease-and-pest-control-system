@@ -1,3 +1,4 @@
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 import avatar from '../assets/avatar.png'
 import { formatLocation, formatName } from '../format.js'
@@ -7,6 +8,7 @@ import { formatLocation, formatName } from '../format.js'
  * person) — same character as the onboarding "About yourself" step, for continuity.
  */
 export default function ProfileHeader({ profile }) {
+  const t = useT()
   return (
     <button type="button" className="flex w-full items-center gap-4 border-0 bg-transparent px-4 pt-4 pb-3 text-left">
       <div className="bg-sky relative h-20 w-20 shrink-0 overflow-hidden rounded-full">
@@ -20,11 +22,11 @@ export default function ProfileHeader({ profile }) {
         <p className="truncate text-lg font-bold text-black">{formatName(profile?.name) ?? 'Farmer'}</p>
         <p className="mt-0.5 flex items-center gap-1 text-xs text-gray-500">
           <Icon name="pin" className="text-leaf-dark h-3.5 w-3.5" />
-          {formatLocation(profile?.location)}
+          {formatLocation(profile?.location, t(profile.noLocation))}
         </p>
         <span className="bg-sky text-leaf-dark mt-1.5 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold">
           <Icon name="checkCircle" className="h-3 w-3" />
-          Verified Farmer
+          {t('profile.verified')}
         </span>
       </div>
 

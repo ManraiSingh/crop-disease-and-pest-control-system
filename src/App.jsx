@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { LanguageProvider } from './i18n/LanguageProvider.jsx'
 import AdvisoryPage from './app/advisory/AdvisoryPage.jsx'
 import HistoryPage from './app/history/HistoryPage.jsx'
 import HomePage from './app/home/HomePage.jsx'
@@ -14,7 +15,8 @@ import PhoneDemoLayout from './shared/PhoneDemoLayout.jsx'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
 
@@ -33,6 +35,7 @@ export default function App() {
           </Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </LanguageProvider>
   )
 }

@@ -1,3 +1,4 @@
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 const TONES = {
@@ -8,6 +9,7 @@ const TONES = {
 
 export default function RecommendationCard({ item, isLast }) {
   const tone = TONES[item.tone]
+  const t = useT()
 
   return (
     <button
@@ -21,23 +23,23 @@ export default function RecommendationCard({ item, isLast }) {
       </span>
 
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-bold text-black">{item.title}</p>
-        <p className="mt-0.5 text-[11px] text-gray-500">{item.description}</p>
+        <p className="text-xs font-bold text-black">{t(item.title)}</p>
+        <p className="mt-0.5 text-[11px] text-gray-500">{t(item.description)}</p>
         <div className="mt-1 flex items-center gap-2 text-[10px] text-gray-400">
           <span className="flex items-center gap-1">
             <Icon name="calendar" className="h-3 w-3" />
-            {item.when}
+            {item.when ? t(item.when) : t('common.daysAgo', { n: 2 })}
           </span>
           <span className="flex items-center gap-1">
             <Icon name="leaf" className="h-3 w-3" />
-            {item.crop} · {item.field}
+            {t(item.crop)} · {item.field}
           </span>
         </div>
       </div>
 
       <div className="flex shrink-0 items-center gap-1.5">
         <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold whitespace-nowrap ${tone.badge}`}>
-          {item.risk}
+          {t(item.risk)}
         </span>
         <Icon name="chevronRight" className="h-3.5 w-3.5 text-gray-300" />
       </div>

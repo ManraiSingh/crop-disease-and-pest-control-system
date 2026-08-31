@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useT } from '../../i18n/context.js'
 import AlertBanner from './components/AlertBanner.jsx'
 import FilterChips from './components/FilterChips.jsx'
 import QuickTips from './components/QuickTips.jsx'
@@ -11,50 +12,51 @@ const RECOMMENDATIONS = [
     category: 'pests',
     tone: 'green',
     icon: 'leaf',
-    title: 'Aphids Risk in Tomato',
-    description: 'Aphids population may increase in the current weather.',
-    when: 'Today',
-    crop: 'Tomato',
+    title: 'advisory.r1Title',
+    description: 'advisory.r1Desc',
+    when: 'common.today',
+    crop: 'crops.tomato',
     field: 'North Field',
-    risk: 'High',
+    risk: 'common.high',
   },
   {
     category: 'irrigation',
     tone: 'blue',
     icon: 'droplet',
-    title: 'Irrigation Advisory',
-    description: 'Light irrigation recommended in the evening hours.',
-    when: 'Today',
-    crop: 'Wheat',
+    title: 'advisory.r2Title',
+    description: 'advisory.r2Desc',
+    when: 'common.today',
+    crop: 'crops.wheat',
     field: 'North Field',
-    risk: 'Medium',
+    risk: 'common.medium',
   },
   {
     category: 'soil',
     tone: 'amber',
     icon: 'bottle',
-    title: 'Fertilizer Recommendation',
-    description: 'Top dress your crop with Urea for better yield.',
-    when: 'Tomorrow',
-    crop: 'Wheat',
+    title: 'advisory.r3Title',
+    description: 'advisory.r3Desc',
+    when: 'common.tomorrow',
+    crop: 'crops.wheat',
     field: 'South Field',
-    risk: 'Medium',
+    risk: 'common.medium',
   },
   {
     category: 'crops',
     tone: 'green',
     icon: 'shield',
-    title: 'Disease Prevention',
-    description: 'Early blight risk detected. Take preventive measures.',
-    when: '2 days ago',
-    crop: 'Potato',
+    title: 'advisory.r4Title',
+    description: 'advisory.r4Desc',
+    when: null,
+    crop: 'crops.potato',
     field: 'East Field',
-    risk: 'Low',
+    risk: 'common.low',
   },
 ]
 
 export default function AdvisoryPage() {
   const [filter, setFilter] = useState('all')
+  const t = useT()
 
   const items =
     filter === 'all' ? RECOMMENDATIONS : RECOMMENDATIONS.filter((item) => item.category === filter)
@@ -62,8 +64,8 @@ export default function AdvisoryPage() {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <div className="px-4 pt-3">
-        <h1 className="text-xl font-bold text-black">Advisory</h1>
-        <p className="text-[11px] text-gray-500">Personalized recommendations for your farm</p>
+        <h1 className="text-xl font-bold text-black">{t('advisory.title')}</h1>
+        <p className="text-[11px] text-gray-500">{t('advisory.subtitle')}</p>
         <div className="mt-3">
           <FilterChips active={filter} onChange={setFilter} />
         </div>
@@ -75,12 +77,12 @@ export default function AdvisoryPage() {
 
           <section>
             <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-sm font-bold text-black">Recommended for You</h2>
-              <span className="text-leaf-dark text-xs font-semibold">View all</span>
+              <h2 className="text-sm font-bold text-black">{t('advisory.recommended')}</h2>
+              <span className="text-leaf-dark text-xs font-semibold">{t('common.viewAll')}</span>
             </div>
             <div className="overflow-hidden rounded-2xl border border-solid border-gray-100 bg-white">
               {items.length === 0 ? (
-                <p className="px-4 py-6 text-center text-xs text-gray-400">Nothing in this category yet.</p>
+                <p className="px-4 py-6 text-center text-xs text-gray-400">{t('advisory.empty')}</p>
               ) : (
                 items.map((item, i) => (
                   <RecommendationCard key={item.title} item={item} isLast={i === items.length - 1} />

@@ -1,3 +1,4 @@
+import { useT } from "../../i18n/context.js";
 import ProgressDots from "./ProgressDots.jsx";
 
 const TOTAL_STEPS = 5;
@@ -21,6 +22,8 @@ export default function OnboardingShell({
   onForward,
   children,
 }) {
+  const t = useT();
+
   return (
     <div className="flex h-full w-full flex-col overflow-hidden">
       <div className="bg-sky relative h-[65%] w-full shrink-0 overflow-hidden">
@@ -34,7 +37,7 @@ export default function OnboardingShell({
               onForward={onForward}
             />
             <span className="text-[9px] font-semibold tracking-wide text-gray-600 uppercase">
-              Step {activeCount} of {TOTAL_STEPS}
+              {t('onboarding.step', { n: activeCount, total: TOTAL_STEPS })}
             </span>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 const BADGE_TONES = {
@@ -8,6 +9,8 @@ const BADGE_TONES = {
 
 /** One row in the History timeline, with the connecting line drawn via a border on the icon. */
 export default function ActivityItem({ item, isLast }) {
+  const t = useT()
+
   return (
     <div className="flex gap-3">
       <div className="flex flex-col items-center">
@@ -23,8 +26,14 @@ export default function ActivityItem({ item, isLast }) {
       >
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-xs font-bold text-black">{item.title}</p>
-            {item.meta && <p className="text-[11px] text-gray-500">{item.meta}</p>}
+            <p className="text-xs font-bold text-black">{t(item.title)}</p>
+            {item.meta && (
+              <p className="text-[11px] text-gray-500">
+                {item.metaPrefix ?? ''}
+                {t(item.meta)}
+                {item.metaSuffix ?? ''}
+              </p>
+            )}
           </div>
           <div className="flex shrink-0 items-center gap-1">
             <span className="text-[10px] whitespace-nowrap text-gray-400">{item.time}</span>
@@ -38,10 +47,10 @@ export default function ActivityItem({ item, isLast }) {
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-bold whitespace-nowrap ${BADGE_TONES[item.badge.tone]}`}
               >
-                {item.badge.label}
+                {t(item.badge.label)}
               </span>
             )}
-            {item.note && <span className="text-[11px] text-gray-500">{item.note}</span>}
+            {item.note && <span className="text-[11px] text-gray-500">{t(item.note)}</span>}
           </div>
         )}
       </button>

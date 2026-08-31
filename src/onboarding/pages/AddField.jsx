@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useT } from '../../i18n/context.js'
 import { useLocation, useNavigate } from 'react-router-dom'
 import LocationButton from '../components/LocationButton.jsx'
 import OnboardingShell from '../components/OnboardingShell.jsx'
@@ -12,21 +13,22 @@ export default function AddField() {
   const [fieldName, setFieldName] = useState(state?.fieldName ?? '')
   const [location, setLocation] = useState(state?.location ?? null)
   const [locationStatus, setLocationStatus] = useState('')
+  const t = useT()
 
   function handleUseCurrentLocation() {
     if (!navigator.geolocation) {
-      setLocationStatus('Location is not supported on this device.')
+      setLocationStatus(t('onboarding.locationUnsupported'))
       return
     }
-    setLocationStatus('Locating…')
+    setLocationStatus(t('onboarding.locating'))
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords
         setLocation({ latitude, longitude })
-        setLocationStatus(`Location captured: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`)
+        setLocationStatus(`${t('onboarding.locationCaptured')}: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`)
       },
       () => {
-        setLocationStatus('Could not get your location — check permissions and try again.')
+        setLocationStatus(t('onboarding.locationError'))
       },
     )
   }
@@ -46,15 +48,15 @@ export default function AddField() {
     >
       <form onSubmit={handleContinue} className="flex flex-col gap-3">
         <div>
-          <h1 className="text-lg font-bold text-black">Add your field</h1>
-          <p className="mt-0.5 text-xs text-gray-600">Start with the field you want to monitor.</p>
+          <h1 className="text-lg font-bold text-black">{t('onboarding.fieldTitle')}</h1>
+          <p className="mt-0.5 text-xs text-gray-600">{t('onboarding.fieldSub')}</p>
         </div>
 
         <div className="flex flex-col gap-2.5">
           <div className="min-w-0 flex-1">
             <TextField
-              label="Field name"
-              placeholder="e.g. North Field"
+              label={t('onboarding.fieldName')}
+              placeholder={t('onboarding.fieldPlaceholder')}
               value={fieldName}
               onChange={(e) => setFieldName(e.target.value)}
               required
@@ -62,13 +64,17 @@ export default function AddField() {
           </div>
           <div className="min-w-0 flex-1">
             <span className="mb-1 block text-[10px] font-bold tracking-wide text-black uppercase">
-              Location
+              {t('onboarding.location')}
             </span>
-            <LocationButton onClick={handleUseCurrentLocation} status={locationStatus} />
+            <LocationButton
+              label={t('onboarding.useLocation')}
+              onClick={handleUseCurrentLocation}
+              status={locationStatus}
+            />
           </div>
         </div>
 
-        <PrimaryButton disabled={!fieldName.trim()}>Continue</PrimaryButton>
+        <PrimaryButton disabled={!fieldName.trim()}>{t('onboarding.continue')}</PrimaryButton>
       </form>
     </OnboardingShell>
   )

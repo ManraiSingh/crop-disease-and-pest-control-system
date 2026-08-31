@@ -1,3 +1,4 @@
+import { useT } from '../../i18n/context.js'
 const TOTAL_STEPS = 5
 
 function ChevronIcon({ direction = 'left', className = '' }) {
@@ -20,12 +21,14 @@ function ChevronIcon({ direction = 'left', className = '' }) {
 }
 
 export default function ProgressDots({ activeCount, onBack, onForward }) {
+  const t = useT()
+
   return (
     <div className="flex w-full items-center justify-center gap-3 px-4">
       <button
         type="button"
         onClick={onBack}
-        aria-label="Previous step"
+        aria-label={t('onboarding.back')}
         className="text-leaf-dark rounded-full border-0 bg-transparent p-1 transition hover:opacity-70 disabled:opacity-30"
         disabled={!onBack}
       >
@@ -46,7 +49,7 @@ export default function ProgressDots({ activeCount, onBack, onForward }) {
       <button
         type="button"
         onClick={onForward}
-        aria-label="Next step"
+        aria-label={t('onboarding.next')}
         className="text-leaf-dark rounded-full border-0 bg-transparent p-1 transition hover:opacity-70 disabled:opacity-30"
         disabled={!onForward}
       >

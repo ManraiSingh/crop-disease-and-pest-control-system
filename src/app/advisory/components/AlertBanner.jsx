@@ -1,6 +1,9 @@
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 export default function AlertBanner() {
+  const t = useT()
+
   return (
     <button
       type="button"
@@ -11,13 +14,13 @@ export default function AlertBanner() {
       </span>
 
       <div className="min-w-0 flex-1">
-        <p className="text-[10px] font-bold tracking-wide text-orange-500 uppercase">Important Alert</p>
-        <p className="text-sm font-bold text-black">High Temperature Warning</p>
+        <p className="text-[10px] font-bold tracking-wide text-orange-500 uppercase">{t('advisory.alertLabel')}</p>
+        <p className="text-sm font-bold text-black">{t('advisory.alertTitle')}</p>
         <p className="mt-0.5 text-xs text-gray-600">
-          Maximum temperature may reach 34°C in the next 2 days. Protect your crops from heat stress.
+          {t('advisory.alertBody')}
         </p>
         <span className="mt-2 inline-flex items-center gap-0.5 text-xs font-bold text-orange-500">
-          View full advisory
+          {t('advisory.alertCta')}
           <Icon name="chevronRight" className="h-3 w-3" />
         </span>
       </div>

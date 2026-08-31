@@ -5,23 +5,19 @@ import PrimaryButton from '../components/PrimaryButton.jsx'
 import AboutYourselfScene from '../components/scenes/AboutYourselfScene.jsx'
 import SelectField from '../components/SelectField.jsx'
 import TextField from '../components/TextField.jsx'
+import { useLanguage } from '../../i18n/context.js'
 
-const LANGUAGES = [
-  { value: 'hindi', label: 'Hindi' },
-  { value: 'marathi', label: 'Marathi' },
-  { value: 'english', label: 'English' },
-  { value: 'punjabi', label: 'Punjabi' },
-  { value: 'gujarati', label: 'Gujarati' },
-  { value: 'telugu', label: 'Telugu' },
-  { value: 'tamil', label: 'Tamil' },
-  { value: 'bengali', label: 'Bengali' },
-]
+// The list comes from the localization endpoint, so adding a language server-side makes
+// it appear here with no code change and no rebuild.
 
 export default function AboutYourself() {
   const navigate = useNavigate()
   const { state } = useLocation()
   const [name, setName] = useState(state?.name ?? '')
-  const [language, setLanguage] = useState(state?.language ?? 'hindi')
+  // Picking a language here switches the whole app immediately, so the rest of
+  // onboarding is already in that language by the next step.
+  const { language, setLanguage, t, languages } = useLanguage()
+  const options = languages.map((lang) => ({ value: lang.code, label: lang.native }))
 
   function handleContinue(event) {
     event?.preventDefault()
@@ -37,17 +33,17 @@ export default function AboutYourself() {
     >
       <form onSubmit={handleContinue} className="flex flex-col gap-3">
         <div>
-          <h1 className="text-lg font-bold text-black">Tell us about yourself</h1>
+          <h1 className="text-lg font-bold text-black">{t('onboarding.aboutTitle')}</h1>
           <p className="mt-0.5 text-xs text-gray-600">
-            This helps us personalize your experience.
+            {t('onboarding.aboutSub')}
           </p>
         </div>
 
         <div className="flex flex-col gap-2.5">
           <div className="min-w-0 flex-1">
             <TextField
-              label="Name"
-              placeholder="Enter your name"
+              label={t('onboarding.name')}
+              placeholder={t('onboarding.namePlaceholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
               autoComplete="name"
@@ -56,15 +52,15 @@ export default function AboutYourself() {
           </div>
           <div className="min-w-0 flex-1">
             <SelectField
-              label="Preferred language"
-              options={LANGUAGES}
+              label={t('onboarding.prefLanguage')}
+              options={options}
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
             />
           </div>
         </div>
 
-        <PrimaryButton disabled={!name.trim()}>Continue</PrimaryButton>
+        <PrimaryButton disabled={!name.trim()}>{t('onboarding.continue')}</PrimaryButton>
       </form>
     </OnboardingShell>
   )

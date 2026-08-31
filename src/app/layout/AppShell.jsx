@@ -1,28 +1,29 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useT } from '../../i18n/context.js'
 import Icon from '../lib/icons.jsx'
 import { loadProfile } from '../lib/profile.js'
 
 const NAV = [
-  { label: 'Home', icon: 'home', to: '/home' },
-  { label: 'Advisory', icon: 'leaf', to: '/advisory' },
-  { label: 'Scan', icon: 'scan', to: '/scan' },
-  { label: 'History', icon: 'history', to: '/history' },
-  { label: 'Me', icon: 'profile', to: '/profile' },
+  { key: 'home', tKey: 'nav.home', icon: 'home', to: '/home' },
+  { key: 'advisory', tKey: 'nav.advisory', icon: 'leaf', to: '/advisory' },
+  { key: 'scan', tKey: 'nav.scan', icon: 'scan', to: '/scan' },
+  { key: 'history', tKey: 'nav.history', icon: 'history', to: '/history' },
+  { key: 'me', tKey: 'nav.me', icon: 'profile', to: '/profile' },
 ]
 
 const NOTIFICATIONS = [
-  { title: 'Disease alert: Early blight', body: 'Detected on North Field — 18% affected.', time: '2h ago' },
-  { title: 'Weather update', body: 'Rain expected tomorrow — check irrigation plan.', time: '5h ago' },
-  { title: 'Follow-up reminder', body: 'How is North Field looking after treatment?', time: '1d ago' },
+  { key: 'disease', title: 'notif.diseaseTitle', body: 'notif.diseaseBody', time: 'notif.diseaseTime' },
+  { key: 'weather', title: 'notif.weatherTitle', body: 'notif.weatherBody', time: 'notif.weatherTime' },
+  { key: 'follow', title: 'notif.followTitle', body: 'notif.followBody', time: 'notif.followTime' },
 ]
 
 const DRAWER_ITEMS = [
-  { label: 'Profile', icon: 'profile', to: '/profile' },
-  { label: 'My Farms', icon: 'field', to: '/profile' },
-  { label: 'Language', icon: 'globe', to: '/profile' },
-  { label: 'Help & Support', icon: 'help', to: '/profile' },
-  { label: 'Settings', icon: 'settings', to: '/profile' },
+  { key: 'profile', tKey: 'drawer.profile', icon: 'profile', to: '/profile' },
+  { key: 'farms', tKey: 'drawer.myFarms', icon: 'field', to: '/profile' },
+  { key: 'language', tKey: 'drawer.language', icon: 'globe', to: '/profile' },
+  { key: 'help', tKey: 'drawer.help', icon: 'help', to: '/profile' },
+  { key: 'settings', tKey: 'drawer.settings', icon: 'settings', to: '/profile' },
 ]
 
 export default function AppShell() {
@@ -30,6 +31,7 @@ export default function AppShell() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [notifOpen, setNotifOpen] = useState(false)
   const profile = loadProfile()
+  const t = useT()
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-white">
@@ -37,7 +39,7 @@ export default function AppShell() {
         <button
           type="button"
           onClick={() => setDrawerOpen(true)}
-          aria-label="Open menu"
+          aria-label={t('app.openMenu')}
           className="flex h-8 w-8 items-center justify-center border-0 bg-transparent text-gray-700"
         >
           <Icon name="menu" className="h-5 w-5" />
@@ -48,15 +50,15 @@ export default function AppShell() {
             <Icon name="leaf" className="text-leaf h-4 w-4" />
           </span>
           <div className="text-left">
-            <p className="text-leaf-dark text-xs leading-tight font-bold">Farmer's Companion</p>
-            <p className="text-[9px] text-gray-500">Smarter Farming, Better Tomorrow</p>
+            <p className="text-leaf-dark text-xs leading-tight font-bold">{t('app.name')}</p>
+            <p className="text-[9px] text-gray-500">{t('app.tagline')}</p>
           </div>
         </div>
 
         <button
           type="button"
           onClick={() => setNotifOpen((open) => !open)}
-          aria-label="Notifications"
+          aria-label={t('app.notifications')}
           className="relative flex h-8 w-8 items-center justify-center border-0 bg-transparent text-gray-700"
         >
           <Icon name="bell" className="h-5 w-5" />
@@ -74,13 +76,13 @@ export default function AppShell() {
           />
           <div className="absolute top-20 right-4 z-40 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
             <div className="border-b border-gray-100 px-4 py-2 text-xs font-bold text-gray-700">
-              Notifications
+              {t('app.notifications')}
             </div>
             {NOTIFICATIONS.map((n) => (
-              <div key={n.title} className="border-b border-gray-50 px-4 py-2.5 last:border-0">
-                <p className="text-xs font-semibold text-black">{n.title}</p>
-                <p className="mt-0.5 text-[11px] text-gray-500">{n.body}</p>
-                <p className="mt-1 text-[10px] text-gray-400">{n.time}</p>
+              <div key={n.key} className="border-b border-gray-50 px-4 py-2.5 last:border-0">
+                <p className="text-xs font-semibold text-black">{t(n.title)}</p>
+                <p className="mt-0.5 text-[11px] text-gray-500">{t(n.body)}</p>
+                <p className="mt-1 text-[10px] text-gray-400">{t(n.time)}</p>
               </div>
             ))}
           </div>
@@ -99,10 +101,10 @@ export default function AppShell() {
             <div className="flex items-center justify-between border-b border-gray-100 px-4 pt-8 pb-4">
               <div>
                 <p className="text-leaf-dark text-sm font-bold">
-                  {profile?.name || 'Farmer'}
+                  {profile?.name || t('app.farmer')}
                 </p>
                 <p className="text-[10px] text-gray-500">
-                  {profile?.fieldName ? `${profile.fieldName}` : 'No field added yet'}
+                  {profile?.fieldName ? `${profile.fieldName}` : t('app.noField')}
                 </p>
               </div>
               <button
@@ -118,7 +120,7 @@ export default function AppShell() {
             <nav className="flex flex-1 flex-col py-2">
               {DRAWER_ITEMS.map((item) => (
                 <button
-                  key={item.label}
+                  key={item.key}
                   type="button"
                   onClick={() => {
                     setDrawerOpen(false)
@@ -127,7 +129,7 @@ export default function AppShell() {
                   className="flex items-center gap-3 border-0 bg-transparent px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-50"
                 >
                   <Icon name={item.icon} className="h-[18px] w-[18px] text-gray-500" />
-                  <span className="flex-1">{item.label}</span>
+                  <span className="flex-1">{t(item.tKey)}</span>
                   <Icon name="chevronRight" className="h-3.5 w-3.5 text-gray-300" />
                 </button>
               ))}
@@ -142,7 +144,7 @@ export default function AppShell() {
               className="flex items-center gap-3 border-0 border-t border-gray-100 bg-transparent px-4 py-3 text-left text-sm text-red-500"
             >
               <Icon name="logout" className="h-[18px] w-[18px]" />
-              Log out
+              {t('app.logOut')}
             </button>
           </div>
         </div>
@@ -156,9 +158,9 @@ export default function AppShell() {
         aria-label="Main navigation"
         className="relative z-10 flex items-end justify-around rounded-t-[28px] bg-white px-3 pt-2 pb-4 shadow-[0_-4px_18px_rgba(0,0,0,0.06)]"
       >
-        {NAV.map(({ label, icon, to }) => (
+        {NAV.map(({ key, tKey, icon, to }) => (
           <NavLink
-            key={label}
+            key={key}
             to={to}
             className={({ isActive }) =>
               `flex flex-1 flex-col items-center gap-1 border-0 bg-transparent ${
@@ -166,7 +168,7 @@ export default function AppShell() {
               }`
             }
           >
-            {label === 'Scan' ? (
+            {key === 'scan' ? (
               <span className="bg-leaf ring-white -mt-8 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg ring-4">
                 <Icon name={icon} className="h-6 w-6" />
               </span>
@@ -175,7 +177,7 @@ export default function AppShell() {
                 <Icon name={icon} className="h-[18px] w-[18px]" />
               </span>
             )}
-            <small className="text-[9px] font-semibold">{label}</small>
+            <small className="text-[9px] font-semibold">{t(tKey)}</small>
           </NavLink>
         ))}
       </nav>
