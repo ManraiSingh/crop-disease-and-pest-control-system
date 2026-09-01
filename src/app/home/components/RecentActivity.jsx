@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { GLASS_INSET, GlassCard, SectionHeader } from '../../lib/glass.jsx'
 import Icon from '../../lib/icons.jsx'
 
 const ACTIVITY = [
@@ -10,30 +11,31 @@ const ACTIVITY = [
 /** Mock activity feed — real entries would come from scan/advisory/expert-review history. */
 export default function RecentActivity() {
   return (
-    <section>
-      <div className="mb-2 flex items-center justify-between">
-        <h2 className="text-sm font-bold text-black">Recent Activity</h2>
-        <Link to="/history" className="text-leaf-dark text-xs font-semibold">
-          View all
-        </Link>
-      </div>
+    <GlassCard className="p-4">
+      <SectionHeader
+        title="Recent Activity"
+        className="mb-3"
+        right={
+          <Link to="/history" className="text-[11px] font-semibold text-lime-300">
+            View all
+          </Link>
+        }
+      />
 
-      <div className="rounded-2xl border border-gray-100 bg-white">
-        {ACTIVITY.map((item, i) => (
-          <div
-            key={item.title}
-            className={`flex items-center gap-3 px-4 py-3 ${i !== ACTIVITY.length - 1 ? 'border-b border-gray-50' : ''}`}
-          >
-            <span className="bg-sky flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
-              <Icon name={item.icon} className="text-leaf-dark h-4 w-4" />
+      <div className="flex flex-col gap-2">
+        {ACTIVITY.map((item) => (
+          <div key={item.title} className={`${GLASS_INSET} flex items-center gap-3 px-3 py-2.5`}>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-solid border-white/15 bg-white/10">
+              <Icon name={item.icon} className="h-4 w-4 text-lime-200" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-semibold text-black">{item.title}</p>
-              <p className="text-[10px] text-gray-400">{item.time}</p>
+              <p className="truncate text-xs font-semibold text-white">{item.title}</p>
+              <p className="text-[10px] text-white/50">{item.time}</p>
             </div>
+            <Icon name="chevronRight" className="h-3.5 w-3.5 shrink-0 text-white/35" />
           </div>
         ))}
       </div>
-    </section>
+    </GlassCard>
   )
 }

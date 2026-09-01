@@ -1,3 +1,4 @@
+import { GLASS_SURFACE } from '../../lib/glass.jsx'
 import Icon from '../../lib/icons.jsx'
 import { formatDaysWithUs } from '../format.js'
 
@@ -14,17 +15,14 @@ export default function StatsRow({ profile }) {
   ]
 
   return (
-    <div className="mx-4 flex items-center justify-around rounded-2xl border border-solid border-gray-100 bg-white py-3 shadow-sm">
-      {stats.map((stat, i) => (
-        <div key={stat.label} className="flex items-center gap-2">
-          {i > 0 && <span className="mr-2 h-8 w-px bg-gray-100" />}
-          <span className="bg-sky flex h-8 w-8 items-center justify-center rounded-full">
-            <Icon name={stat.icon} className="text-leaf-dark h-4 w-4" />
+    <div className={`${GLASS_SURFACE} mx-4 grid grid-cols-3 divide-x divide-white/15 rounded-2xl py-4`}>
+      {stats.map((stat) => (
+        <div key={stat.label} className="flex flex-col items-center gap-1.5 px-2 text-center">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-solid border-white/15 bg-white/10">
+            <Icon name={stat.icon} className="h-4 w-4 text-lime-200" />
           </span>
-          <div>
-            <p className="text-sm font-bold text-black">{stat.value}</p>
-            <p className="text-[10px] text-gray-500">{stat.label}</p>
-          </div>
+          <p className="text-base font-bold text-white">{stat.value}</p>
+          <p className="text-[10px] text-white/60">{stat.label}</p>
         </div>
       ))}
     </div>

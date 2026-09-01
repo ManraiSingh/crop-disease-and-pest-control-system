@@ -4,7 +4,7 @@ export default function ScanPage() {
   return (
     <ComingSoon
       icon="camera"
-      title="Scan Crop"
+      title="Coming soon"
       description="Camera capture and AI disease detection land here — this is where 'Scan Crop' on Home will open into."
     />
   )

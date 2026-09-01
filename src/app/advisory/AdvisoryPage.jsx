@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { GLASS_SURFACE, SectionHeader } from '../lib/glass.jsx'
 import AlertBanner from './components/AlertBanner.jsx'
 import FilterChips from './components/FilterChips.jsx'
 import QuickTips from './components/QuickTips.jsx'
@@ -61,9 +62,10 @@ export default function AdvisoryPage() {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="px-4 pt-3">
-        <h1 className="text-xl font-bold text-black">Advisory</h1>
-        <p className="text-[11px] text-gray-500">Personalized recommendations for your farm</p>
+      <div className="px-4">
+        <p className="text-[11px] text-white/70 drop-shadow-[0_1px_4px_rgba(0,0,0,0.55)]">
+          Personalized recommendations for your farm
+        </p>
         <div className="mt-3">
           <FilterChips active={filter} onChange={setFilter} />
         </div>
@@ -74,13 +76,10 @@ export default function AdvisoryPage() {
           <AlertBanner />
 
           <section>
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-sm font-bold text-black">Recommended for You</h2>
-              <span className="text-leaf-dark text-xs font-semibold">View all</span>
-            </div>
-            <div className="overflow-hidden rounded-2xl border border-solid border-gray-100 bg-white">
+            <div className={GLASS_SURFACE}>
+              <SectionHeader title="Recommended for You" action="View all" className="px-4 pt-4 pb-3" />
               {items.length === 0 ? (
-                <p className="px-4 py-6 text-center text-xs text-gray-400">Nothing in this category yet.</p>
+                <p className="px-4 pb-6 text-center text-xs text-white/50">Nothing in this category yet.</p>
               ) : (
                 items.map((item, i) => (
                   <RecommendationCard key={item.title} item={item} isLast={i === items.length - 1} />

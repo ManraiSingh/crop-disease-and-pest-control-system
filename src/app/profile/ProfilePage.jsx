@@ -8,7 +8,7 @@ export default function ProfilePage() {
   const profile = loadProfile()
 
   return (
-    <div className="bg-sky/20 flex h-full flex-col overflow-y-auto pb-4">
+    <div className="h-full overflow-y-auto pt-1 pb-4">
       <ProfileHeader profile={profile} />
 
       <div className="mt-3 flex flex-col gap-3">
@@ -17,7 +17,7 @@ export default function ProfilePage() {
         <KeepGrowingCard />
       </div>
 
-      <p className="mt-3 text-center text-[10px] text-gray-400">App Version 1.0.0</p>
+      <p className="mt-3 text-center text-[10px] text-white/45">App Version 1.0.0</p>
     </div>
   )
 }
