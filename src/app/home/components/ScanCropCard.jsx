@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom'
+import { GLASS_SURFACE, SCAN_CARD_BACKGROUND } from '../../lib/glass.jsx'
 import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 /**
- * PLACEHOLDER background: the mockup uses a real photo of crop rows. We don't have one, so
- * this fakes the look with a gradient + repeating diagonal "furrow" pattern instead of leaving
- * it flat. Swap for a real photo (via a CSS background-image) whenever one is available —
- * nothing else about this component needs to change.
+ * The dashboard's primary call to action, and deliberately the tallest card on Home — it keeps
+ * the same glass pane, border and radius as every other card so it reads as part of the set,
+ * but takes the height it needs for the vineyard photo to actually be legible behind the copy.
+ * The scrim is what keeps the white text readable, so don't lighten it without re-checking.
  */
 export default function ScanCropCard() {
   const navigate = useNavigate()
@@ -16,33 +17,48 @@ export default function ScanCropCard() {
     <button
       type="button"
       onClick={() => navigate('/scan')}
-      className="relative block w-full overflow-hidden rounded-3xl border-0 bg-gradient-to-br from-[#2f6b3c] via-[#1f4d2a] to-[#12301b] p-5 text-left"
+      className={`${GLASS_SURFACE} flex min-h-[230px] w-full flex-col justify-between p-5 text-left`}
     >
-      <svg className="absolute inset-0 h-full w-full opacity-25" preserveAspectRatio="none" viewBox="0 0 300 180">
-        <defs>
-          <pattern id="rows" width="26" height="180" patternUnits="userSpaceOnUse">
-            <path d="M13 180 L22 0 L18 0 L9 180 Z" fill="#a8d98a" />
-          </pattern>
-        </defs>
-        <rect width="300" height="180" fill="url(#rows)" />
-      </svg>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url('${SCAN_CARD_BACKGROUND}')` }}
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(12,24,10,0.86)_0%,rgba(14,28,12,0.62)_52%,rgba(16,32,14,0.34)_100%)]"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_8%,rgba(255,255,255,0.16),transparent_46%)]"
+      />
 
-      <span className="relative inline-block rounded-full bg-black/40 px-3 py-1 text-[10px] font-bold tracking-wide text-white uppercase">
-        {t('home.scannerBadge')}
+      <span className="relative flex items-start gap-3.5">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-solid border-white/20 bg-white/12 backdrop-blur-md">
+          <Icon name="scan" className="h-6 w-6 text-lime-200" />
+        </span>
+
+        <span className="min-w-0 flex-1">
+          <span className="block text-[11px] font-bold tracking-wide text-lime-300 uppercase">
+            {t('home.scannerBadge')}
+          </span>
+          <span className="mt-1.5 block text-xl leading-tight font-bold text-white drop-shadow-[0_1px_5px_rgba(0,0,0,0.55)]">
+            {t('home.scanTitle')}
+          </span>
+          <span className="mt-1.5 block text-xs text-white/75">
+            {t('home.scanSubtitle')}
+          </span>
+        </span>
       </span>
 
-      <h2 className="relative mt-3 text-lg leading-snug font-bold text-white">
-        {t('home.scanTitle')}
-      </h2>
-      <p className="relative mt-1 text-xs text-white/80">{t('home.scanSubtitle')}</p>
-
-      <span className="relative mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-black">
-        <Icon name="scan" className="h-4 w-4" />
-        {t('home.scanCta')}
-      </span>
-
-      <span className="absolute right-4 bottom-4 flex h-9 w-9 items-center justify-center rounded-full bg-black/30 text-white">
-        <Icon name="camera" className="h-4 w-4" />
+      <span className="relative mt-5 flex items-center justify-between gap-3">
+        <span className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-5 py-2.5 text-sm font-bold text-[#12200c] shadow-[0_8px_22px_rgba(163,230,53,0.4)]">
+          <Icon name="scan" className="h-[18px] w-[18px]" />
+          {t('home.scanCta')}
+        </span>
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-solid border-white/20 bg-white/12 text-white backdrop-blur-md">
+          <Icon name="camera" className="h-[18px] w-[18px]" />
+        </span>
       </span>
     </button>
   )

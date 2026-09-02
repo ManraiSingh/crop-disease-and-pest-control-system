@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useT } from '../../i18n/context.js'
+import { GLASS_SURFACE, SectionHeader } from '../lib/glass.jsx'
 import AlertBanner from './components/AlertBanner.jsx'
 import FilterChips from './components/FilterChips.jsx'
 import QuickTips from './components/QuickTips.jsx'
@@ -63,9 +64,10 @@ export default function AdvisoryPage() {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="px-4 pt-3">
-        <h1 className="text-xl font-bold text-black">{t('advisory.title')}</h1>
-        <p className="text-[11px] text-gray-500">{t('advisory.subtitle')}</p>
+      <div className="px-4">
+        <p className="text-[11px] text-white/70 drop-shadow-[0_1px_4px_rgba(0,0,0,0.55)]">
+          {t('advisory.subtitle')}
+        </p>
         <div className="mt-3">
           <FilterChips active={filter} onChange={setFilter} />
         </div>
@@ -76,13 +78,10 @@ export default function AdvisoryPage() {
           <AlertBanner />
 
           <section>
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-sm font-bold text-black">{t('advisory.recommended')}</h2>
-              <span className="text-leaf-dark text-xs font-semibold">{t('common.viewAll')}</span>
-            </div>
-            <div className="overflow-hidden rounded-2xl border border-solid border-gray-100 bg-white">
+            <div className={GLASS_SURFACE}>
+              <SectionHeader title={t('advisory.recommended')} action={t('common.viewAll')} className="px-4 pt-4 pb-3" />
               {items.length === 0 ? (
-                <p className="px-4 py-6 text-center text-xs text-gray-400">{t('advisory.empty')}</p>
+                <p className="px-4 pb-6 text-center text-xs text-white/50">{t('advisory.empty')}</p>
               ) : (
                 items.map((item, i) => (
                   <RecommendationCard key={item.title} item={item} isLast={i === items.length - 1} />

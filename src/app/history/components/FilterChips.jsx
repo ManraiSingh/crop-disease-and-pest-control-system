@@ -23,8 +23,8 @@ export default function FilterChips({ active, onChange }) {
             onClick={() => onChange(filter.key)}
             className={`flex shrink-0 items-center gap-1.5 rounded-full border border-solid px-3 py-1.5 text-xs font-semibold whitespace-nowrap ${
               isActive
-                ? 'border-leaf bg-white text-leaf-dark'
-                : 'border-gray-200 bg-white text-gray-500'
+                ? 'border-lime-300/60 bg-lime-400/90 text-[#12200c]'
+                : 'border-white/15 bg-white/10 text-white/75 backdrop-blur-md'
             }`}
           >
             {filter.icon && <Icon name={filter.icon} className="h-3.5 w-3.5" />}

@@ -6,7 +6,7 @@ import { useLanguage } from './context.js'
  * translations — the list is served by the localization endpoint, so adding a language
  * server-side makes it appear here automatically.
  */
-export default function LanguagePicker() {
+export default function LanguagePicker({ triggerClassName }) {
   const { language, setLanguage, languages, t } = useLanguage()
   const [open, setOpen] = useState(false)
   const wrapRef = useRef(null)
@@ -38,7 +38,10 @@ export default function LanguagePicker() {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={t('common.selectLanguage')}
-        className="flex items-center gap-1 rounded-full border-2 border-solid border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-600"
+        className={
+          triggerClassName ??
+          'flex items-center gap-1 rounded-full border-2 border-solid border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-600'
+        }
       >
         {current.short}
         <span aria-hidden="true" className="text-[9px]">

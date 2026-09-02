@@ -7,8 +7,8 @@ export default function ScanPage() {
   return (
     <ComingSoon
       icon="camera"
-      title={t('scan.title')}
-      description={t('scan.description')}
+      title={t("scan.title")}
+      description={t("scan.description")}
     />
   )
 }
