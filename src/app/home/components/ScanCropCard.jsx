@@ -6,7 +6,10 @@ import Icon from '../../lib/icons.jsx'
  * The dashboard's primary call to action, and deliberately the tallest card on Home — it keeps
  * the same glass pane, border and radius as every other card so it reads as part of the set,
  * but takes the height it needs for the vineyard photo to actually be legible behind the copy.
- * The scrim is what keeps the white text readable, so don't lighten it without re-checking.
+ *
+ * The content is centred rather than spread: at this height `justify-between` leaves a hole
+ * between the copy and the CTA. The scrim is what keeps the white text readable, so don't
+ * lighten it without re-checking.
  */
 export default function ScanCropCard() {
   const navigate = useNavigate()
@@ -15,7 +18,7 @@ export default function ScanCropCard() {
     <button
       type="button"
       onClick={() => navigate('/scan')}
-      className={`${GLASS_SURFACE} flex min-h-[270px] rounded-3xl w-full flex-col justify-between p-5 text-left`}
+      className={`${GLASS_SURFACE} flex min-h-[270px] w-full flex-col justify-center rounded-3xl p-5 text-left`}
     >
       <span
         aria-hidden="true"
@@ -49,7 +52,7 @@ export default function ScanCropCard() {
         </span>
       </span>
 
-      <span className="relative mt-5 flex items-center justify-between gap-3">
+      <span className="relative mt-6 flex items-center justify-between gap-3">
         <span className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-5 py-2.5 text-sm font-bold text-[#12200c] shadow-[0_8px_22px_rgba(163,230,53,0.4)]">
           <Icon name="scan" className="h-[18px] w-[18px]" />
           Scan Crop
