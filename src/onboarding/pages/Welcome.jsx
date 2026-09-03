@@ -64,24 +64,27 @@ export default function Welcome() {
           ))}
         </div>
 
+        {/* One centred stack. The gap between the tagline and the wordmark block does double
+            duty: widening it lifts the tagline and drops the wordmark, since the stack as a
+            whole stays centred. */}
         <div className="my-auto flex flex-col items-center text-center">
-          <p className="text-lg leading-snug font-bold text-lime-400">Empowering Agriculture,</p>
-          <p className="text-lg leading-snug font-bold text-white">Connecting Markets</p>
+          <p className="text-xl leading-snug font-bold text-lime-400">Empowering Agriculture,</p>
+          <p className="text-xl leading-snug font-bold text-white">Connecting Markets</p>
 
-          <div aria-hidden="true" className="mt-2 flex items-center justify-center gap-3">
+          <div aria-hidden="true" className="mt-2.5 flex items-center justify-center gap-3">
             <span className="h-px w-12 bg-gradient-to-r from-transparent to-lime-300/40" />
             <Icon name="sprout" className="h-4 w-4 text-lime-300/70" />
             <span className="h-px w-12 bg-gradient-to-l from-transparent to-lime-300/40" />
           </div>
 
-          <p className="mt-7 text-xs font-semibold tracking-[0.35em] text-white/85 uppercase">
+          <p className="mt-14 text-sm font-semibold tracking-[0.35em] text-white/85 uppercase">
             Welcome to
           </p>
-          <h1 className="mt-1 text-4xl font-extrabold tracking-tight text-white">
+          <h1 className="mt-1.5 text-[42px] leading-none font-extrabold tracking-tight text-white">
             KRISHI <span className="text-lime-400">AI</span>
-            <Icon name="leaf" className="ml-1 inline-block h-7 w-7 align-[-0.15em] text-lime-400" />
+            <Icon name="leaf" className="ml-1.5 inline-block h-8 w-8 align-[-0.15em] text-lime-400" />
           </h1>
-          <p className="mt-2 max-w-[17rem] text-center text-xs leading-relaxed text-white/70">
+          <p className="mt-3 max-w-[19rem] text-center text-sm leading-relaxed text-white/75">
             Detect crop disease early, and act on advice built for your field.
           </p>
         </div>
