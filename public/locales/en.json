@@ -105,7 +105,8 @@
     "uvIndex": "UV Index",
     "dayAfter": "Day After",
     "forecastFor": "Hourly forecast for",
-    "selectDay": "Select forecast day"
+    "selectDay": "Select forecast day",
+    "weather": "Weather"
   },
   "advisory": {
     "title": "Advisory",

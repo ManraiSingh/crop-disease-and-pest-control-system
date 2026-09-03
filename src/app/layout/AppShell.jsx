@@ -79,7 +79,7 @@ export default function AppShell() {
       />
 
       <header className="relative z-40 flex items-center justify-between gap-3 px-4 pt-9 pb-3">
-        {pageTitle ? (
+        {pageTitleKey ? (
           <h1 className="min-w-0 truncate text-xl font-bold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {t(pageTitleKey)}
           </h1>
