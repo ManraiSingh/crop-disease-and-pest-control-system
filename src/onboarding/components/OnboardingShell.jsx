@@ -1,3 +1,4 @@
+import { GLASS_SHEEN, GLASS_SURFACE_STRONG } from '../../app/lib/glass.js'
 import Icon from '../../app/lib/icons.jsx'
 import { TOTAL_STEPS, stepNumber, stepPhoto } from '../steps.js'
 
@@ -18,7 +19,7 @@ function RoundButton({ icon, label, onClick }) {
 /** The green circle that straddles the top edge of the sheet. */
 function SproutBadge() {
   return (
-    <span className="absolute -top-7 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-solid border-white/25 bg-[#5b8c2a] shadow-[0_8px_20px_rgba(6,20,12,0.45)]">
+    <span className="absolute -top-7 left-1/2 z-10 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-solid border-white/25 bg-[#5b8c2a] shadow-[0_8px_20px_rgba(6,20,12,0.45)]">
       <Icon name="sprout" className="h-7 w-7 text-white" />
     </span>
   )
@@ -81,15 +82,19 @@ export default function OnboardingShell({ step, title, subtitle, onBack, childre
       </header>
 
       <div className="relative z-10 mt-auto px-3 pb-3">
-        <div className="relative rounded-3xl border border-solid border-white/12 bg-[#1d2814]/80 px-5 pt-10 pb-5 shadow-[0_18px_40px_rgba(6,20,12,0.5)] backdrop-blur-xl">
-          <SproutBadge />
+        <SproutBadge />
 
-          <h1 className="text-2xl leading-tight font-bold text-white">{title}</h1>
-          {subtitle && <p className="mt-1.5 text-xs text-white/65">{subtitle}</p>}
+        <div className={`${GLASS_SURFACE_STRONG} rounded-3xl px-5 pt-10 pb-5`}>
+          <span aria-hidden="true" className={GLASS_SHEEN} />
 
-          <div className="mt-5">{children}</div>
+          <h1 className="relative text-2xl leading-tight font-bold text-white">{title}</h1>
+          {subtitle && <p className="relative mt-1.5 text-xs text-white/65">{subtitle}</p>}
 
-          <LeafRule />
+          <div className="relative mt-5">{children}</div>
+
+          <div className="relative">
+            <LeafRule />
+          </div>
         </div>
       </div>
     </div>

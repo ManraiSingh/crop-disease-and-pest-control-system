@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import Icon from '../../app/lib/icons.jsx'
+import { GLASS_SHEEN, GLASS_INSET, GLASS_SURFACE_STRONG } from '../../app/lib/glass.js'
 import { STEPS } from '../steps.js'
 
 /** Illustrative figures for the welcome screen — replaced by the farmer's own once onboarded. */
@@ -9,7 +10,7 @@ const HIGHLIGHTS = [
   { icon: 'calendar', label: 'Plant Age', value: '44', unit: 'Days' },
 ]
 
-const CARD = 'rounded-2xl border border-solid border-white/12 bg-[#1d2814]/70 backdrop-blur-xl'
+const CARD = `${GLASS_SURFACE_STRONG} rounded-2xl`
 
 /**
  * The screen the flow opens on, before step 1. Sets the product up and shows what the app
@@ -33,6 +34,7 @@ export default function Welcome() {
 
       <div className="relative z-10 flex h-full flex-col px-4 pt-9 pb-5">
         <div className={`${CARD} flex items-center gap-3 px-4 py-3`}>
+          <span aria-hidden="true" className={GLASS_SHEEN} />
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#5b8c2a]">
             <Icon name="wheat" className="h-5 w-5 text-white" />
           </span>
@@ -46,7 +48,7 @@ export default function Welcome() {
 
         <div className="mt-3 grid grid-cols-3 gap-2.5">
           {HIGHLIGHTS.map((item) => (
-            <div key={item.label} className={`${CARD} px-3 py-3`}>
+            <div key={item.label} className={`${GLASS_INSET} px-3 py-3`}>
               <span className="flex items-center gap-1.5">
                 <Icon name={item.icon} className="h-4 w-4 shrink-0 text-lime-300" />
                 <span className="truncate text-[11px] text-white/70">{item.label}</span>
@@ -59,28 +61,29 @@ export default function Welcome() {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="my-auto flex flex-col items-center text-center">
           <p className="text-lg leading-snug font-bold text-lime-400">Empowering Agriculture,</p>
           <p className="text-lg leading-snug font-bold text-white">Connecting Markets</p>
-          <div aria-hidden="true" className="mt-3 flex items-center justify-center gap-3">
+
+          <div aria-hidden="true" className="mt-2 flex items-center justify-center gap-3">
             <span className="h-px w-12 bg-gradient-to-r from-transparent to-lime-300/40" />
             <Icon name="sprout" className="h-4 w-4 text-lime-300/70" />
             <span className="h-px w-12 bg-gradient-to-l from-transparent to-lime-300/40" />
           </div>
-        </div>
 
-        <div className="mt-auto text-center">
-          <p className="text-xs font-semibold tracking-[0.35em] text-white/85 uppercase">Welcome to</p>
-          <h1 className="mt-1.5 flex items-center justify-center gap-2 text-4xl font-extrabold tracking-tight text-white">
+          <p className="mt-7 text-xs font-semibold tracking-[0.35em] text-white/85 uppercase">
+            Welcome to
+          </p>
+          <h1 className="mt-1 text-4xl font-extrabold tracking-tight text-white">
             KRISHI <span className="text-lime-400">AI</span>
-            <Icon name="leaf" className="h-8 w-8 text-lime-400" />
+            <Icon name="leaf" className="ml-1 inline-block h-7 w-7 align-[-0.15em] text-lime-400" />
           </h1>
-          <p className="mx-auto mt-3 max-w-[16rem] text-xs leading-relaxed text-white/70">
+          <p className="mt-2 max-w-[17rem] text-center text-xs leading-relaxed text-white/70">
             Detect crop disease early, and act on advice built for your field.
           </p>
         </div>
 
-        <div className={`${CARD} mt-6 flex items-center gap-3 rounded-full p-2`}>
+        <div className={`${CARD} flex items-center gap-3 rounded-full p-2`}>
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#5b8c2a]">
             <Icon name="sprout" className="h-6 w-6 text-white" />
           </span>
