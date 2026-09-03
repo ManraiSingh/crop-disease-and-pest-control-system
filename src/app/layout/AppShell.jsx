@@ -3,6 +3,8 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { APP_BACKGROUND, GLASS_SURFACE_STRONG } from '../lib/glass.jsx'
 import Icon from '../lib/icons.jsx'
 import { loadProfile } from '../lib/profile.js'
+import useForecast from '../lib/useForecast.js'
+import WeatherCard from '../home/components/WeatherCard.jsx'
 import avatar from '../profile/assets/avatar.jpg'
 import { formatName } from '../profile/format.js'
 
@@ -41,10 +43,22 @@ const NOTIFICATIONS = [
  * Profile tab, so the header stays as light as the design.
  */
 export default function AppShell() {
-  const [notifOpen, setNotifOpen] = useState(false)
+  // Only one header panel is open at a time, so opening one closes the other.
+  const [panel, setPanel] = useState(null)
   const profile = loadProfile()
+  const weather = useForecast(profile?.location)
+
+  const togglePanel = (name) => setPanel((open) => (open === name ? null : name))
   const { pathname } = useLocation()
   const pageTitle = PAGE_TITLES[pathname]
+
+  // Close an open panel when the tab changes — adjusted during render rather than in an
+  // effect, so the stale panel never paints over the new screen.
+  const [panelPath, setPanelPath] = useState(pathname)
+  if (panelPath !== pathname) {
+    setPanelPath(pathname)
+    setPanel(null)
+  }
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#16210e]">
@@ -59,7 +73,7 @@ export default function AppShell() {
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,8,0.66)_0%,rgba(10,22,9,0.4)_26%,rgba(8,18,7,0.66)_70%,rgba(6,14,5,0.9)_100%)]"
       />
 
-      <header className="relative z-30 flex items-center justify-between gap-3 px-4 pt-9 pb-3">
+      <header className="relative z-40 flex items-center justify-between gap-3 px-4 pt-9 pb-3">
         {pageTitle ? (
           <h1 className="min-w-0 truncate text-xl font-bold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {pageTitle}
@@ -78,17 +92,31 @@ export default function AppShell() {
           </span>
         )}
 
-        <span className="flex shrink-0 items-center gap-2">
+        <span className="flex shrink-0 items-center gap-1.5">
+          {weather.ready && (
+            <button
+              type="button"
+              onClick={() => togglePanel('weather')}
+              aria-expanded={panel === 'weather'}
+              aria-label={`Weather, ${weather.temperature} degrees Celsius`}
+              className="flex items-center gap-1.5 rounded-full border border-solid border-white/20 bg-white/12 px-2.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
+            >
+              <Icon name={weather.icon} className="h-4 w-4" />
+              {weather.temperature}°C
+            </button>
+          )}
+
           <button
             type="button"
-            className="rounded-full border border-solid border-white/20 bg-white/12 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
+            className="rounded-full border border-solid border-white/20 bg-white/12 px-2.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
           >
             EN ⌄
           </button>
 
           <button
             type="button"
-            onClick={() => setNotifOpen((open) => !open)}
+            onClick={() => togglePanel('notifications')}
+            aria-expanded={panel === 'notifications'}
             aria-label="Notifications"
             className="relative flex h-10 w-10 items-center justify-center rounded-full border border-solid border-white/15 bg-white/12 text-white backdrop-blur-md"
           >
@@ -98,15 +126,39 @@ export default function AppShell() {
         </span>
       </header>
 
-      {notifOpen && (
+      {panel === 'weather' && (
+        <>
+          <button
+            type="button"
+            aria-label="Close weather"
+            onClick={() => setPanel(null)}
+            className="absolute inset-0 z-30 border-0 bg-black/30"
+          />
+          {/* Anchored under the header and near full width — the hourly chart needs the room. */}
+          <div className="absolute top-[88px] right-3 left-3 z-50">
+            <WeatherCard
+              strong
+              temperatures={weather.temperatures}
+              activeIndex={weather.activeIndex}
+              timeLabels={weather.timeLabels}
+              condition={weather.condition}
+              selectedDay={weather.selectedDay}
+              onDayChange={weather.onDayChange}
+              days={weather.days}
+            />
+          </div>
+        </>
+      )}
+
+      {panel === 'notifications' && (
         <>
           <button
             type="button"
             aria-label="Close notifications"
-            onClick={() => setNotifOpen(false)}
+            onClick={() => setPanel(null)}
             className="absolute inset-0 z-30 border-0 bg-black/30"
           />
-          <div className={`absolute top-[86px] right-4 z-40 w-64 ${GLASS_SURFACE_STRONG} rounded-2xl`}>
+          <div className={`absolute top-[88px] right-4 z-50 w-64 ${GLASS_SURFACE_STRONG} rounded-2xl`}>
             <div className="border-b border-solid border-white/10 px-4 py-2.5 text-xs font-bold text-white">
               Notifications
             </div>
@@ -122,7 +174,7 @@ export default function AppShell() {
       )}
 
       <div className="relative z-10 flex-1 overflow-hidden">
-        <Outlet />
+        <Outlet context={{ weather }} />
       </div>
 
       <nav

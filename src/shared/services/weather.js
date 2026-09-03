@@ -40,6 +40,16 @@ function toDate(value) {
   return value instanceof Date ? value : new Date(value)
 }
 
+/** Maps a backend condition string onto one of the app's line icons. */
+export function conditionIcon(condition = '') {
+  const text = condition.toLowerCase()
+  if (text.includes('rain') || text.includes('shower') || text.includes('storm')) return 'umbrella'
+  if (text.includes('sun') || text.includes('clear')) return 'sun'
+  if (text.includes('partly') || text.includes('fair')) return 'cloudSun'
+  if (text.includes('cloud') || text.includes('overcast')) return 'cloud'
+  return 'cloudSun'
+}
+
 /** "9 AM", "12 PM" — matches the design's label format. */
 export function formatHourLabel(value) {
   const date = toDate(value)

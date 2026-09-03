@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   FORECAST_DAYS,
   activeHourIndex,
+  conditionIcon,
   fetchForecast,
   pickTimeLabels,
 } from '../../shared/services/weather.js'
@@ -34,11 +35,16 @@ export default function useForecast(location) {
 
   const view = useMemo(() => {
     const hours = forecast?.hours ?? []
+    const activeIndex = activeHourIndex(hours)
+    const condition = forecast?.condition ?? ''
     return {
-      condition: forecast?.condition ?? '',
+      condition,
+      icon: conditionIcon(condition),
       metrics: forecast?.metrics ?? { humidity: '—', clouds: '—', uvIndex: '—' },
       temperatures: hours.map((hour) => hour.temp),
-      activeIndex: activeHourIndex(hours),
+      activeIndex,
+      /** Reading for the current hour — what the header chip shows. */
+      temperature: hours[activeIndex]?.temp ?? null,
       timeLabels: pickTimeLabels(hours),
     }
   }, [forecast])

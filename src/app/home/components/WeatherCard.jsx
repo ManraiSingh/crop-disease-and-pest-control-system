@@ -1,4 +1,4 @@
-import { GLASS_SHEEN, GLASS_SURFACE } from '../../lib/glass.jsx'
+import { GLASS_SHEEN, GLASS_SURFACE, GLASS_SURFACE_STRONG } from '../../lib/glass.jsx'
 import Icon from '../../lib/icons.jsx'
 
 /**
@@ -23,6 +23,9 @@ const SEGMENT_GLOSS =
 /**
  * Dark-glass weather panel for the dashboard.
  *
+ * Renders inline on a page or, with `strong`, as the header's weather popover — where the
+ * denser surface keeps it readable while the dashboard scrolls behind it.
+ *
  * Fully controlled and fully dynamic: `temperatures` is the hourly series, `activeIndex` marks
  * the current hour within it, and `timeLabels` is its own, deliberately sparser series spread
  * across the same track — the design labels every hour's temperature but only some of the
@@ -37,6 +40,7 @@ export default function WeatherCard({
   selectedDay,
   onDayChange,
   days,
+  strong = false,
 }) {
   const activePercent = trackPosition(activeIndex, temperatures.length)
   const heroPercent = clamp(activePercent, 10, 90)
@@ -47,7 +51,7 @@ export default function WeatherCard({
     .join(', ')}. Currently ${temperature} degrees and ${condition}.`
 
   return (
-    <section className={`${GLASS_SURFACE} w-full p-4 text-white`}>
+    <section className={`${strong ? GLASS_SURFACE_STRONG : GLASS_SURFACE} w-full p-4 text-white`}>
       <div aria-hidden="true" className={GLASS_SHEEN} />
 
       <div className="relative">
