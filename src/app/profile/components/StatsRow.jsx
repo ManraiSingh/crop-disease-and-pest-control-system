@@ -1,4 +1,5 @@
 import { GLASS_SURFACE } from '../../lib/glass.js'
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 import { formatDaysWithUs } from '../format.js'
 
@@ -8,10 +9,12 @@ import { formatDaysWithUs } from '../format.js'
  * My Fields/My Crops screens below. "Days with us" is a real elapsed-time calculation too.
  */
 export default function StatsRow({ profile }) {
+  const t = useT()
+
   const stats = [
-    { icon: 'field', value: profile?.fieldName ? '1' : '0', label: 'Fields' },
-    { icon: 'leaf', value: profile?.crop ? '1' : '0', label: 'Crops' },
-    { icon: 'calendar', value: formatDaysWithUs(profile?.joinedAt), label: 'Days with us' },
+    { icon: 'field', value: profile?.fieldName ? '1' : '0', label: 'profile.fields' },
+    { icon: 'leaf', value: profile?.crop ? '1' : '0', label: 'profile.crops' },
+    { icon: 'calendar', value: formatDaysWithUs(profile?.joinedAt), label: 'profile.daysWithUs' },
   ]
 
   return (
@@ -22,7 +25,7 @@ export default function StatsRow({ profile }) {
             <Icon name={stat.icon} className="h-4 w-4 text-lime-200" />
           </span>
           <p className="text-base font-bold text-white">{stat.value}</p>
-          <p className="text-[10px] text-white/60">{stat.label}</p>
+          <p className="text-[10px] text-white/60">{t(stat.label)}</p>
         </div>
       ))}
     </div>

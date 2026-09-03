@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { GLASS_SURFACE } from '../lib/glass.js'
 import { SectionHeader } from '../lib/glass.jsx'
+import { useT } from '../../i18n/context.js'
 import AlertBanner from './components/AlertBanner.jsx'
 import FilterChips from './components/FilterChips.jsx'
 import QuickTips from './components/QuickTips.jsx'
@@ -13,50 +14,51 @@ const RECOMMENDATIONS = [
     category: 'pests',
     tone: 'green',
     icon: 'leaf',
-    title: 'Aphids Risk in Tomato',
-    description: 'Aphids population may increase in the current weather.',
-    when: 'Today',
-    crop: 'Tomato',
+    title: 'advisory.r1Title',
+    description: 'advisory.r1Desc',
+    when: 'common.today',
+    crop: 'crops.tomato',
     field: 'North Field',
-    risk: 'High',
+    risk: 'common.high',
   },
   {
     category: 'irrigation',
     tone: 'blue',
     icon: 'droplet',
-    title: 'Irrigation Advisory',
-    description: 'Light irrigation recommended in the evening hours.',
-    when: 'Today',
-    crop: 'Wheat',
+    title: 'advisory.r2Title',
+    description: 'advisory.r2Desc',
+    when: 'common.today',
+    crop: 'crops.wheat',
     field: 'North Field',
-    risk: 'Medium',
+    risk: 'common.medium',
   },
   {
     category: 'soil',
     tone: 'amber',
     icon: 'bottle',
-    title: 'Fertilizer Recommendation',
-    description: 'Top dress your crop with Urea for better yield.',
-    when: 'Tomorrow',
-    crop: 'Wheat',
+    title: 'advisory.r3Title',
+    description: 'advisory.r3Desc',
+    when: 'common.tomorrow',
+    crop: 'crops.wheat',
     field: 'South Field',
-    risk: 'Medium',
+    risk: 'common.medium',
   },
   {
     category: 'crops',
     tone: 'green',
     icon: 'shield',
-    title: 'Disease Prevention',
-    description: 'Early blight risk detected. Take preventive measures.',
-    when: '2 days ago',
-    crop: 'Potato',
+    title: 'advisory.r4Title',
+    description: 'advisory.r4Desc',
+    when: null,
+    crop: 'crops.potato',
     field: 'East Field',
-    risk: 'Low',
+    risk: 'common.low',
   },
 ]
 
 export default function AdvisoryPage() {
   const [filter, setFilter] = useState('all')
+  const t = useT()
 
   const items =
     filter === 'all' ? RECOMMENDATIONS : RECOMMENDATIONS.filter((item) => item.category === filter)
@@ -65,7 +67,7 @@ export default function AdvisoryPage() {
     <div className="flex h-full flex-col overflow-hidden">
       <div className="px-4">
         <p className="text-[11px] text-white/70 drop-shadow-[0_1px_4px_rgba(0,0,0,0.55)]">
-          Personalized recommendations for your farm
+          {t('advisory.subtitle')}
         </p>
         <div className="mt-3">
           <FilterChips active={filter} onChange={setFilter} />
@@ -78,9 +80,9 @@ export default function AdvisoryPage() {
 
           <section>
             <div className={`${GLASS_SURFACE} rounded-3xl`}>
-              <SectionHeader title="Recommended for You" action="View all" className="px-4 pt-4 pb-3" />
+              <SectionHeader title={t('advisory.recommended')} action={t('common.viewAll')} className="px-4 pt-4 pb-3" />
               {items.length === 0 ? (
-                <p className="px-4 pb-6 text-center text-xs text-white/50">Nothing in this category yet.</p>
+                <p className="px-4 pb-6 text-center text-xs text-white/50">{t('advisory.empty')}</p>
               ) : (
                 items.map((item, i) => (
                   <RecommendationCard key={item.title} item={item} isLast={i === items.length - 1} />

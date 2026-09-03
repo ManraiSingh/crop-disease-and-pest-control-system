@@ -1,4 +1,5 @@
 import { GLASS_SURFACE } from '../../lib/glass.js'
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 const BADGE_TONES = {
@@ -9,6 +10,8 @@ const BADGE_TONES = {
 
 /** One row in the History timeline, with the connecting line drawn via a border border-solid on the icon. */
 export default function ActivityItem({ item, isLast }) {
+  const t = useT()
+
   return (
     <div className="flex gap-3">
       <div className="flex flex-col items-center">
@@ -24,8 +27,14 @@ export default function ActivityItem({ item, isLast }) {
       >
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-xs font-bold text-white">{item.title}</p>
-            {item.meta && <p className="text-[11px] text-white/60">{item.meta}</p>}
+            <p className="text-xs font-bold text-white">{t(item.title)}</p>
+            {(item.meta || item.metaPrefix) && (
+              <p className="text-[11px] text-white/60">
+                {item.metaPrefix ?? ''}
+                {item.meta ? t(item.meta) : ''}
+                {item.metaSuffix ?? ''}
+              </p>
+            )}
           </div>
           <div className="flex shrink-0 items-center gap-1">
             <span className="text-[10px] whitespace-nowrap text-white/45">{item.time}</span>
@@ -39,10 +48,10 @@ export default function ActivityItem({ item, isLast }) {
               <span
                 className={`rounded-full border border-solid px-2 py-0.5 text-[10px] font-bold whitespace-nowrap ${BADGE_TONES[item.badge.tone]}`}
               >
-                {item.badge.label}
+                {t(item.badge.label)}
               </span>
             )}
-            {item.note && <span className="text-[11px] text-white/60">{item.note}</span>}
+            {item.note && <span className="text-[11px] text-white/60">{t(item.note)}</span>}
           </div>
         )}
       </button>

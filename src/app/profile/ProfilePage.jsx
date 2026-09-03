@@ -1,3 +1,4 @@
+import { useT } from '../../i18n/context.js'
 import { loadProfile } from '../lib/profile.js'
 import KeepGrowingCard from './components/KeepGrowingCard.jsx'
 import MenuList from './components/MenuList.jsx'
@@ -6,6 +7,7 @@ import StatsRow from './components/StatsRow.jsx'
 
 export default function ProfilePage() {
   const profile = loadProfile()
+  const t = useT()
 
   return (
     <div className="h-full overflow-y-auto pt-1 pb-4">
@@ -17,7 +19,7 @@ export default function ProfilePage() {
         <KeepGrowingCard />
       </div>
 
-      <p className="mt-3 text-center text-[10px] text-white/45">App Version 1.0.0</p>
+      <p className="mt-3 text-center text-[10px] text-white/45">{t('profile.version')} 1.0.0</p>
     </div>
   )
 }

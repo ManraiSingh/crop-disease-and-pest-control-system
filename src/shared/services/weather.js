@@ -25,9 +25,9 @@ export const WEATHER_ENDPOINTS = {
 }
 
 export const FORECAST_DAYS = [
-  { key: 'today', label: 'Today', dayOffset: 0 },
-  { key: 'tomorrow', label: 'Tomorrow', dayOffset: 1 },
-  { key: 'dayAfter', label: 'Day After', dayOffset: 2 },
+  { key: 'today', label: 'common.today', dayOffset: 0 },
+  { key: 'tomorrow', label: 'common.tomorrow', dayOffset: 1 },
+  { key: 'dayAfter', label: 'home.dayAfter', dayOffset: 2 },
 ]
 
 /** How many hourly readings the track shows at once. */

@@ -1,4 +1,5 @@
 import { GLASS_SHEEN, GLASS_SURFACE_SOFT } from '../../app/lib/glass.js'
+import { useT } from '../../i18n/context.js'
 import Icon from '../../app/lib/icons.jsx'
 import { TOTAL_STEPS, stepNumber, stepPhoto } from '../steps.js'
 
@@ -45,6 +46,7 @@ function LeafRule() {
  */
 export default function OnboardingShell({ step, title, subtitle, onBack, children }) {
   const current = stepNumber(step)
+  const t = useT()
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#16210e]">
@@ -60,7 +62,7 @@ export default function OnboardingShell({ step, title, subtitle, onBack, childre
 
       <header className="relative z-10 px-4 pt-9">
         <div className="flex items-center gap-3">
-          <RoundButton icon="chevronLeft" label="Previous step" onClick={onBack} />
+          <RoundButton icon="chevronLeft" label={t('onboarding.back')} onClick={onBack} />
 
           <div className="flex flex-1 items-center gap-2">
             {Array.from({ length: TOTAL_STEPS }, (_, i) => (
@@ -73,11 +75,11 @@ export default function OnboardingShell({ step, title, subtitle, onBack, childre
             ))}
           </div>
 
-          <RoundButton icon="chevronRight" label="Next step" />
+          <RoundButton icon="chevronRight" label={t('onboarding.next')} />
         </div>
 
         <p className="mt-3 text-center text-[11px] font-semibold tracking-[0.18em] text-white/80 uppercase">
-          Step {current} of {TOTAL_STEPS}
+          {t('onboarding.step', { n: current, total: TOTAL_STEPS })}
         </p>
       </header>
 

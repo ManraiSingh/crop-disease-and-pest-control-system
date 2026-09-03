@@ -1,6 +1,7 @@
 import { GLASS_SHEEN, GLASS_SURFACE } from '../../lib/glass.js'
 import Icon from '../../lib/icons.jsx'
 import avatar from '../assets/avatar.jpg'
+import { useT } from '../../../i18n/context.js'
 import { formatLocation, formatName } from '../format.js'
 
 /**
@@ -9,6 +10,7 @@ import { formatLocation, formatName } from '../format.js'
  * rather than translucent; anything glassy behind it would show through the artwork.
  */
 export default function ProfileHeader({ profile }) {
+  const t = useT()
   return (
     <button type="button" className={`${GLASS_SURFACE} mx-4 flex rounded-3xl w-[calc(100%-2rem)] flex-col items-center gap-3 px-5 py-7`}>
       <span aria-hidden="true" className={GLASS_SHEEN} />
@@ -26,11 +28,11 @@ export default function ProfileHeader({ profile }) {
         </span>
         <span className="flex items-center gap-1 text-xs text-white/70">
           <Icon name="pin" className="h-3.5 w-3.5 text-lime-300" />
-          {formatLocation(profile?.location)}
+          {formatLocation(profile?.location, t('profile.noLocation'))}
         </span>
         <span className="mt-0.5 inline-flex items-center gap-1 rounded-full border border-solid border-lime-200/30 bg-lime-300/20 px-3 py-1.5 text-[11px] font-bold text-lime-100">
           <Icon name="checkCircle" className="h-3.5 w-3.5" />
-          Verified Farmer
+          {t('profile.verified')}
         </span>
       </span>
     </button>

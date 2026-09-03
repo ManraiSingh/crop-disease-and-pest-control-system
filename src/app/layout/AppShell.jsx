@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { APP_BACKGROUND, GLASS_SHEEN, GLASS_SURFACE_STRONG } from '../lib/glass.js'
+import LanguagePicker from '../../i18n/LanguagePicker.jsx'
+import { useT } from '../../i18n/context.js'
 import Icon from '../lib/icons.jsx'
-import LanguageMenu from './LanguageMenu.jsx'
-import { loadLanguage } from './language.js'
 import { loadProfile } from '../lib/profile.js'
 import useForecast from '../lib/useForecast.js'
 import WeatherCard from '../home/components/WeatherCard.jsx'
@@ -12,32 +12,32 @@ import avatar from '../profile/assets/avatar.jpg'
 import { formatName } from '../profile/format.js'
 
 const NAV = [
-  { label: 'Home', icon: 'home', to: '/home' },
-  { label: 'Advisory', icon: 'leaf', to: '/advisory' },
-  { label: 'Scan', icon: 'scan', to: '/scan' },
-  { label: 'History', icon: 'history', to: '/history' },
-  { label: 'Me', icon: 'profile', to: '/profile' },
+  { key: 'home', tKey: 'nav.home', icon: 'home', to: '/home' },
+  { key: 'advisory', tKey: 'nav.advisory', icon: 'leaf', to: '/advisory' },
+  { key: 'scan', tKey: 'nav.scan', icon: 'scan', to: '/scan' },
+  { key: 'history', tKey: 'nav.history', icon: 'history', to: '/history' },
+  { key: 'me', tKey: 'nav.me', icon: 'profile', to: '/profile' },
 ]
 
 /** Home identifies the farmer; every other tab identifies itself. */
 const PAGE_TITLES = {
-  '/advisory': 'Advisory',
-  '/scan': 'Scan Crop',
-  '/history': 'History',
-  '/profile': 'Profile',
+  '/advisory': 'advisory.title',
+  '/scan': 'scan.title',
+  '/history': 'history.title',
+  '/profile': 'drawer.profile',
 }
 
-function greeting() {
+function greetingKey() {
   const hour = new Date().getHours()
-  if (hour < 12) return 'Good morning'
-  if (hour < 17) return 'Good afternoon'
-  return 'Good evening'
+  if (hour < 12) return 'home.goodMorning'
+  if (hour < 17) return 'home.goodAfternoon'
+  return 'home.goodEvening'
 }
 
 const NOTIFICATIONS = [
-  { title: 'Disease alert: Early blight', body: 'Detected on North Field — 18% affected.', time: '2h ago' },
-  { title: 'Weather update', body: 'Rain expected tomorrow — check irrigation plan.', time: '5h ago' },
-  { title: 'Follow-up reminder', body: 'How is North Field looking after treatment?', time: '1d ago' },
+  { key: 'disease', title: 'notif.diseaseTitle', body: 'notif.diseaseBody', time: 'notif.diseaseTime' },
+  { key: 'weather', title: 'notif.weatherTitle', body: 'notif.weatherBody', time: 'notif.weatherTime' },
+  { key: 'follow', title: 'notif.followTitle', body: 'notif.followBody', time: 'notif.followTime' },
 ]
 
 /**
@@ -50,11 +50,11 @@ export default function AppShell() {
   const [panel, setPanel] = useState(null)
   const profile = loadProfile()
   const weather = useForecast(profile?.location)
-  const [language, setLanguage] = useState(loadLanguage)
 
   const togglePanel = (name) => setPanel((open) => (open === name ? null : name))
   const { pathname } = useLocation()
-  const pageTitle = PAGE_TITLES[pathname]
+  const t = useT()
+  const pageTitleKey = PAGE_TITLES[pathname]
 
   // Close an open panel when the tab changes — adjusted during render rather than in an
   // effect, so the stale panel never paints over the new screen.
@@ -81,7 +81,7 @@ export default function AppShell() {
       <header className="relative z-40 flex items-center justify-between gap-3 px-4 pt-9 pb-3">
         {pageTitle ? (
           <h1 className="min-w-0 truncate text-xl font-bold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
-            {pageTitle}
+            {t(pageTitleKey)}
           </h1>
         ) : (
           <span className="flex min-w-0 items-center gap-2.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
@@ -90,9 +90,9 @@ export default function AppShell() {
             </span>
             <span className="min-w-0">
               <span className="block truncate text-[15px] leading-tight font-bold text-white">
-                {formatName(profile?.name) ?? 'Farmer'}
+                {formatName(profile?.name) ?? t('app.farmer')}
               </span>
-              <span className="block truncate text-[11px] text-white/75">{greeting()} 👋</span>
+              <span className="block truncate text-[11px] text-white/75">{t(greetingKey())} 👋</span>
             </span>
           </span>
         )}
@@ -103,7 +103,7 @@ export default function AppShell() {
               type="button"
               onClick={() => togglePanel('weather')}
               aria-expanded={panel === 'weather'}
-              aria-label={`Weather, ${weather.temperature} degrees Celsius`}
+              aria-label={`${t('home.weather')}, ${weather.temperature}°C`}
               className="flex items-center gap-1.5 rounded-full border border-solid border-white/20 bg-white/12 px-2.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
             >
               <Icon name={weather.icon} className="h-4 w-4" />
@@ -111,19 +111,13 @@ export default function AppShell() {
             </button>
           )}
 
-          <LanguageMenu
-            language={language}
-            onChange={setLanguage}
-            open={panel === 'language'}
-            onToggle={() => togglePanel('language')}
-            onClose={() => setPanel(null)}
-          />
+          <LanguagePicker triggerClassName="flex items-center gap-1 rounded-full border border-solid border-white/20 bg-white/12 px-2.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md" />
 
           <button
             type="button"
             onClick={() => togglePanel('notifications')}
             aria-expanded={panel === 'notifications'}
-            aria-label="Notifications"
+            aria-label={t('app.notifications')}
             className="relative flex h-10 w-10 items-center justify-center rounded-full border border-solid border-white/15 bg-white/12 text-white backdrop-blur-md"
           >
             <Icon name="bell" className="h-[18px] w-[18px]" />
@@ -131,15 +125,6 @@ export default function AppShell() {
           </button>
         </span>
       </header>
-
-      {panel === 'language' && (
-        <button
-          type="button"
-          aria-label="Close language menu"
-          onClick={() => setPanel(null)}
-          className="absolute inset-0 z-30 border-0 bg-transparent"
-        />
-      )}
 
       {panel === 'weather' && (
         <>
@@ -186,7 +171,7 @@ export default function AppShell() {
           <div className="absolute top-[88px] right-4 z-50 w-64">
             <div className={`${GLASS_SURFACE_STRONG} rounded-2xl`}>
               <div className="border-b border-solid border-white/10 px-4 py-2.5 text-xs font-bold text-white">
-                Notifications
+                {t('app.notifications')}
               </div>
               {NOTIFICATIONS.map((n) => (
                 <div key={n.title} className="border-b border-solid border-white/8 px-4 py-2.5 last:border-0">
@@ -208,9 +193,9 @@ export default function AppShell() {
         aria-label="Main navigation"
         className="relative z-20 mx-3 mb-3 flex items-end justify-around rounded-full border border-solid border-white/12 bg-[#12200c]/70 px-3 pt-2 pb-2 shadow-[0_16px_36px_rgba(4,14,6,0.5)] backdrop-blur-2xl"
       >
-        {NAV.map(({ label, icon, to }) => (
+        {NAV.map(({ key, tKey, icon, to }) => (
           <NavLink
-            key={label}
+            key={key}
             to={to}
             className={({ isActive }) =>
               `flex flex-1 flex-col items-center gap-1 border-0 bg-transparent ${
@@ -218,7 +203,7 @@ export default function AppShell() {
               }`
             }
           >
-            {label === 'Scan' ? (
+            {key === 'scan' ? (
               <span className="-mt-8 flex h-14 w-14 items-center justify-center rounded-full bg-lime-400 text-[#12200c] shadow-[0_0_0_5px_rgba(18,32,12,0.75),0_10px_24px_rgba(163,230,53,0.5)]">
                 <Icon name={icon} className="h-6 w-6" />
               </span>
@@ -227,7 +212,7 @@ export default function AppShell() {
                 <Icon name={icon} className="h-[18px] w-[18px]" />
               </span>
             )}
-            <small className="text-[9px] font-semibold">{label}</small>
+            <small className="text-[9px] font-semibold">{t(tKey)}</small>
           </NavLink>
         ))}
       </nav>

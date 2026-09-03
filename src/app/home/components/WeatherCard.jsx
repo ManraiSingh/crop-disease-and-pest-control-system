@@ -1,4 +1,5 @@
 import { GLASS_SHEEN, GLASS_SURFACES } from '../../lib/glass.js'
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 /**
@@ -43,11 +44,12 @@ export default function WeatherCard({
   surface = 'default',
 }) {
   const bare = surface === 'none'
+  const t = useT()
   const activePercent = trackPosition(activeIndex, temperatures.length)
   const heroPercent = clamp(activePercent, 10, 90)
   const temperature = temperatures[activeIndex]
 
-  const chartSummary = `Hourly forecast for ${selectedDay}, ${timeLabels.at(0)} to ${timeLabels.at(-1)}: ${temperatures
+  const chartSummary = `${t('home.forecastFor')} ${t(selectedDay)}, ${timeLabels.at(0)} to ${timeLabels.at(-1)}: ${temperatures
     .map((temp) => `${temp} degrees`)
     .join(', ')}. Currently ${temperature} degrees and ${condition}.`
 
@@ -61,19 +63,19 @@ export default function WeatherCard({
             <span aria-hidden="true" className="text-xl leading-none">
               ⛅
             </span>
-            <h2 className="text-base font-medium">Weather</h2>
+            <h2 className="text-base font-medium">{t('advisory.fWeather')}</h2>
           </div>
 
           <div className="relative">
             <select
               value={selectedDay}
               onChange={(event) => onDayChange(event.target.value)}
-              aria-label="Select forecast day"
+              aria-label={t('home.selectDay')}
               className="cursor-pointer appearance-none rounded-full border border-solid border-white/15 bg-white/10 py-1.5 pr-8 pl-3.5 text-xs font-medium text-white backdrop-blur-md focus:ring-2 focus:ring-white/50 focus:outline-none"
             >
               {days.map((day) => (
                 <option key={day} value={day} className="text-black">
-                  {day}
+                  {t(day)}
                 </option>
               ))}
             </select>

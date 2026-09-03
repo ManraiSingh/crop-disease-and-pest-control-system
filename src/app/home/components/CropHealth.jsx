@@ -1,5 +1,6 @@
 import { GLASS_INSET } from '../../lib/glass.js'
 import { GlassCard, SectionHeader } from '../../lib/glass.jsx'
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 function formatValue(value) {
@@ -15,13 +16,18 @@ function formatValue(value) {
  * are stand-ins until the risk-scoring engine can derive them from actual scan history.
  */
 export default function CropHealth({ profile }) {
-  const crop = formatValue(profile?.crop) ?? 'No crop set'
-  const fieldName = formatValue(profile?.fieldName) ?? 'Your field'
+  const t = useT()
+  // Prefer the translated crop name; fall back to the raw value for anything unlisted.
+  const cropKey = profile?.crop ? `crops.${profile.crop}` : null
+  const translated = cropKey ? t(cropKey) : null
+  const crop =
+    translated && translated !== cropKey ? translated : (formatValue(profile?.crop) ?? t('home.noCrop'))
+  const fieldName = formatValue(profile?.fieldName) ?? t('home.yourField')
   const health = 85
 
   return (
     <GlassCard className="p-4">
-      <SectionHeader title="Crop Health" action="View All" className="mb-3" />
+      <SectionHeader title={t('home.cropHealth')} action={t('common.viewAll')} className="mb-3" />
 
       <div className={`${GLASS_INSET} flex items-center gap-3 p-3`}>
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-solid border-white/15 bg-white/10">
@@ -30,7 +36,7 @@ export default function CropHealth({ profile }) {
 
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-bold text-white">{crop}</p>
-          <p className="text-xs text-white/60">Vegetative Stage · {fieldName}</p>
+          <p className="text-xs text-white/60">{t('home.vegetativeStage')} · {fieldName}</p>
         </div>
 
         <span

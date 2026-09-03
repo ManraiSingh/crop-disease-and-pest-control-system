@@ -19,7 +19,7 @@ export function formatDaysWithUs(joinedAt) {
 }
 
 /** We only capture GPS coordinates during onboarding, not a geocoded place name. */
-export function formatLocation(location) {
-  if (!location) return 'Location not set'
+export function formatLocation(location, fallback = 'Location not set') {
+  if (!location) return fallback
   return `${location.latitude.toFixed(2)}°, ${location.longitude.toFixed(2)}°`
 }

@@ -1,28 +1,20 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useT } from '../../i18n/context.js'
 import OnboardingShell from '../components/OnboardingShell.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
 import SelectField from '../components/SelectField.jsx'
 
-const CROPS = [
-  { value: 'tomato', label: 'Tomato' },
-  { value: 'rice', label: 'Rice' },
-  { value: 'wheat', label: 'Wheat' },
-  { value: 'cotton', label: 'Cotton' },
-  { value: 'sugarcane', label: 'Sugarcane' },
-  { value: 'onion', label: 'Onion' },
-  { value: 'soybean', label: 'Soybean' },
-  { value: 'maize', label: 'Maize' },
-  { value: 'chilli', label: 'Chilli' },
-  { value: 'potato', label: 'Potato' },
+const CROP_KEYS = [
+  'tomato', 'rice', 'wheat', 'cotton', 'sugarcane',
+  'onion', 'soybean', 'maize', 'chilli', 'potato',
 ]
 
-const VARIETIES = [
-  { value: '', label: 'Select variety (optional)' },
-  { value: 'local', label: 'Local' },
-  { value: 'hybrid', label: 'Hybrid' },
-  { value: 'high-yield', label: 'High-yield' },
-  { value: 'traditional', label: 'Traditional' },
+const VARIETY_KEYS = [
+  { value: 'local', tKey: 'onboarding.vLocal' },
+  { value: 'hybrid', tKey: 'onboarding.vHybrid' },
+  { value: 'high-yield', tKey: 'onboarding.vHighYield' },
+  { value: 'traditional', tKey: 'onboarding.vTraditional' },
 ]
 
 export default function CropDetails() {
@@ -30,6 +22,13 @@ export default function CropDetails() {
   const { state } = useLocation()
   const [crop, setCrop] = useState(state?.crop ?? '')
   const [variety, setVariety] = useState(state?.variety ?? '')
+  const t = useT()
+
+  const crops = CROP_KEYS.map((key) => ({ value: key, label: t(`crops.${key}`) }))
+  const varieties = [
+    { value: '', label: t('onboarding.selectVariety') },
+    ...VARIETY_KEYS.map((v) => ({ value: v.value, label: t(v.tKey) })),
+  ]
 
   function handleContinue(event) {
     event?.preventDefault()
@@ -40,28 +39,28 @@ export default function CropDetails() {
   return (
     <OnboardingShell
       step="crop"
-      title="Tell us about your crop"
-      subtitle="This helps us give more accurate disease and pest insights."
+      title={t('onboarding.cropTitle')}
+      subtitle={t('onboarding.cropSub')}
       onBack={() => navigate('/onboarding/add-field', { state })}
     >
       <form onSubmit={handleContinue} className="flex flex-col gap-4">
         <SelectField
-          label="Crop"
+          label={t('onboarding.crop')}
           fieldIcon="leaf"
-          options={[{ value: '', label: 'Select your crop' }, ...CROPS]}
+          options={[{ value: '', label: t('onboarding.selectCrop') }, ...crops]}
           value={crop}
           onChange={(e) => setCrop(e.target.value)}
           required
         />
         <SelectField
-          label="Variety (optional)"
+          label={t('onboarding.variety')}
           fieldIcon="leaf"
-          options={VARIETIES}
+          options={varieties}
           value={variety}
           onChange={(e) => setVariety(e.target.value)}
         />
 
-        <PrimaryButton disabled={!crop}>Continue</PrimaryButton>
+        <PrimaryButton disabled={!crop}>{t('onboarding.continue')}</PrimaryButton>
       </form>
     </OnboardingShell>
   )

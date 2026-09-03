@@ -1,14 +1,17 @@
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 const FILTERS = [
-  { key: 'all', label: 'All' },
-  { key: 'alert', label: 'Alerts', icon: 'shield' },
-  { key: 'treatment', label: 'Treatments', icon: 'leaf' },
-  { key: 'scan', label: 'Scans', icon: 'scan' },
-  { key: 'weather', label: 'Weather', icon: 'cloudSun' },
+  { key: 'all', label: 'history.fAll' },
+  { key: 'alert', label: 'history.fAlerts', icon: 'shield' },
+  { key: 'treatment', label: 'history.fTreatments', icon: 'leaf' },
+  { key: 'scan', label: 'history.fScans', icon: 'scan' },
+  { key: 'weather', label: 'history.fWeather', icon: 'cloudSun' },
 ]
 
 export default function FilterChips({ active, onChange }) {
+  const t = useT()
+
   return (
     <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
       {FILTERS.map((filter) => {
@@ -25,7 +28,7 @@ export default function FilterChips({ active, onChange }) {
             }`}
           >
             {filter.icon && <Icon name={filter.icon} className="h-3.5 w-3.5" />}
-            {filter.label}
+            {t(filter.label)}
           </button>
         )
       })}

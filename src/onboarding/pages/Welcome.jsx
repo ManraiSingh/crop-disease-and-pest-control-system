@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import Icon from "../../app/lib/icons.jsx";
 import { GLASS_SHEEN, GLASS_SURFACE_SOFT } from "../../app/lib/glass.js";
+import { useT } from "../../i18n/context.js";
 import { STEPS } from "../steps.js";
 
 /** Illustrative figures for the welcome screen — replaced by the farmer's own once onboarded. */
 const HIGHLIGHTS = [
-  { icon: "field", label: "Area", value: "15", unit: "Acres" },
-  { icon: "sprout", label: "Yield", value: "12", unit: "Tons" },
-  { icon: "calendar", label: "Plant Age", value: "44", unit: "Days" },
+  { icon: "field", label: "welcome.area", value: "15", unit: "welcome.acres" },
+  { icon: "sprout", label: "welcome.yield", value: "12", unit: "welcome.tons" },
+  { icon: "calendar", label: "welcome.plantAge", value: "44", unit: "welcome.days" },
 ];
 
 const CARD = `${GLASS_SURFACE_SOFT} rounded-2xl`;
@@ -22,6 +23,7 @@ const TILE =
  */
 export default function Welcome() {
   const navigate = useNavigate();
+  const t = useT()
   const start = () => navigate(STEPS[0].path);
 
   return (
@@ -59,13 +61,13 @@ export default function Welcome() {
                   className="h-4 w-4 shrink-0 text-lime-300"
                 />
                 <span className="truncate text-[11px] text-white/70">
-                  {item.label}
+                  {t(item.label)}
                 </span>
               </span>
               <p className="mt-1.5 text-xl font-bold text-white">
                 {item.value}
                 <span className="ml-1 text-[11px] font-medium text-white/55">
-                  {item.unit}
+                  {t(item.unit)}
                 </span>
               </p>
             </div>
@@ -77,10 +79,10 @@ export default function Welcome() {
             neither could move without shifting the other. */}
         <div className="mt-20 text-center">
           <p className="text-2xl leading-snug font-bold text-lime-400">
-            Empowering Agriculture
+            {t("welcome.tagline1")}
           </p>
           <p className="text-xl leading-snug font-bold text-white">
-            Connecting Markets
+            {t("welcome.tagline2")}
           </p>
 
           <div
@@ -97,7 +99,7 @@ export default function Welcome() {
         <div className="mt-auto text-center">
           <div className="mb-30">
             <p className="text-[18px] font-semibold tracking-[0.35em] text-white/85 uppercase">
-              Welcome to
+              {t("welcome.welcomeTo")}
             </p>
             <h1 className="mt-1.5 text-[58px] leading-none font-extrabold tracking-tight text-white">
               KRISHI <span className="text-lime-400">AI</span>
@@ -117,7 +119,7 @@ export default function Welcome() {
             onClick={start}
             className="relative flex-1 border-0 bg-transparent py-2 text-center text-lg font-semibold text-white"
           >
-            Get Started
+            {t("welcome.getStarted")}
           </button>
           <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-solid border-white/15 bg-white/8 text-lime-300">
             <Icon name="arrowRight" className="h-6 w-6" />

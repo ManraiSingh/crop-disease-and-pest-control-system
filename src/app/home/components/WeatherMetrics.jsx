@@ -1,4 +1,5 @@
 import { GLASS_SHEEN, GLASS_SURFACES } from '../../lib/glass.js'
+import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
 
 const METRIC_ICONS = {
@@ -8,9 +9,9 @@ const METRIC_ICONS = {
 }
 
 const METRIC_LABELS = {
-  humidity: 'Humidity',
-  clouds: 'Clouds',
-  uvIndex: 'UV Index',
+  humidity: 'advisory.humidity',
+  clouds: 'home.clouds',
+  uvIndex: 'home.uvIndex',
 }
 
 /**
@@ -20,6 +21,7 @@ const METRIC_LABELS = {
  */
 export default function WeatherMetrics({ metrics, surface = 'default' }) {
   const bare = surface === 'none'
+  const t = useT()
 
   return (
     <section className={`${GLASS_SURFACES[surface]} w-full text-white ${bare ? '' : 'rounded-3xl px-2 py-4'}`}>
@@ -28,7 +30,7 @@ export default function WeatherMetrics({ metrics, surface = 'default' }) {
         {Object.entries(metrics).map(([key, value]) => (
           <div key={key} className="flex flex-col items-center gap-1.5 px-1 text-center">
             <Icon name={METRIC_ICONS[key]} className="h-4 w-4 text-white" aria-hidden="true" />
-            <dt className="text-[11px] text-white/60">{METRIC_LABELS[key]}</dt>
+            <dt className="text-[11px] text-white/60">{t(METRIC_LABELS[key])}</dt>
             <dd className="text-base font-bold text-white">{value}</dd>
           </div>
         ))}

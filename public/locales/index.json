@@ -1,0 +1,23 @@
+{
+  "languages": [
+    {
+      "code": "en",
+      "label": "English",
+      "short": "EN",
+      "native": "English"
+    },
+    {
+      "code": "hi",
+      "label": "Hindi",
+      "short": "हि",
+      "native": "हिन्दी"
+    },
+    {
+      "code": "mr",
+      "label": "Marathi",
+      "short": "मर",
+      "native": "मराठी"
+    }
+  ],
+  "default": "en"
+}
