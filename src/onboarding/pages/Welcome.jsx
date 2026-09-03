@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import Icon from '../../app/lib/icons.jsx'
-import { GLASS_SHEEN, GLASS_INSET, GLASS_SURFACE_STRONG } from '../../app/lib/glass.js'
+import { GLASS_SHEEN, GLASS_SURFACE_SOFT } from '../../app/lib/glass.js'
 import { STEPS } from '../steps.js'
 
 /** Illustrative figures for the welcome screen — replaced by the farmer's own once onboarded. */
@@ -10,7 +10,10 @@ const HIGHLIGHTS = [
   { icon: 'calendar', label: 'Plant Age', value: '44', unit: 'Days' },
 ]
 
-const CARD = `${GLASS_SURFACE_STRONG} rounded-2xl`
+const CARD = `${GLASS_SURFACE_SOFT} rounded-2xl`
+
+/** Inset tile, a quarter more transparent than the dashboard's, to match the sheet. */
+const TILE = 'rounded-2xl border border-solid border-white/12 bg-white/6 backdrop-blur-md'
 
 /**
  * The screen the flow opens on, before step 1. Sets the product up and shows what the app
@@ -25,7 +28,7 @@ export default function Welcome() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/farm-landscape.png')" }}
+        style={{ backgroundImage: "url('/onboarding/welcome.jpg')" }}
       />
       <div
         aria-hidden="true"
@@ -48,7 +51,7 @@ export default function Welcome() {
 
         <div className="mt-3 grid grid-cols-3 gap-2.5">
           {HIGHLIGHTS.map((item) => (
-            <div key={item.label} className={`${GLASS_INSET} px-3 py-3`}>
+            <div key={item.label} className={`${TILE} px-3 py-3`}>
               <span className="flex items-center gap-1.5">
                 <Icon name={item.icon} className="h-4 w-4 shrink-0 text-lime-300" />
                 <span className="truncate text-[11px] text-white/70">{item.label}</span>
@@ -83,19 +86,20 @@ export default function Welcome() {
           </p>
         </div>
 
-        <div className={`${CARD} flex items-center gap-3 rounded-full p-2`}>
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#5b8c2a]">
-            <Icon name="sprout" className="h-6 w-6 text-white" />
+        <div className={`${CARD} flex items-center gap-3 rounded-full p-2.5`}>
+          <span aria-hidden="true" className={GLASS_SHEEN} />
+          <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#5b8c2a]">
+            <Icon name="sprout" className="h-7 w-7 text-white" />
           </span>
           <button
             type="button"
             onClick={start}
-            className="flex-1 border-0 bg-transparent text-center text-base font-semibold text-white"
+            className="relative flex-1 border-0 bg-transparent py-2 text-center text-lg font-semibold text-white"
           >
             Get Started
           </button>
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-solid border-white/15 bg-white/10 text-lime-300">
-            <Icon name="arrowRight" className="h-5 w-5" />
+          <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-solid border-white/15 bg-white/8 text-lime-300">
+            <Icon name="arrowRight" className="h-6 w-6" />
           </span>
         </div>
       </div>

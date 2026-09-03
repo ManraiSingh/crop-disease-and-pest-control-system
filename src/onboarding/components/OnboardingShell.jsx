@@ -1,4 +1,4 @@
-import { GLASS_SHEEN, GLASS_SURFACE_STRONG } from '../../app/lib/glass.js'
+import { GLASS_SHEEN, GLASS_SURFACE_SOFT } from '../../app/lib/glass.js'
 import Icon from '../../app/lib/icons.jsx'
 import { TOTAL_STEPS, stepNumber, stepPhoto } from '../steps.js'
 
@@ -9,7 +9,7 @@ function RoundButton({ icon, label, onClick }) {
       onClick={onClick}
       disabled={!onClick}
       aria-label={label}
-      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-solid border-white/25 bg-white/12 text-white backdrop-blur-md transition disabled:opacity-30"
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-solid border-white/25 bg-white/9 text-white backdrop-blur-md transition disabled:opacity-30"
     >
       <Icon name={icon} className="h-5 w-5" />
     </button>
@@ -84,7 +84,7 @@ export default function OnboardingShell({ step, title, subtitle, onBack, childre
       <div className="relative z-10 mt-auto px-3 pb-3">
         <SproutBadge />
 
-        <div className={`${GLASS_SURFACE_STRONG} rounded-3xl px-5 pt-10 pb-5`}>
+        <div className={`${GLASS_SURFACE_SOFT} rounded-3xl px-5 pt-10 pb-5`}>
           <span aria-hidden="true" className={GLASS_SHEEN} />
 
           <h1 className="relative text-2xl leading-tight font-bold text-white">{title}</h1>

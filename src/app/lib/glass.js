@@ -24,6 +24,15 @@ export const GLASS_SURFACE =
 export const GLASS_SURFACE_STRONG =
   'relative overflow-hidden border border-solid border-white/12 bg-[#1d2814]/72 shadow-[0_18px_40px_rgba(6,20,12,0.45)] backdrop-blur-xl'
 
+/**
+ * Onboarding's sheet: the same material a quarter more transparent, so the farm photo behind
+ * each step still reads through the form. Kept as its own token rather than an override at the
+ * call site — two competing `bg-*` utilities on one element resolve by stylesheet order, not
+ * by the order they're written.
+ */
+export const GLASS_SURFACE_SOFT =
+  'relative overflow-hidden border border-solid border-white/12 bg-[#1d2814]/54 shadow-[0_18px_40px_rgba(6,20,12,0.45)] backdrop-blur-xl'
+
 /** Small inset pill/tile inside a glass card (stat tiles, chips, icon buttons). */
 export const GLASS_INSET = 'rounded-2xl border border-solid border-white/12 bg-white/8 backdrop-blur-md'
 

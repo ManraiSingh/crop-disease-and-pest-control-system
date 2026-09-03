@@ -14,7 +14,7 @@ export default function SelectField({ label, labelIcon, fieldIcon, options, ...s
         )}
         <select
           {...selectProps}
-          className={`w-full appearance-none rounded-full border border-solid border-white/20 bg-white/10 py-3 pr-11 text-sm text-white backdrop-blur-md focus:border-lime-300/60 focus:bg-white/15 focus:outline-none ${
+          className={`w-full appearance-none rounded-full border border-solid border-white/20 bg-white/8 py-3 pr-11 text-sm text-white backdrop-blur-md focus:border-lime-300/60 focus:bg-white/11 focus:outline-none ${
             fieldIcon ? 'pl-11' : 'pl-4'
           }`}
         >

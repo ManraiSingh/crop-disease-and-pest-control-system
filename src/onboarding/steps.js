@@ -3,14 +3,13 @@
  * N" line, which segments are filled — is derived from this array, so adding or reordering a
  * step is a change here and nowhere else.
  *
- * PLACEHOLDER photos: each step is meant to have its own farm scene. Until those land, the
- * flow reuses what's already in public/. Swapping one in is a single line below.
+ * Each step has its own farm scene, in public/onboarding/. Swapping one is a single line below.
  */
 export const STEPS = [
-  { key: 'about-you', path: '/onboarding/about-you', photo: '/farm-background.jpg' },
-  { key: 'add-field', path: '/onboarding/add-field', photo: '/farm-landscape.png' },
-  { key: 'crop', path: '/onboarding/crop', photo: '/scan-crop-bg.jpg' },
-  { key: 'all-set', path: '/onboarding/all-set', photo: '/farm-background.jpg' },
+  { key: 'about-you', path: '/onboarding/about-you', photo: '/onboarding/step-1.jpg' },
+  { key: 'add-field', path: '/onboarding/add-field', photo: '/onboarding/step-2.jpg' },
+  { key: 'crop', path: '/onboarding/crop', photo: '/onboarding/step-3.avif' },
+  { key: 'all-set', path: '/onboarding/all-set', photo: '/onboarding/step-4.jpg' },
 ]
 
 export const TOTAL_STEPS = STEPS.length

@@ -14,7 +14,7 @@ export default function TextField({ label, labelIcon, fieldIcon, ...inputProps }
         )}
         <input
           {...inputProps}
-          className={`w-full rounded-full border border-solid border-white/20 bg-white/10 py-3 text-sm text-white backdrop-blur-md placeholder:text-white/40 focus:border-lime-300/60 focus:bg-white/15 focus:outline-none ${
+          className={`w-full rounded-full border border-solid border-white/20 bg-white/8 py-3 text-sm text-white backdrop-blur-md placeholder:text-white/40 focus:border-lime-300/60 focus:bg-white/11 focus:outline-none ${
             fieldIcon ? 'pr-4 pl-11' : 'px-4'
           }`}
         />
