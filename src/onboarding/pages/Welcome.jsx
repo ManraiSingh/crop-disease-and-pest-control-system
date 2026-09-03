@@ -75,9 +75,9 @@ export default function Welcome() {
         {/* Tagline block. Kept separate from the wordmark below so each is positioned on its
             own margins — the two used to share one vertically-centred stack, which meant
             neither could move without shifting the other. */}
-        <div className="mt-9 text-center">
-          <p className="text-xl leading-snug font-bold text-lime-400">
-            Empowering Agriculture,
+        <div className="mt-20 text-center">
+          <p className="text-2xl leading-snug font-bold text-lime-400">
+            Empowering Agriculture
           </p>
           <p className="text-xl leading-snug font-bold text-white">
             Connecting Markets
@@ -95,22 +95,19 @@ export default function Welcome() {
 
         {/* Wordmark block, riding the bottom of the free space above the Get Started control. */}
         <div className="mt-auto text-center">
-          <p className="text-sm font-semibold tracking-[0.35em] text-white/85 uppercase">
-            Welcome to
-          </p>
-          <h1 className="mt-1.5 text-[42px] leading-none font-extrabold tracking-tight text-white">
-            KRISHI <span className="text-lime-400">AI</span>
-            <Icon
-              name="leaf"
-              className="ml-1.5 inline-block h-8 w-8 align-[-0.15em] text-lime-400"
-            />
-          </h1>
-          <p className="mx-auto mt-3 max-w-[19rem] text-sm leading-relaxed text-white/75">
-            Detect crop disease early, and act on advice built for your field.
-          </p>
+          <div className="mb-30">
+            <p className="text-[18px] font-semibold tracking-[0.35em] text-white/85 uppercase">
+              Welcome to
+            </p>
+            <h1 className="mt-1.5 text-[58px] leading-none font-extrabold tracking-tight text-white">
+              KRISHI <span className="text-lime-400">AI</span>
+            </h1>
+          </div>
         </div>
 
-        <div className={`${CARD} mt-8 flex items-center gap-3 rounded-full p-2.5`}>
+        <div
+          className={`${CARD} mt-8 flex items-center gap-3 rounded-full p-2.5`}
+        >
           <span aria-hidden="true" className={GLASS_SHEEN} />
           <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#5b8c2a]">
             <Icon name="sprout" className="h-7 w-7 text-white" />
