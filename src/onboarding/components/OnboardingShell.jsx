@@ -1,50 +1,97 @@
-import ProgressDots from "./ProgressDots.jsx";
+import Icon from '../../app/lib/icons.jsx'
+import { TOTAL_STEPS, stepNumber, stepPhoto } from '../steps.js'
 
-const TOTAL_STEPS = 5;
+function RoundButton({ icon, label, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={!onClick}
+      aria-label={label}
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-solid border-white/25 bg-white/12 text-white backdrop-blur-md transition disabled:opacity-30"
+    >
+      <Icon name={icon} className="h-5 w-5" />
+    </button>
+  )
+}
+
+/** The green circle that straddles the top edge of the sheet. */
+function SproutBadge() {
+  return (
+    <span className="absolute -top-7 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-solid border-white/25 bg-[#5b8c2a] shadow-[0_8px_20px_rgba(6,20,12,0.45)]">
+      <Icon name="sprout" className="h-7 w-7 text-white" />
+    </span>
+  )
+}
+
+/** Leaf flanked by two hairlines, closing off the bottom of the sheet. */
+function LeafRule() {
+  return (
+    <div aria-hidden="true" className="mt-5 flex items-center justify-center gap-3">
+      <span className="h-px w-14 bg-gradient-to-r from-transparent to-lime-300/40" />
+      <Icon name="sprout" className="h-4 w-4 text-lime-300/70" />
+      <span className="h-px w-14 bg-gradient-to-l from-transparent to-lime-300/40" />
+    </div>
+  )
+}
 
 /**
- * Fixed mobile-only layout for onboarding steps — this renders inside PhoneFrame's fixed
- * 390x844 screen, not the real browser viewport, so there is no responsive breakpoint logic
- * here at all: sizes are percentages of that fixed-height parent, not `dvh`/viewport units.
+ * Shared frame for every onboarding step: the step's photo full-bleed, the progress header
+ * floating over it, and a dark glass sheet anchored to the bottom holding the form.
  *
- * Illustration takes the top 65% (progress bar floats over it), white sheet below takes the
- * rest with rounded top corners.
- *
- * `hero` is a full React node (e.g. a layered scene — ground/bushes/character/clouds), not
- * just an image path — this lets each screen compose its own illustration freely while the
- * shell only provides the sized, clipped panel it sits in.
+ * This renders inside PhoneFrame's fixed 390x844 screen, not the real viewport, so there is no
+ * responsive logic here — the sheet sizes to its content and the photo takes whatever is left.
  */
-export default function OnboardingShell({
-  hero,
-  activeCount,
-  onBack,
-  onForward,
-  children,
-}) {
+export default function OnboardingShell({ step, title, subtitle, onBack, children }) {
+  const current = stepNumber(step)
+
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden">
-      <div className="bg-sky relative h-[65%] w-full shrink-0 overflow-hidden">
-        {hero}
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#16210e]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url('${stepPhoto(step)}')` }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,8,0.5)_0%,rgba(10,22,9,0.15)_28%,rgba(8,18,7,0.45)_72%,rgba(6,14,5,0.75)_100%)]"
+      />
 
-        <div className="absolute inset-x-0 top-6 z-20 flex justify-center px-4">
-          <div className="flex flex-col items-center gap-0.5 px-4 py-1">
-            <ProgressDots
-              activeCount={activeCount}
-              onBack={onBack}
-              onForward={onForward}
-            />
-            <span className="text-[9px] font-semibold tracking-wide text-gray-600 uppercase">
-              Step {activeCount} of {TOTAL_STEPS}
-            </span>
+      <header className="relative z-10 px-4 pt-9">
+        <div className="flex items-center gap-3">
+          <RoundButton icon="chevronLeft" label="Previous step" onClick={onBack} />
+
+          <div className="flex flex-1 items-center gap-2">
+            {Array.from({ length: TOTAL_STEPS }, (_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 flex-1 rounded-full ${
+                  i < current ? 'bg-lime-400' : 'bg-white/25'
+                }`}
+              />
+            ))}
           </div>
-        </div>
-      </div>
 
-      <div className="relative z-10 -mt-5 flex flex-1 flex-col rounded-t-[28px] bg-white">
-        <div className="flex flex-1 items-center justify-center overflow-hidden px-4 py-3">
-          <div className="mx-auto w-full max-w-md">{children}</div>
+          <RoundButton icon="chevronRight" label="Next step" />
+        </div>
+
+        <p className="mt-3 text-center text-[11px] font-semibold tracking-[0.18em] text-white/80 uppercase">
+          Step {current} of {TOTAL_STEPS}
+        </p>
+      </header>
+
+      <div className="relative z-10 mt-auto px-3 pb-3">
+        <div className="relative rounded-3xl border border-solid border-white/12 bg-[#1d2814]/80 px-5 pt-10 pb-5 shadow-[0_18px_40px_rgba(6,20,12,0.5)] backdrop-blur-xl">
+          <SproutBadge />
+
+          <h1 className="text-2xl leading-tight font-bold text-white">{title}</h1>
+          {subtitle && <p className="mt-1.5 text-xs text-white/65">{subtitle}</p>}
+
+          <div className="mt-5">{children}</div>
+
+          <LeafRule />
         </div>
       </div>
     </div>
-  );
+  )
 }

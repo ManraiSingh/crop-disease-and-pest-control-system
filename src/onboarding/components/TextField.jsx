@@ -1,13 +1,24 @@
-export default function TextField({ label, ...inputProps }) {
+import Icon from '../../app/lib/icons.jsx'
+import FieldLabel from './FieldLabel.jsx'
+
+export default function TextField({ label, labelIcon, fieldIcon, ...inputProps }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-[10px] font-bold tracking-wide text-black uppercase">
-        {label}
+      <FieldLabel icon={labelIcon}>{label}</FieldLabel>
+      <span className="relative block">
+        {fieldIcon && (
+          <Icon
+            name={fieldIcon}
+            className="pointer-events-none absolute top-1/2 left-4 h-[18px] w-[18px] -translate-y-1/2 text-lime-300"
+          />
+        )}
+        <input
+          {...inputProps}
+          className={`w-full rounded-full border border-solid border-white/20 bg-white/8 py-3 text-sm text-white placeholder:text-white/40 focus:border-lime-300/60 focus:outline-none ${
+            fieldIcon ? 'pr-4 pl-11' : 'px-4'
+          }`}
+        />
       </span>
-      <input
-        {...inputProps}
-        className="border-field-border focus:border-leaf-dark w-full rounded-full border-2 border-solid bg-white px-4 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none"
-      />
     </label>
   )
 }

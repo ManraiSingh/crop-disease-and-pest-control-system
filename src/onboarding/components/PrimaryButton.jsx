@@ -1,20 +1,14 @@
+import Icon from '../../app/lib/icons.jsx'
+
 export default function PrimaryButton({ children, ...buttonProps }) {
   return (
     <button
       type="submit"
       {...buttonProps}
-      className="bg-leaf flex w-full items-center justify-center gap-2 rounded-2xl border-0 py-2.5 text-sm font-bold text-white uppercase transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex w-full items-center justify-center gap-3 rounded-full border border-solid border-lime-300/40 bg-[linear-gradient(180deg,#7cb342_0%,#5b8c2a_100%)] py-3.5 text-sm font-bold tracking-wide text-white uppercase shadow-[0_10px_24px_rgba(91,140,42,0.45)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
     >
       {children}
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-4 w-4">
-        <path
-          d="M5 12h14M13 6l6 6-6 6"
-          stroke="currentColor"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <Icon name="arrowRight" className="h-[18px] w-[18px]" />
     </button>
   )
 }

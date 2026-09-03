@@ -65,7 +65,7 @@ export default function LandingPage() {
           </h1>
           <p>Set up your digital farm in minutes and get timely, personalized guidance for every crop cycle.</p>
           <div className="actions">
-            <button className="primary" type="button" onClick={() => navigate('/onboarding/about-you')}>
+            <button className="primary" type="button" onClick={() => navigate('/onboarding/welcome')}>
               Set up my farm <Arrow />
             </button>
             <button className="play" type="button">

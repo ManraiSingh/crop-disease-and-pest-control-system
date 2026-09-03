@@ -32,6 +32,8 @@ const PATHS = {
     </>
   ),
   x: <path d="M6 6l12 12M18 6 6 18" />,
+  chevronLeft: <path d="M15 5l-7 7 7 7" />,
+  arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
   chevronRight: <path d="M9 5l7 7-7 7" />,
   globe: (
     <>

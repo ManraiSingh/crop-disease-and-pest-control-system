@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import Icon from '../../app/lib/icons.jsx'
 import { loadProfile, saveProfile } from '../../app/lib/profile.js'
+import OnboardingShell from '../components/OnboardingShell.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
-import AllSetScene from '../components/scenes/AllSetScene.jsx'
 
 function formatValue(value) {
   if (!value) return '—'
@@ -11,11 +12,12 @@ function formatValue(value) {
     .join(' ')
 }
 
-function SummaryRow({ label, value }) {
+function SummaryRow({ icon, label, value }) {
   return (
-    <div className="flex items-center justify-between border-b border-black/5 py-1.5 last:border-0">
-      <span className="text-[10px] font-bold tracking-wide text-gray-500 uppercase">{label}</span>
-      <span className="text-xs font-semibold text-black">{value}</span>
+    <div className="flex items-center gap-3 rounded-full border border-solid border-white/15 bg-white/8 px-4 py-2.5">
+      <Icon name={icon} className="h-[18px] w-[18px] shrink-0 text-lime-300" />
+      <span className="text-[11px] font-semibold tracking-[0.1em] text-white/60 uppercase">{label}</span>
+      <span className="ml-auto min-w-0 truncate text-sm font-bold text-white">{value}</span>
     </div>
   )
 }
@@ -24,37 +26,33 @@ export default function AllSet() {
   const navigate = useNavigate()
   const { state } = useLocation()
 
+  function handleFinish() {
+    // Preserve the original join date if onboarding is being run again.
+    const joinedAt = loadProfile()?.joinedAt ?? Date.now()
+    saveProfile({ ...state, joinedAt })
+    navigate('/home')
+  }
+
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden">
-      <div className="bg-sky relative h-[65%] w-full shrink-0 overflow-hidden">
-        <AllSetScene />
+    <OnboardingShell
+      step="all-set"
+      title="You are all set! 🌿"
+      subtitle="Here's a quick summary of what you told us."
+      onBack={() => navigate('/onboarding/crop', { state })}
+    >
+      <div className="flex flex-col gap-2">
+        <SummaryRow icon="profile" label="Name" value={formatValue(state?.name)} />
+        <SummaryRow icon="globe" label="Language" value={formatValue(state?.language)} />
+        <SummaryRow icon="pin" label="Field" value={formatValue(state?.fieldName)} />
+        <SummaryRow icon="leaf" label="Crop" value={formatValue(state?.crop)} />
+        {state?.variety && <SummaryRow icon="wheat" label="Variety" value={formatValue(state.variety)} />}
       </div>
 
-      <div className="relative z-10 -mt-5 flex flex-1 flex-col items-center rounded-t-[28px] bg-white px-5 py-4 text-center">
-        <h1 className="text-leaf-dark text-xl font-bold">You are all set!</h1>
-        <p className="mt-1 text-xs text-gray-600">Here's a quick summary of what you told us.</p>
-
-        <div className="mt-3 w-full rounded-2xl bg-[#f6f4ee] px-4 py-1">
-          <SummaryRow label="Name" value={formatValue(state?.name)} />
-          <SummaryRow label="Language" value={formatValue(state?.language)} />
-          <SummaryRow label="Field" value={formatValue(state?.fieldName)} />
-          <SummaryRow label="Crop" value={formatValue(state?.crop)} />
-          {state?.variety && <SummaryRow label="Variety" value={formatValue(state.variety)} />}
-        </div>
-
-        <div className="mt-4 w-full">
-          <PrimaryButton
-            type="button"
-            onClick={() => {
-              const joinedAt = loadProfile()?.joinedAt ?? Date.now()
-              saveProfile({ ...state, joinedAt })
-              navigate('/home')
-            }}
-          >
-            Go to Home
-          </PrimaryButton>
-        </div>
+      <div className="mt-5">
+        <PrimaryButton type="button" onClick={handleFinish}>
+          Go to Home
+        </PrimaryButton>
       </div>
-    </div>
+    </OnboardingShell>
   )
 }

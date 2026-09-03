@@ -1,16 +1,4 @@
-function PinIcon({ className = '' }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
-      <path
-        d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z"
-        stroke="currentColor"
-        strokeWidth={2}
-        strokeLinejoin="round"
-      />
-      <circle cx="12" cy="9.5" r="2.5" stroke="currentColor" strokeWidth={2} />
-    </svg>
-  )
-}
+import Icon from '../../app/lib/icons.jsx'
 
 export default function LocationButton({ label = 'Use current location', onClick, status }) {
   return (
@@ -18,12 +6,12 @@ export default function LocationButton({ label = 'Use current location', onClick
       <button
         type="button"
         onClick={onClick}
-        className="border-leaf-dark bg-location-bg text-leaf-dark flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-solid px-4 py-2.5 text-xs font-bold tracking-wide uppercase transition hover:brightness-95"
+        className="flex w-full items-center justify-center gap-2 rounded-full border border-solid border-lime-300/45 bg-lime-400/10 px-4 py-3 text-xs font-bold tracking-[0.08em] text-lime-200 uppercase transition hover:bg-lime-400/20"
       >
-        <PinIcon className="h-4 w-4" />
+        <Icon name="pin" className="h-[18px] w-[18px]" />
         {label}
       </button>
-      {status && <p className="mt-2 text-center text-xs text-gray-500">{status}</p>}
+      {status && <p className="mt-2 text-center text-[11px] text-white/60">{status}</p>}
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import FieldLabel from '../components/FieldLabel.jsx'
 import LocationButton from '../components/LocationButton.jsx'
 import OnboardingShell from '../components/OnboardingShell.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
-import AddFieldScene from '../components/scenes/AddFieldScene.jsx'
 import TextField from '../components/TextField.jsx'
 
 export default function AddField() {
@@ -39,33 +39,24 @@ export default function AddField() {
 
   return (
     <OnboardingShell
-      hero={<AddFieldScene />}
-      activeCount={2}
+      step="add-field"
+      title="Add your field"
+      subtitle="Start with the field you want to monitor."
       onBack={() => navigate('/onboarding/about-you', { state })}
-      onForward={handleContinue}
     >
-      <form onSubmit={handleContinue} className="flex flex-col gap-3">
-        <div>
-          <h1 className="text-lg font-bold text-black">Add your field</h1>
-          <p className="mt-0.5 text-xs text-gray-600">Start with the field you want to monitor.</p>
-        </div>
+      <form onSubmit={handleContinue} className="flex flex-col gap-4">
+        <TextField
+          label="Field name"
+          fieldIcon="leaf"
+          placeholder="e.g. North Field"
+          value={fieldName}
+          onChange={(e) => setFieldName(e.target.value)}
+          required
+        />
 
-        <div className="flex flex-col gap-2.5">
-          <div className="min-w-0 flex-1">
-            <TextField
-              label="Field name"
-              placeholder="e.g. North Field"
-              value={fieldName}
-              onChange={(e) => setFieldName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="min-w-0 flex-1">
-            <span className="mb-1 block text-[10px] font-bold tracking-wide text-black uppercase">
-              Location
-            </span>
-            <LocationButton onClick={handleUseCurrentLocation} status={locationStatus} />
-          </div>
+        <div>
+          <FieldLabel>Location</FieldLabel>
+          <LocationButton onClick={handleUseCurrentLocation} status={locationStatus} />
         </div>
 
         <PrimaryButton disabled={!fieldName.trim()}>Continue</PrimaryButton>

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import OnboardingShell from '../components/OnboardingShell.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
-import AboutYourselfScene from '../components/scenes/AboutYourselfScene.jsx'
 import SelectField from '../components/SelectField.jsx'
 import TextField from '../components/TextField.jsx'
 
@@ -31,38 +30,28 @@ export default function AboutYourself() {
 
   return (
     <OnboardingShell
-      hero={<AboutYourselfScene />}
-      activeCount={1}
-      onForward={handleContinue}
+      step="about-you"
+      title="Tell us about yourself"
+      subtitle="This helps us personalize your experience."
+      onBack={() => navigate('/onboarding/welcome')}
     >
-      <form onSubmit={handleContinue} className="flex flex-col gap-3">
-        <div>
-          <h1 className="text-lg font-bold text-black">Tell us about yourself</h1>
-          <p className="mt-0.5 text-xs text-gray-600">
-            This helps us personalize your experience.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-2.5">
-          <div className="min-w-0 flex-1">
-            <TextField
-              label="Name"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
-              required
-            />
-          </div>
-          <div className="min-w-0 flex-1">
-            <SelectField
-              label="Preferred language"
-              options={LANGUAGES}
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-            />
-          </div>
-        </div>
+      <form onSubmit={handleContinue} className="flex flex-col gap-4">
+        <TextField
+          label="Name"
+          labelIcon="profile"
+          placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          autoComplete="name"
+          required
+        />
+        <SelectField
+          label="Preferred language"
+          labelIcon="globe"
+          options={LANGUAGES}
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+        />
 
         <PrimaryButton disabled={!name.trim()}>Continue</PrimaryButton>
       </form>

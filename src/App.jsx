@@ -10,6 +10,7 @@ import AboutYourself from './onboarding/pages/AboutYourself.jsx'
 import AddField from './onboarding/pages/AddField.jsx'
 import AllSet from './onboarding/pages/AllSet.jsx'
 import CropDetails from './onboarding/pages/CropDetails.jsx'
+import Welcome from './onboarding/pages/Welcome.jsx'
 import PhoneDemoLayout from './shared/PhoneDemoLayout.jsx'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
 
         <Route element={<PhoneDemoLayout />}>
+          <Route path="/onboarding/welcome" element={<Welcome />} />
           <Route path="/onboarding/about-you" element={<AboutYourself />} />
           <Route path="/onboarding/add-field" element={<AddField />} />
           <Route path="/onboarding/crop" element={<CropDetails />} />

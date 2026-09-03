@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import OnboardingShell from '../components/OnboardingShell.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
-import CropDetailsScene from '../components/scenes/CropDetailsScene.jsx'
 import SelectField from '../components/SelectField.jsx'
 
 const CROPS = [
@@ -40,38 +39,27 @@ export default function CropDetails() {
 
   return (
     <OnboardingShell
-      hero={<CropDetailsScene />}
-      activeCount={3}
+      step="crop"
+      title="Tell us about your crop"
+      subtitle="This helps us give more accurate disease and pest insights."
       onBack={() => navigate('/onboarding/add-field', { state })}
-      onForward={handleContinue}
     >
-      <form onSubmit={handleContinue} className="flex flex-col gap-3">
-        <div>
-          <h1 className="text-lg font-bold text-black">Tell us about your crop</h1>
-          <p className="mt-0.5 text-xs text-gray-600">
-            This helps us give more accurate disease and pest insights.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-2.5">
-          <div className="min-w-0 flex-1">
-            <SelectField
-              label="Crop"
-              options={[{ value: '', label: 'Select your crop' }, ...CROPS]}
-              value={crop}
-              onChange={(e) => setCrop(e.target.value)}
-              required
-            />
-          </div>
-          <div className="min-w-0 flex-1">
-            <SelectField
-              label="Variety"
-              options={VARIETIES}
-              value={variety}
-              onChange={(e) => setVariety(e.target.value)}
-            />
-          </div>
-        </div>
+      <form onSubmit={handleContinue} className="flex flex-col gap-4">
+        <SelectField
+          label="Crop"
+          fieldIcon="leaf"
+          options={[{ value: '', label: 'Select your crop' }, ...CROPS]}
+          value={crop}
+          onChange={(e) => setCrop(e.target.value)}
+          required
+        />
+        <SelectField
+          label="Variety (optional)"
+          fieldIcon="leaf"
+          options={VARIETIES}
+          value={variety}
+          onChange={(e) => setVariety(e.target.value)}
+        />
 
         <PrimaryButton disabled={!crop}>Continue</PrimaryButton>
       </form>
