@@ -18,9 +18,9 @@ export default function AlertCard() {
         }
       />
 
-      {/* The alert itself keeps its warm tint — it's the one thing on Home meant to break the
-          green palette and pull the eye. */}
-      <div className="relative overflow-hidden rounded-2xl border border-solid border-amber-200/25 bg-[linear-gradient(115deg,rgba(214,116,46,0.7),rgba(168,74,38,0.62))] p-3.5 backdrop-blur-md">
+      {/* Red, not amber: this is a confirmed disease detection, the one thing on Home that
+          should read as an alarm rather than a warning. */}
+      <div className="relative overflow-hidden rounded-2xl border border-solid border-red-300/30 bg-[linear-gradient(115deg,rgba(206,54,48,0.78),rgba(146,24,28,0.7))] p-3.5 backdrop-blur-md">
         <span aria-hidden="true" className={GLASS_SHEEN} />
 
         <div className="relative flex items-start gap-3">

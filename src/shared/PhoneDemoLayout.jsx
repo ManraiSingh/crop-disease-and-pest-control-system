@@ -8,11 +8,16 @@ import PhoneFrame from './PhoneFrame.jsx'
  */
 export default function PhoneDemoLayout() {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 bg-neutral-100 py-10">
-      <PhoneFrame>
-        <Outlet />
-      </PhoneFrame>
-      <p className="text-xs text-gray-400">Demo preview — this is how the app looks on a phone</p>
+    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-neutral-100 py-12">
+      {/* The frame is laid out at a fixed 418x872; scaling it up preserves the screen ratio and
+          every inner offset. The wrapper reserves the scaled box so the page still sizes right. */}
+      <div className="flex h-[1003px] w-[481px] shrink-0 items-center justify-center">
+        <div className="scale-[1.15]">
+          <PhoneFrame>
+            <Outlet />
+          </PhoneFrame>
+        </div>
+      </div>
 
       <Link
         to="/"

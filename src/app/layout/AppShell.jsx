@@ -69,6 +69,7 @@ export default function AppShell() {
         className="pointer-events-none absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url('${APP_BACKGROUND}')` }}
       />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#0a1707]/30" />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,8,0.66)_0%,rgba(10,22,9,0.4)_26%,rgba(8,18,7,0.66)_70%,rgba(6,14,5,0.9)_100%)]"
@@ -133,7 +134,7 @@ export default function AppShell() {
             type="button"
             aria-label="Close weather"
             onClick={() => setPanel(null)}
-            className="absolute inset-0 z-30 border-0 bg-black/30"
+            className="absolute inset-0 z-30 border-0 bg-black/70 backdrop-blur-sm"
           />
           {/* Anchored under the header and near full width — the hourly chart needs the room.
               One frosted panel holds the chart and the metrics; the two render bare inside it,
@@ -167,7 +168,7 @@ export default function AppShell() {
             type="button"
             aria-label="Close notifications"
             onClick={() => setPanel(null)}
-            className="absolute inset-0 z-30 border-0 bg-black/30"
+            className="absolute inset-0 z-30 border-0 bg-black/70 backdrop-blur-sm"
           />
           <div className="absolute top-[88px] right-4 z-50 w-64">
             <div className={`${GLASS_SURFACE_STRONG} rounded-2xl`}>
@@ -187,7 +188,7 @@ export default function AppShell() {
       )}
 
       <div className="relative z-10 flex-1 overflow-hidden">
-        <Outlet context={{ weather }} />
+        <Outlet />
       </div>
 
       <nav
