@@ -77,7 +77,7 @@ export default function AdvisoryPage() {
           <AlertBanner />
 
           <section>
-            <div className={GLASS_SURFACE}>
+            <div className={`${GLASS_SURFACE} rounded-3xl`}>
               <SectionHeader title="Recommended for You" action="View all" className="px-4 pt-4 pb-3" />
               {items.length === 0 ? (
                 <p className="px-4 pb-6 text-center text-xs text-white/50">Nothing in this category yet.</p>

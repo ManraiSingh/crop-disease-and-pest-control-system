@@ -12,7 +12,7 @@ const STATS = [
 
 export default function FarmOverview() {
   return (
-    <section className={`${GLASS_SURFACE_STRONG} p-4`}>
+    <section className={`${GLASS_SURFACE_STRONG} rounded-3xl p-4`}>
       <div aria-hidden="true" className={GLASS_SHEEN} />
       <div className="pointer-events-none absolute -top-10 -right-8 h-40 w-40 rounded-full bg-lime-400/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-16 -left-10 h-40 w-40 rounded-full bg-emerald-300/10 blur-3xl" />

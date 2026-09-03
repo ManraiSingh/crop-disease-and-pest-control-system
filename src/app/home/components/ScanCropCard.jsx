@@ -15,7 +15,7 @@ export default function ScanCropCard() {
     <button
       type="button"
       onClick={() => navigate('/scan')}
-      className={`${GLASS_SURFACE} flex min-h-[230px] w-full flex-col justify-between p-5 text-left`}
+      className={`${GLASS_SURFACE} flex min-h-[270px] rounded-3xl w-full flex-col justify-between p-5 text-left`}
     >
       <span
         aria-hidden="true"
@@ -24,7 +24,7 @@ export default function ScanCropCard() {
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(12,24,10,0.86)_0%,rgba(14,28,12,0.62)_52%,rgba(16,32,14,0.34)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.58)_48%,rgba(0,0,0,0.34)_100%)]"
       />
       <span
         aria-hidden="true"

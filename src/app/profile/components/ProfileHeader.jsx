@@ -10,7 +10,7 @@ import { formatLocation, formatName } from '../format.js'
  */
 export default function ProfileHeader({ profile }) {
   return (
-    <button type="button" className={`${GLASS_SURFACE} mx-4 flex w-[calc(100%-2rem)] flex-col items-center gap-3 px-5 py-7`}>
+    <button type="button" className={`${GLASS_SURFACE} mx-4 flex rounded-3xl w-[calc(100%-2rem)] flex-col items-center gap-3 px-5 py-7`}>
       <span aria-hidden="true" className={GLASS_SHEEN} />
 
       <span className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full border border-solid border-white/25 bg-white shadow-[0_10px_28px_rgba(6,20,12,0.4)]">

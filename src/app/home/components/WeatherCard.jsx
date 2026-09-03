@@ -52,7 +52,7 @@ export default function WeatherCard({
     .join(', ')}. Currently ${temperature} degrees and ${condition}.`
 
   return (
-    <section className={`${GLASS_SURFACES[surface]} w-full text-white ${bare ? '' : 'p-4'}`}>
+    <section className={`${GLASS_SURFACES[surface]} w-full text-white ${bare ? '' : 'rounded-3xl p-4'}`}>
       {!bare && <div aria-hidden="true" className={GLASS_SHEEN} />}
 
       <div className="relative">

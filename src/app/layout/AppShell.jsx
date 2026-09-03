@@ -138,21 +138,23 @@ export default function AppShell() {
           {/* Anchored under the header and near full width — the hourly chart needs the room.
               One frosted panel holds the chart and the metrics; the two render bare inside it,
               since nesting glass surfaces muddies both. */}
-          <div className={`${GLASS_SURFACE_STRONG} absolute top-[88px] right-3 left-3 z-50 p-4`}>
-            <span aria-hidden="true" className={GLASS_SHEEN} />
-            <div className="relative">
-              <WeatherCard
-                surface="none"
-                temperatures={weather.temperatures}
-                activeIndex={weather.activeIndex}
-                timeLabels={weather.timeLabels}
-                condition={weather.condition}
-                selectedDay={weather.selectedDay}
-                onDayChange={weather.onDayChange}
-                days={weather.days}
-              />
-              <div className="mt-4 border-t border-solid border-white/12 pt-4">
-                <WeatherMetrics surface="none" metrics={weather.metrics} />
+          <div className="absolute top-[88px] right-3 left-3 z-50">
+            <div className={`${GLASS_SURFACE_STRONG} rounded-3xl p-4`}>
+              <span aria-hidden="true" className={GLASS_SHEEN} />
+              <div className="relative">
+                <WeatherCard
+                  surface="none"
+                  temperatures={weather.temperatures}
+                  activeIndex={weather.activeIndex}
+                  timeLabels={weather.timeLabels}
+                  condition={weather.condition}
+                  selectedDay={weather.selectedDay}
+                  onDayChange={weather.onDayChange}
+                  days={weather.days}
+                />
+                <div className="mt-4 border-t border-solid border-white/12 pt-4">
+                  <WeatherMetrics surface="none" metrics={weather.metrics} />
+                </div>
               </div>
             </div>
           </div>
@@ -167,17 +169,19 @@ export default function AppShell() {
             onClick={() => setPanel(null)}
             className="absolute inset-0 z-30 border-0 bg-black/30"
           />
-          <div className={`absolute top-[88px] right-4 z-50 w-64 ${GLASS_SURFACE_STRONG} rounded-2xl`}>
-            <div className="border-b border-solid border-white/10 px-4 py-2.5 text-xs font-bold text-white">
-              Notifications
-            </div>
-            {NOTIFICATIONS.map((n) => (
-              <div key={n.title} className="border-b border-solid border-white/8 px-4 py-2.5 last:border-0">
-                <p className="text-xs font-semibold text-white">{n.title}</p>
-                <p className="mt-0.5 text-[11px] text-white/65">{n.body}</p>
-                <p className="mt-1 text-[10px] text-white/45">{n.time}</p>
+          <div className="absolute top-[88px] right-4 z-50 w-64">
+            <div className={`${GLASS_SURFACE_STRONG} rounded-2xl`}>
+              <div className="border-b border-solid border-white/10 px-4 py-2.5 text-xs font-bold text-white">
+                Notifications
               </div>
-            ))}
+              {NOTIFICATIONS.map((n) => (
+                <div key={n.title} className="border-b border-solid border-white/8 px-4 py-2.5 last:border-0">
+                  <p className="text-xs font-semibold text-white">{n.title}</p>
+                  <p className="mt-0.5 text-[11px] text-white/65">{n.body}</p>
+                  <p className="mt-1 text-[10px] text-white/45">{n.time}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}

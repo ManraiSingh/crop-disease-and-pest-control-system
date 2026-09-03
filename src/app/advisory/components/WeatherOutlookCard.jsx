@@ -11,7 +11,7 @@ export default function WeatherOutlookCard() {
   return (
     <button
       type="button"
-      className={`${GLASS_SURFACE} flex w-full flex-col gap-3 p-4 text-left`}
+      className={`${GLASS_SURFACE} flex w-full flex-col gap-3 rounded-3xl p-4 text-left`}
     >
       <span aria-hidden="true" className={GLASS_SHEEN} />
       <div className="relative flex items-start gap-3">

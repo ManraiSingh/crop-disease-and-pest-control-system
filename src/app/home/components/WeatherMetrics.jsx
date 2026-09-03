@@ -22,7 +22,7 @@ export default function WeatherMetrics({ metrics, surface = 'default' }) {
   const bare = surface === 'none'
 
   return (
-    <section className={`${GLASS_SURFACES[surface]} w-full text-white ${bare ? '' : 'px-2 py-4'}`}>
+    <section className={`${GLASS_SURFACES[surface]} w-full text-white ${bare ? '' : 'rounded-3xl px-2 py-4'}`}>
       {!bare && <div aria-hidden="true" className={GLASS_SHEEN} />}
       <dl className="relative grid grid-cols-3 divide-x divide-white/15">
         {Object.entries(metrics).map(([key, value]) => (

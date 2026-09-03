@@ -6,7 +6,7 @@ import { GLASS_SHEEN, GLASS_SURFACE, GLASS_SURFACE_STRONG } from './glass.js'
  */
 export function GlassCard({ as: Tag = 'section', strong = false, className = '', children, ...rest }) {
   return (
-    <Tag className={`${strong ? GLASS_SURFACE_STRONG : GLASS_SURFACE} ${className}`} {...rest}>
+    <Tag className={`${strong ? GLASS_SURFACE_STRONG : GLASS_SURFACE} rounded-3xl ${className}`} {...rest}>
       <span aria-hidden="true" className={GLASS_SHEEN} />
       <div className="relative">{children}</div>
     </Tag>
