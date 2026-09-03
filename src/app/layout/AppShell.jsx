@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { APP_BACKGROUND, GLASS_SHEEN, GLASS_SURFACE_STRONG } from '../lib/glass.js'
 import Icon from '../lib/icons.jsx'
+import LanguageMenu from './LanguageMenu.jsx'
+import { loadLanguage } from './language.js'
 import { loadProfile } from '../lib/profile.js'
 import useForecast from '../lib/useForecast.js'
 import WeatherCard from '../home/components/WeatherCard.jsx'
@@ -48,6 +50,7 @@ export default function AppShell() {
   const [panel, setPanel] = useState(null)
   const profile = loadProfile()
   const weather = useForecast(profile?.location)
+  const [language, setLanguage] = useState(loadLanguage)
 
   const togglePanel = (name) => setPanel((open) => (open === name ? null : name))
   const { pathname } = useLocation()
@@ -108,12 +111,13 @@ export default function AppShell() {
             </button>
           )}
 
-          <button
-            type="button"
-            className="rounded-full border border-solid border-white/20 bg-white/12 px-2.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
-          >
-            EN ⌄
-          </button>
+          <LanguageMenu
+            language={language}
+            onChange={setLanguage}
+            open={panel === 'language'}
+            onToggle={() => togglePanel('language')}
+            onClose={() => setPanel(null)}
+          />
 
           <button
             type="button"
@@ -127,6 +131,15 @@ export default function AppShell() {
           </button>
         </span>
       </header>
+
+      {panel === 'language' && (
+        <button
+          type="button"
+          aria-label="Close language menu"
+          onClick={() => setPanel(null)}
+          className="absolute inset-0 z-30 border-0 bg-transparent"
+        />
+      )}
 
       {panel === 'weather' && (
         <>
