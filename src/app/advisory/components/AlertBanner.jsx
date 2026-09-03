@@ -1,4 +1,4 @@
-import { GLASS_SHEEN } from '../../lib/glass.jsx'
+import { GLASS_SHEEN } from '../../lib/glass.js'
 import Icon from '../../lib/icons.jsx'
 
 export default function AlertBanner() {

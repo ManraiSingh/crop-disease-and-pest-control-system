@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { GLASS_SHEEN, GlassCard, SectionHeader } from '../../lib/glass.jsx'
+import { GLASS_SHEEN } from '../../lib/glass.js'
+import { GlassCard, SectionHeader } from '../../lib/glass.jsx'
 import Icon from '../../lib/icons.jsx'
 
 /** Mock alert — this is what a real disease-detection result would populate. */

@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { APP_BACKGROUND, GLASS_SURFACE_STRONG } from '../lib/glass.jsx'
+import { APP_BACKGROUND, GLASS_SHEEN, GLASS_SURFACE_STRONG } from '../lib/glass.js'
 import Icon from '../lib/icons.jsx'
 import { loadProfile } from '../lib/profile.js'
 import useForecast from '../lib/useForecast.js'
 import WeatherCard from '../home/components/WeatherCard.jsx'
+import WeatherMetrics from '../home/components/WeatherMetrics.jsx'
 import avatar from '../profile/assets/avatar.jpg'
 import { formatName } from '../profile/format.js'
 
@@ -134,18 +135,26 @@ export default function AppShell() {
             onClick={() => setPanel(null)}
             className="absolute inset-0 z-30 border-0 bg-black/30"
           />
-          {/* Anchored under the header and near full width — the hourly chart needs the room. */}
-          <div className="absolute top-[88px] right-3 left-3 z-50">
-            <WeatherCard
-              strong
-              temperatures={weather.temperatures}
-              activeIndex={weather.activeIndex}
-              timeLabels={weather.timeLabels}
-              condition={weather.condition}
-              selectedDay={weather.selectedDay}
-              onDayChange={weather.onDayChange}
-              days={weather.days}
-            />
+          {/* Anchored under the header and near full width — the hourly chart needs the room.
+              One frosted panel holds the chart and the metrics; the two render bare inside it,
+              since nesting glass surfaces muddies both. */}
+          <div className={`${GLASS_SURFACE_STRONG} absolute top-[88px] right-3 left-3 z-50 p-4`}>
+            <span aria-hidden="true" className={GLASS_SHEEN} />
+            <div className="relative">
+              <WeatherCard
+                surface="none"
+                temperatures={weather.temperatures}
+                activeIndex={weather.activeIndex}
+                timeLabels={weather.timeLabels}
+                condition={weather.condition}
+                selectedDay={weather.selectedDay}
+                onDayChange={weather.onDayChange}
+                days={weather.days}
+              />
+              <div className="mt-4 border-t border-solid border-white/12 pt-4">
+                <WeatherMetrics surface="none" metrics={weather.metrics} />
+              </div>
+            </div>
           </div>
         </>
       )}

@@ -1,4 +1,4 @@
-import { GLASS_SHEEN, GLASS_SURFACE } from '../../lib/glass.jsx'
+import { GLASS_SHEEN, GLASS_SURFACE } from '../../lib/glass.js'
 import Icon from '../../lib/icons.jsx'
 
 const STATS = [

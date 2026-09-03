@@ -1,4 +1,5 @@
-import { GLASS_INSET, GLASS_SHEEN, GLASS_SURFACE_STRONG, SectionHeader } from '../../lib/glass.jsx'
+import { GLASS_INSET, GLASS_SHEEN, GLASS_SURFACE_STRONG } from '../../lib/glass.js'
+import { SectionHeader } from '../../lib/glass.jsx'
 import Icon from '../../lib/icons.jsx'
 
 /** Mock aggregate stats — real values would be computed across all of the farmer's fields. */

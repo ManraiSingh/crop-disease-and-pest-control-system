@@ -1,4 +1,4 @@
-import { GLASS_SURFACE } from '../../lib/glass.jsx'
+import { GLASS_SURFACE } from '../../lib/glass.js'
 import Icon from '../../lib/icons.jsx'
 import { formatDaysWithUs } from '../format.js'
 

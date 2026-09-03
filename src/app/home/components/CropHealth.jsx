@@ -1,4 +1,5 @@
-import { GLASS_INSET, GlassCard, SectionHeader } from '../../lib/glass.jsx'
+import { GLASS_INSET } from '../../lib/glass.js'
+import { GlassCard, SectionHeader } from '../../lib/glass.jsx'
 import Icon from '../../lib/icons.jsx'
 
 function formatValue(value) {

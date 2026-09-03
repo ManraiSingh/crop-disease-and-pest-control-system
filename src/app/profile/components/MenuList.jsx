@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { GLASS_SURFACE } from '../../lib/glass.jsx'
+import { GLASS_SURFACE } from '../../lib/glass.js'
 import Icon from '../../lib/icons.jsx'
 
 const ITEMS = [

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { GLASS_SURFACE, SectionHeader } from '../lib/glass.jsx'
+import { GLASS_SURFACE } from '../lib/glass.js'
+import { SectionHeader } from '../lib/glass.jsx'
 import AlertBanner from './components/AlertBanner.jsx'
 import FilterChips from './components/FilterChips.jsx'
 import QuickTips from './components/QuickTips.jsx'

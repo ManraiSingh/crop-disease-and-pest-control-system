@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { GLASS_SURFACE, SCAN_CARD_BACKGROUND } from '../../lib/glass.jsx'
+import { GLASS_SURFACE, SCAN_CARD_BACKGROUND } from '../../lib/glass.js'
 import Icon from '../../lib/icons.jsx'
 
 /**
