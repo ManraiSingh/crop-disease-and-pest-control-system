@@ -20,11 +20,18 @@ import { initReactI18next } from 'react-i18next'
  */
 
 const BASE = import.meta.env.VITE_LOCALE_API || '/locales'
-const CACHE_EXPIRY_MS = 7 * 24 * 60 * 60 * 1000 // re-fetch weekly when online
+const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000 // re-fetch daily when online
+
+/**
+ * Bump this whenever you change anything in public/locales/. The cached copy on every
+ * device is keyed by this string, so a bump invalidates it immediately — without one,
+ * users keep seeing the old wording until the cache expires on its own.
+ */
+const LOCALE_VERSION = "2026-09-25c"
 
 /** Ask the endpoint which languages exist, so the app never hardcodes the list either. */
 export async function loadLanguageIndex() {
-  const cacheKey = 'krishiai.locale.index'
+  const cacheKey = 'cropcare.locale.index'
   try {
     const res = await fetch(`${BASE}/index.json`, { cache: 'no-cache' })
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
@@ -63,14 +70,18 @@ export async function initI18n() {
       backend: {
         backends: [LocalStorageBackend, HttpBackend],
         backendOptions: [
-          { prefix: 'krishiai.locale.', expirationTime: CACHE_EXPIRY_MS },
+          {
+            prefix: 'cropcare.locale.',
+            expirationTime: CACHE_EXPIRY_MS,
+            defaultVersion: LOCALE_VERSION,
+          },
           { loadPath: `${BASE}/{{lng}}.json` },
         ],
       },
 
       detection: {
         order: ['localStorage', 'navigator'],
-        lookupLocalStorage: 'krishiai.language',
+        lookupLocalStorage: 'cropcare.language',
         caches: ['localStorage'],
       },
 

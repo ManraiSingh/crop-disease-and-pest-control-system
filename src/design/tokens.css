@@ -1,0 +1,308 @@
+/**
+ * Design tokens — "Plain".
+ *
+ * No glass, no blur, no noise. Every surface is a solid, opaque plane; separation comes from
+ * value and space rather than translucency. The drama is in the typography: display sizes run
+ * very large at very light weights, so a heading carries a screen on its own and the rest of
+ * the page can stay almost empty.
+ *
+ * This is a touch product, so nothing depends on hover. Feedback is press-only — a control
+ * responds when a finger is on it and springs back when it lifts.
+ *
+ * Type is Anek Devanagari — a variable face from hairline to heavy carrying both Devanagari
+ * and Latin. That dual coverage is non-negotiable: the app runs in Marathi and Hindi, and a
+ * Latin-only display face collapses to a fallback the moment a farmer switches language.
+ */
+
+:root {
+  /* ---- paper: one ground, no gradients ---- */
+  --ground: #f7f7f4;
+  --surface: #ffffff;
+  --surface-sunk: #f0f0ec;
+  --line: #e4e4de;
+
+  /* ---- ink: four steps, nothing between ---- */
+  --ink: #0f0f0d;
+  --ink-mid: #6b6b63;
+  --ink-soft: #9c9c93;
+  --ink-invert: #ffffff;
+
+  /* ---- one accent, used sparingly ---- */
+  --accent: #1f6f3c;
+  --accent-soft: #eaf4ed;
+
+  /* The ink surface is the same in BOTH themes — screens paint light text on it,
+     so inverting it per theme puts white on white. --on-pitch is that text. */
+  --pitch: #121210;
+  --on-pitch: #fafaf7;
+  --on-pitch-mid: rgba(250, 250, 247, 0.62);
+  --on-pitch-soft: rgba(250, 250, 247, 0.38);
+  --on-pitch-line: rgba(250, 250, 247, 0.14);
+  --on-pitch-fill: rgba(250, 250, 247, 0.08);
+
+  /* ---- signal: reserved, never decorative ---- */
+  --alarm: #c4372e;
+  --alarm-soft: #fbeceb;
+  --warn: #b0741a;
+  --warn-soft: #fdf3e4;
+
+  /* ---- type ---- */
+  --font: 'Anek Devanagari', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+
+  /* ---- motion: one curve, one duration family ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --fast: 180ms;
+  --base: 320ms;
+  --slow: 520ms;
+
+  /* ---- elevation: almost none. A hairline does the work. ---- */
+  --lift: 0 1px 2px rgba(15, 15, 13, 0.04);
+  --lift-md: 0 6px 20px -8px rgba(15, 15, 13, 0.12);
+}
+
+[data-theme='dark'] {
+  --ground: #0e0e0c;
+  --surface: #171715;
+  --surface-sunk: #1f1f1c;
+  --line: #2a2a26;
+
+  --ink: #f4f4f0;
+  --ink-mid: #a0a098;
+  --ink-soft: #6e6e67;
+  --ink-invert: #0e0e0c;
+  --pitch: #121210;
+  --on-pitch: #fafaf7;
+
+  --accent: #7ec98f;
+  --accent-soft: #1b2b20;
+
+  --alarm: #e8766c;
+  --alarm-soft: #2c1917;
+  --warn: #d9a04a;
+  --warn-soft: #2a2015;
+
+  /* --pitch and --on-pitch are deliberately NOT redefined here. */
+
+  --lift: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --lift-md: 0 6px 20px -8px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------------------------------ *
+ * Type.
+ *
+ * The scale is deliberately wide: display is very large and very light,
+ * body is small and plain. Nothing sits in the middle, which is what
+ * keeps a screen from looking busy.
+ * ------------------------------------------------------------------ */
+.t-hero {
+  font-family: var(--font);
+  font-weight: 200;
+  font-size: clamp(40px, 13vw, 58px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.t-display {
+  font-family: var(--font);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.t-title {
+  font-family: var(--font);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.t-label {
+  font-family: var(--font);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.t-mono-label {
+  font-family: var(--font);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.t-num {
+  font-family: var(--font);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Devanagari needs more room under the baseline and cannot go as tight. */
+:root:lang(hi) .t-hero,
+:root:lang(mr) .t-hero,
+:root:lang(hi) .t-display,
+:root:lang(mr) .t-display {
+  line-height: 1.26;
+  letter-spacing: -0.005em;
+  font-weight: 300;
+}
+
+/* ------------------------------------------------------------------ *
+ * Surfaces. Solid planes separated by a hairline.
+ * ------------------------------------------------------------------ */
+.plane {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.plane-sunk {
+  background: var(--surface-sunk);
+  border-radius: 20px;
+}
+
+.plane-ink {
+  background: var(--pitch);
+  color: var(--on-pitch);
+  border-radius: 20px;
+}
+
+/* Hairline between rows, inset so it starts under the text. */
+.rule {
+  height: 1px;
+  background: var(--line);
+}
+
+/* ------------------------------------------------------------------ *
+ * The deck — cards overlapping so the stack reads as one object.
+ * ------------------------------------------------------------------ */
+.deck {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.deck-card {
+  position: relative;
+  border-radius: 26px;
+}
+
+.deck-card + .deck-card {
+  margin-top: -18px;
+}
+
+.deck-card:nth-child(1) { z-index: 1; }
+.deck-card:nth-child(2) { z-index: 2; }
+.deck-card:nth-child(3) { z-index: 3; }
+.deck-card:nth-child(4) { z-index: 4; }
+.deck-card:nth-child(5) { z-index: 5; }
+.deck-card:nth-child(6) { z-index: 6; }
+.deck-card:nth-child(7) { z-index: 7; }
+
+/* ---- scan reticle ---- */
+.reticle {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+.reticle-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 8px; }
+.reticle-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 8px; }
+.reticle-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 8px; }
+.reticle-br { bottom: 0; right: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 8px; }
+
+/* ------------------------------------------------------------------ *
+ * Entrance.
+ *
+ * CSS rather than JS: an element whose visibility depends on a frame loop
+ * is invisible if that loop stalls. `both` guarantees the end state.
+ * ------------------------------------------------------------------ */
+@keyframes enter-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.enter-rise {
+  animation: enter-rise var(--slow) var(--ease) both;
+}
+
+/* ------------------------------------------------------------------ *
+ * Legacy surface names.
+ *
+ * Screens not yet rebuilt still import the GLASS_* constants. They now
+ * resolve to plain planes so nothing is stranded on the old material.
+ * ------------------------------------------------------------------ */
+.canopy-surface,
+.canopy-surface-strong,
+.canopy-surface-soft {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.canopy-inset {
+  background: var(--surface-sunk);
+  border-radius: 16px;
+}
+
+.canopy-sheen,
+.glass-sheen::before,
+.glare,
+.aurora-blob,
+.pollen,
+.grain {
+  display: none !important;
+}
+
+/* Glass is retired: anything still asking for it gets a plain plane. */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.scene { perspective: none; }
+.tilt-card { transform: none !important; }
+.layer-1, .layer-2, .layer-3 { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Compatibility aliases.
+ *
+ * Screens written against the previous palette still ask for --paper,
+ * --lime and friends. Rather than edit six files, those names are mapped
+ * onto the plain system here — so the deck's four steps become a quiet
+ * tonal progression instead of a lime-to-black ramp.
+ *
+ * Text colour is fixed per step by the screens (dark on the pale step,
+ * light on the three dark ones), so each value below has to keep that
+ * contrast in BOTH themes.
+ * ------------------------------------------------------------------ */
+:root {
+  --paper: var(--surface);
+  --paper-dim: var(--surface-sunk);
+  --paper-edge: var(--line);
+
+  /* The three deck heads, light to dark. Step 1 carries dark text; 2 and 3 carry light. */
+  --lime: #e6efe8;
+  --lime-deep: #1f6f3c;
+  --green: #3f7d57;
+  --green-deep: #24563c;
+}
+
+[data-theme='dark'] {
+  /* Step 1 still carries dark text, so it stays pale in dark mode too — only a
+     little dimmer, so the stack keeps its light-to-dark reading order. */
+  --lime: #cfdcd3;
+  --lime-deep: #7ec98f;
+  --green: #35664a;
+  --green-deep: #1f4433;
+}

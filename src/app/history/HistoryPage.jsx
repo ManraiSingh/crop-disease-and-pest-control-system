@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import { useT } from '../../i18n/context.js'
 import Icon from '../lib/icons.jsx'
-import ActivityItem from './components/ActivityItem.jsx'
-import FilterChips from './components/FilterChips.jsx'
+import { Group, GroupLabel, Segmented } from '../../design/List.jsx'
+import { SPRING } from '../../design/springs.js'
 
 /** Mock activity log — real entries would come from scan/advisory/irrigation/expert history. */
 const TIMELINE = [
@@ -102,39 +103,113 @@ export default function HistoryPage() {
     items: filter === 'all' ? group.items : group.items.filter((item) => item.category === filter),
   })).filter((group) => group.items.length > 0)
 
+  const filters = [
+    { key: 'all', label: t('history.fAll') },
+    { key: 'alert', label: t('history.fAlerts') },
+    { key: 'scan', label: t('history.fScans') },
+    { key: 'treatment', label: t('history.fTreatments') },
+    { key: 'weather', label: t('history.fWeather') },
+  ]
+
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="px-4">
-        <div className="flex items-center justify-between gap-2">
-          <p className="text-[11px] text-white/70 drop-shadow-[0_1px_4px_rgba(0,0,0,0.55)]">
-            {t('history.subtitle')}
-          </p>
-          <button
-            type="button"
-            className="flex shrink-0 items-center gap-1.5 rounded-full border border-solid border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
-          >
-            <Icon name="filter" className="h-3.5 w-3.5" />
-            {t('history.filters')}
-            <Icon name="chevronDown" className="h-3 w-3" />
-          </button>
-        </div>
-
-        <div className="mt-3">
-          <FilterChips active={filter} onChange={setFilter} />
-        </div>
+      <div className="pb-3">
+        <p className="px-5 pb-3 text-[13px]" style={{ color: 'var(--ink-mid)' }}>
+          {t('history.subtitle')}
+        </p>
+        <Segmented options={filters} value={filter} onChange={setFilter} />
       </div>
 
-      <div className="flex-1 overflow-y-auto px-4 pt-3 pb-4">
+      <div className="flex-1 overflow-y-auto pt-2 pb-6">
         {groups.length === 0 && (
-          <p className="mt-8 text-center text-xs text-white/50">{t('history.empty')}</p>
+          <p className="mt-10 text-center text-[13px]" style={{ color: 'var(--ink-soft)' }}>
+            {t('history.empty')}
+          </p>
         )}
 
-        {groups.map((group) => (
-          <div key={group.date ?? 'older'} className="mb-4">
-            <p className="mb-2 text-xs font-semibold text-white/65 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">{group.date ? t(group.date) : t('common.daysAgo', { n: 2 })}</p>
-            {group.items.map((item, i) => (
-              <ActivityItem key={item.title + item.time} item={item} isLast={i === group.items.length - 1} />
-            ))}
+        {/*
+          One group per day. The day is the caption above its group rather than a heading
+          inside it, so the eye can run down the left edge and find a date without reading
+          the entries — the same reason a settings screen captions its sections.
+        */}
+        {groups.map((group, gi) => (
+          <div key={group.date ?? 'older'} className={gi ? 'mt-6' : ''}>
+            <GroupLabel>{group.date ? t(group.date) : t('common.daysAgo', { n: 2 })}</GroupLabel>
+            <Group delay={0.04 * gi}>
+              {group.items.map((item, i) => (
+                <motion.div
+                  key={item.title + item.time}
+                  className="relative flex items-start gap-3 px-4 py-3"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ ...SPRING.settle, delay: 0.04 * i }}
+                >
+                  <span
+                    className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px]"
+                    style={{
+                      background:
+                        item.category === 'alert'
+                          ? 'color-mix(in srgb, var(--alarm) 14%, transparent)'
+                          : 'color-mix(in srgb, var(--green) 14%, transparent)',
+                      color: item.category === 'alert' ? 'var(--alarm)' : 'var(--green)',
+                    }}
+                  >
+                    <Icon name={item.icon} className="h-4 w-4" />
+                  </span>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <p className="t-label truncate text-[15px]" style={{ color: 'var(--ink)' }}>
+                        {t(item.title)}
+                      </p>
+                      <span className="t-num shrink-0 text-[11px]" style={{ color: 'var(--ink-soft)' }}>
+                        {item.time}
+                      </span>
+                    </div>
+
+                    {(item.meta || item.metaPrefix) && (
+                      <p className="truncate text-[12px]" style={{ color: 'var(--ink-mid)' }}>
+                        {item.metaPrefix ?? ''}
+                        {item.meta ? t(item.meta) : ''}
+                        {item.metaSuffix ?? ''}
+                      </p>
+                    )}
+
+                    {(item.badge || item.note) && (
+                      <div className="mt-1.5 flex flex-wrap items-center gap-2">
+                        {item.badge && (
+                          <span
+                            className="t-label rounded-full px-2 py-0.5 text-[10px]"
+                            style={{
+                              background:
+                                item.badge.tone === 'red'
+                                  ? 'color-mix(in srgb, var(--alarm) 14%, transparent)'
+                                  : 'color-mix(in srgb, var(--warn) 16%, transparent)',
+                              color: item.badge.tone === 'red' ? 'var(--alarm)' : 'var(--warn)',
+                            }}
+                          >
+                            {t(item.badge.label)}
+                          </span>
+                        )}
+                        {item.note && (
+                          <span className="text-[12px]" style={{ color: 'var(--ink-soft)' }}>
+                            {t(item.note)}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {i !== group.items.length - 1 && (
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-0 bottom-0 left-[60px] h-px"
+                      style={{ background: 'var(--paper-edge)' }}
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </Group>
           </div>
         ))}
       </div>

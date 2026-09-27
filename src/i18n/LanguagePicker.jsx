@@ -6,7 +6,7 @@ import { useLanguage } from './context.js'
  * translations — the list is served by the localization endpoint, so adding a language
  * server-side makes it appear here automatically.
  */
-export default function LanguagePicker({ triggerClassName }) {
+export default function LanguagePicker({ triggerClassName, triggerStyle }) {
   const { language, setLanguage, languages, t } = useLanguage()
   const [open, setOpen] = useState(false)
   const wrapRef = useRef(null)
@@ -42,6 +42,7 @@ export default function LanguagePicker({ triggerClassName }) {
           triggerClassName ??
           'flex items-center gap-1 rounded-full border-2 border-solid border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-600'
         }
+        style={triggerStyle}
       >
         {current.short}
         <span aria-hidden="true" className="text-[9px]">

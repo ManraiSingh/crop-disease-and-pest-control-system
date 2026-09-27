@@ -1,68 +1,97 @@
 import { useNavigate } from 'react-router-dom'
-import { GLASS_SURFACE, SCAN_CARD_BACKGROUND } from '../../lib/glass.js'
+import { SCAN_CARD_BACKGROUND } from '../../lib/glass.js'
 import { useT } from '../../../i18n/context.js'
 import Icon from '../../lib/icons.jsx'
+import { motion } from 'motion/react'
+import { Breathe, Pressable } from '../../../design/motion.jsx'
+import { SPRING } from '../../../design/springs.js'
 
 /**
- * The dashboard's primary call to action, and deliberately the tallest card on Home — it keeps
- * the same glass pane, border and radius as every other card so it reads as part of the set,
- * but takes the height it needs for the vineyard photo to actually be legible behind the copy.
+ * The primary call to action, and the one card allowed to be loud.
  *
- * The content is centred rather than spread: at this height `justify-between` leaves a hole
- * between the copy and the CTA. The scrim is what keeps the white text readable, so don't
- * lighten it without re-checking.
+ * Structure follows the shape language rather than a photo wash: a bone panel notched into
+ * the green ground, display type across it, and the field photograph cropped to an orb that
+ * breaks the panel's right edge. The photo becomes an object on the card instead of a
+ * background behind the text, so the copy never has to fight it for contrast — which also
+ * means it needs no separate light/dark treatment.
  */
 export default function ScanCropCard() {
   const navigate = useNavigate()
   const t = useT()
 
   return (
-    <button
+    <Pressable
+      as="button"
       type="button"
       onClick={() => navigate('/scan')}
-      className={`${GLASS_SURFACE} flex min-h-[270px] w-full flex-col justify-center rounded-3xl p-5 text-left`}
+      scale={0.975}
+      className="relative block w-full overflow-visible rounded-[30px] rounded-tr-none p-5 pr-[38%] text-left"
+      style={{ background: 'var(--bone-50)', boxShadow: 'var(--lift-md)' }}
     >
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${SCAN_CARD_BACKGROUND}')` }}
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.58)_48%,rgba(0,0,0,0.34)_100%)]"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_8%,rgba(255,255,255,0.16),transparent_46%)]"
-      />
+      {/* the corner that cuts back into the ground */}
+      <span aria-hidden="true" className="notch-tr" style={{ '--notch-fill': 'var(--bone-50)' }} />
 
-      <span className="relative flex items-start gap-3.5">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-solid border-white/20 bg-white/12 backdrop-blur-md">
-          <Icon name="scan" className="h-6 w-6 text-lime-200" />
-        </span>
-
-        <span className="min-w-0 flex-1">
-          <span className="block text-[11px] font-bold tracking-wide text-lime-300 uppercase">
-            {t('home.scannerBadge')}
-          </span>
-          <span className="mt-1.5 block text-xl leading-tight font-bold text-white drop-shadow-[0_1px_5px_rgba(0,0,0,0.55)]">
-            {t('home.scanTitle')}
-          </span>
-          <span className="mt-1.5 block text-xs text-white/75">
-            {t('home.scanSubtitle')}
-          </span>
-        </span>
+      <span
+        className="inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-[10px] font-bold tracking-[0.1em] uppercase"
+        style={{
+          background: 'color-mix(in srgb, var(--sprout-500) 20%, transparent)',
+          color: 'var(--canopy-600)',
+          fontFamily: 'var(--font-body)',
+        }}
+      >
+        <Icon name="scan" className="h-3.5 w-3.5" />
+        {t('home.scannerBadge')}
       </span>
 
-      <span className="relative mt-6 flex items-center justify-between gap-3">
-        <span className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-5 py-2.5 text-sm font-bold text-[#12200c] shadow-[0_8px_22px_rgba(163,230,53,0.4)]">
-          <Icon name="scan" className="h-[18px] w-[18px]" />
+      <span
+        className="display mt-3 block text-[30px]"
+        style={{ color: 'var(--ink-900)' }}
+      >
+        {t('home.scanTitle')}
+      </span>
+
+      <span
+        className="mt-2 block max-w-[92%] text-[12px] leading-relaxed"
+        style={{ color: 'var(--ink-500)', fontFamily: 'var(--font-body)' }}
+      >
+        {t('home.scanSubtitle')}
+      </span>
+
+      <Breathe className="mt-5 inline-block">
+        <span
+          className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold"
+          style={{
+            background: 'linear-gradient(140deg, var(--sprout-400), var(--sprout-600))',
+            color: 'var(--canopy-950)',
+            fontFamily: 'var(--font-body)',
+            boxShadow: '0 10px 22px -6px color-mix(in srgb, var(--sprout-500) 60%, transparent)',
+          }}
+        >
+          <Icon name="camera" className="h-[18px] w-[18px]" />
           {t('home.scanCta')}
         </span>
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-solid border-white/20 bg-white/12 text-white backdrop-blur-md">
-          <Icon name="camera" className="h-[18px] w-[18px]" />
-        </span>
-      </span>
-    </button>
+      </Breathe>
+
+      {/* The field, cropped to an orb that breaks the panel edge. */}
+      <motion.span
+        aria-hidden="true"
+        className="absolute top-1/2 right-0 block h-[152px] w-[152px] translate-x-[26%] -translate-y-1/2 rounded-full bg-cover bg-center"
+        style={{
+          backgroundImage: `url('${SCAN_CARD_BACKGROUND}')`,
+          boxShadow: '0 18px 40px -12px rgba(6,20,10,0.5), inset 0 0 0 6px var(--bone-50)',
+        }}
+        initial={{ scale: 0.86, opacity: 0, rotate: -6 }}
+        animate={{ scale: 1, opacity: 1, rotate: 0 }}
+        transition={{ ...SPRING.settle, delay: 0.12 }}
+        whileHover={{ scale: 1.04 }}
+      />
+
+      {/* a ring that echoes the orb, so it reads as a lens rather than a sticker */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 right-0 block h-[188px] w-[188px] translate-x-[26%] -translate-y-1/2 rounded-full"
+        style={{ border: '1px dashed color-mix(in srgb, var(--canopy-500) 45%, transparent)' }}
+      />
+    </Pressable>
   )
 }

@@ -1,0 +1,290 @@
+/* =========================================================
+   LIGHT MODE
+
+   The app is written dark-first with literal colour utilities.
+   Rather than rewrite 270 of them, this remaps that small set
+   under [data-theme='light'] — every surface, text tone, line
+   and accent in one place.
+
+   Inline styles (the glass helpers) can't be overridden from
+   here, so those read the variables below instead.
+========================================================= */
+
+[data-theme] {
+  /* Panels and lines */
+  --panel: rgba(24, 34, 17, 0.58);
+  --panel-strong: rgba(21, 31, 15, 0.96);
+  --panel-line: rgba(255, 255, 255, 0.14);
+  --panel-sheen: linear-gradient(
+    152deg,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.04) 26%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  --panel-shadow: 0 14px 34px rgba(3, 10, 4, 0.5);
+  --panel-rim: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+  /* Accent — lime on dark */
+  --accent: #a3e635;
+  --accent-ink: #12200c;
+
+  /* Chart furniture: the unfilled part of a meter, and months not in season. */
+  --track: rgba(255, 255, 255, 0.14);
+  --track-off: rgba(255, 255, 255, 0.18);
+  --track-off-text: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='light'] {
+  --panel: #ffffff;
+  --panel-strong: #ffffff;
+  --panel-line: rgba(18, 48, 30, 0.09);
+  --panel-sheen: linear-gradient(
+    152deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.4) 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  --panel-shadow: 0 10px 26px rgba(20, 60, 36, 0.09);
+  --panel-rim: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  /* Deep field green reads as the accent on white. */
+  --accent: #14713d;
+  --accent-ink: #ffffff;
+
+  --t1: #123020;
+  --t2: #46614f;
+  --t3: #7a9184;
+
+  --track: rgba(18, 48, 30, 0.13);
+  --track-off: rgba(18, 48, 30, 0.16);
+  --track-off-text: rgba(18, 48, 30, 0.38);
+}
+
+/* ---------------------------------------------------------
+   TEXT
+   The dark theme leans on white at a dozen opacities; those
+   collapse to three readable tones on a light ground.
+--------------------------------------------------------- */
+
+[data-theme='light'] .text-white,
+[data-theme='light'] .text-white\/95,
+[data-theme='light'] .text-white\/85 {
+  color: var(--t1);
+}
+
+[data-theme='light'] .text-white\/80,
+[data-theme='light'] .text-white\/75,
+[data-theme='light'] .text-white\/70,
+[data-theme='light'] .text-white\/65,
+[data-theme='light'] .text-white\/60 {
+  color: var(--t2);
+}
+
+[data-theme='light'] .text-white\/55,
+[data-theme='light'] .text-white\/50,
+[data-theme='light'] .text-white\/45,
+[data-theme='light'] .text-white\/40,
+[data-theme='light'] .text-white\/35,
+[data-theme='light'] .text-white\/30 {
+  color: var(--t3);
+}
+
+/*
+   Placeholders are a pseudo-element, so `placeholder:text-white/40` compiles to a
+   ::placeholder rule that the .text-white/40 selector above can never reach. Target
+   the pseudo-element directly, and do it for every field rather than one utility.
+*/
+[data-theme='light'] input::placeholder,
+[data-theme='light'] textarea::placeholder {
+  color: var(--t3);
+  opacity: 1;
+}
+
+/* Text set on the accent (lime pills) flips to white on green. */
+[data-theme='light'] .text-\[\#12200c\] {
+  color: var(--accent-ink);
+}
+
+/* ---------------------------------------------------------
+   SURFACES
+--------------------------------------------------------- */
+
+[data-theme='light'] .bg-white\/6,
+[data-theme='light'] .bg-white\/8,
+[data-theme='light'] .bg-white\/9,
+[data-theme='light'] .bg-white\/10,
+[data-theme='light'] .bg-white\/11,
+[data-theme='light'] .bg-white\/12,
+[data-theme='light'] .bg-white\/\[0\.06\],
+[data-theme='light'] .bg-white\/\[0\.07\] {
+  background-color: #f4f8f3;
+}
+
+[data-theme='light'] .bg-white\/15,
+[data-theme='light'] .bg-white\/20,
+[data-theme='light'] .bg-white\/25 {
+  background-color: #e8f1e6;
+}
+
+[data-theme='light'] .bg-black\/25,
+[data-theme='light'] .bg-black\/70 {
+  background-color: rgba(18, 48, 30, 0.06);
+}
+
+[data-theme='light'] .border-white\/8,
+[data-theme='light'] .border-white\/10,
+[data-theme='light'] .border-white\/12,
+[data-theme='light'] .border-white\/15,
+[data-theme='light'] .border-white\/20,
+[data-theme='light'] .border-white\/25,
+[data-theme='light'] .border-white\/\[0\.07\] {
+  border-color: var(--panel-line);
+}
+
+/* Hairline dividers in the advisory list. */
+[data-theme='light'] .border-white\/\[0\.07\] {
+  border-color: rgba(18, 48, 30, 0.1);
+}
+
+/* ---------------------------------------------------------
+   ACCENT
+   Lime is a dark-theme colour; on white it becomes the deep
+   field green from the design.
+--------------------------------------------------------- */
+
+/* Solid lime becomes the deep field green; the ink on it flips to white. */
+[data-theme='light'] .bg-lime-400,
+[data-theme='light'] .bg-lime-300,
+[data-theme='light'] .bg-lime-400\/90 {
+  background-color: var(--accent);
+  box-shadow: 0 6px 16px rgba(20, 113, 61, 0.28);
+}
+
+/* Lime washes become a pale green tint. */
+[data-theme='light'] .bg-lime-400\/25,
+[data-theme='light'] .bg-lime-400\/20,
+[data-theme='light'] .bg-lime-400\/18,
+[data-theme='light'] .bg-lime-400\/15,
+[data-theme='light'] .bg-lime-400\/9,
+[data-theme='light'] .bg-lime-300\/20,
+[data-theme='light'] .bg-lime-300\/15 {
+  background-color: rgba(20, 113, 61, 0.1);
+}
+
+[data-theme='light'] .text-lime-100,
+[data-theme='light'] .text-lime-200,
+[data-theme='light'] .text-lime-300,
+[data-theme='light'] .text-lime-400,
+[data-theme='light'] .text-lime-300\/70 {
+  color: var(--accent);
+}
+
+[data-theme='light'] .border-lime-200,
+[data-theme='light'] .border-lime-200\/25,
+[data-theme='light'] .border-lime-200\/30,
+[data-theme='light'] .border-lime-300,
+[data-theme='light'] .border-lime-300\/40,
+[data-theme='light'] .border-lime-300\/45,
+[data-theme='light'] .border-lime-300\/50,
+[data-theme='light'] .border-lime-300\/60,
+[data-theme='light'] .border-lime-300\/70 {
+  border-color: rgba(20, 113, 61, 0.35);
+}
+
+/* Text shadows exist to lift white type off a photo; on white they only smudge. */
+[data-theme='light'] [class*='drop-shadow-'] {
+  filter: none;
+}
+
+/* ---------------------------------------------------------
+   GLASS TOKENS
+   glass.js bakes its colours into class strings, so those
+   specific values are remapped here rather than at source.
+--------------------------------------------------------- */
+
+[data-theme='light'] .bg-\[\#2c3a1c\]\/55,
+[data-theme='light'] .bg-\[\#1d2814\]\/72,
+[data-theme='light'] .bg-\[\#1d2814\]\/54,
+[data-theme='light'] .bg-\[\#1d2814\]\/80,
+[data-theme='light'] .bg-\[\#1d2814\]\/85,
+[data-theme='light'] .bg-\[\#12200c\]\/70 {
+  background-color: var(--panel);
+}
+
+/* Menus float above the page, so they need a solid ground and a real edge —
+   the translucent panel that works over a photo reads as a smudge on white. */
+[data-theme='light'] .bg-\[\#1d2814\]\/85 {
+  background-color: #ffffff;
+  border-color: var(--panel-line);
+  box-shadow: 0 16px 38px rgba(20, 60, 36, 0.16);
+}
+
+[data-theme='light'] .shadow-\[0_18px_40px_rgba\(6\,20\,12\,0\.4\)\],
+[data-theme='light'] .shadow-\[0_18px_40px_rgba\(6\,20\,12\,0\.45\)\],
+[data-theme='light'] .shadow-\[0_16px_36px_rgba\(4\,14\,6\,0\.5\)\] {
+  box-shadow: var(--panel-shadow);
+}
+
+/* The sheen overlay is a white highlight for dark glass; on white it muddies. */
+[data-theme='light'] .bg-\[radial-gradient\(circle_at_16\%_10\%\,rgba\(255\,255\,255\,0\.16\)\,transparent_46\%\)\2c radial-gradient\(circle_at_88\%_88\%\,rgba\(0\,0\,0\,0\.32\)\,transparent_55\%\)\] {
+  background: none;
+}
+
+/* ---------------------------------------------------------
+   CARDS THAT CARRY THEIR OWN DARK GROUND
+
+   A photo card or a red alert panel keeps its dark backdrop in
+   both themes, so white type stays correct there. `.on-dark`
+   marks those regions and opts them out of the remap above.
+--------------------------------------------------------- */
+
+[data-theme='light'] .on-dark [class*='text-white'] {
+  color: #ffffff;
+}
+
+[data-theme='light'] .on-dark [class*='text-lime'] {
+  color: #d9f99d;
+}
+
+[data-theme='light'] .on-dark [class*='bg-white\/'] {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='light'] .on-dark [class*='border-white\/'] {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='light'] .on-dark [class*='drop-shadow-'] {
+  /* Left to the element's own shadow: over a photograph it is what keeps the
+     type legible now that the scrim is light enough to see the field through. */
+  filter: none;
+}
+
+/* ---------------------------------------------------------
+   STATUS TINTS
+   Pale-on-dark badge colours need darkening to stay legible
+   on white. Inside .on-dark they keep the pale versions.
+--------------------------------------------------------- */
+
+[data-theme='light'] .text-amber-100,
+[data-theme='light'] .text-amber-200 {
+  color: #8a5a06;
+}
+
+[data-theme='light'] .text-red-100,
+[data-theme='light'] .text-red-200,
+[data-theme='light'] .text-red-300 {
+  color: #a02f2a;
+}
+
+[data-theme='light'] .bg-red-500\/10,
+[data-theme='light'] .bg-red-400\/12,
+[data-theme='light'] .bg-red-400\/15 {
+  background-color: rgba(190, 60, 54, 0.09);
+}
+
+/* The advisory scrim exists to dim the farm photo behind white type. Light mode
+   has no photo to dim, and leaving it in turns the page dark from the middle down. */
+[data-theme='light'] .page-scrim {
+  display: none;
+}

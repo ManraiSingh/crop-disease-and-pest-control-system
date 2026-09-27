@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import AppLaunch from './AppLaunch.jsx'
 import PhoneFrame from './PhoneFrame.jsx'
 
 /** PhoneFrame's own fixed layout box — everything inside it is positioned against these. */
@@ -42,6 +43,8 @@ export default function PhoneDemoLayout() {
       >
         <div style={{ transform: `scale(${scale})` }}>
           <PhoneFrame>
+            {/* Sibling of the outlet, so the screen is already rendered behind it. */}
+            <AppLaunch />
             <Outlet />
           </PhoneFrame>
         </div>

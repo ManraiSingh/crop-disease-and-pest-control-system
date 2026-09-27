@@ -24,6 +24,34 @@ const PATHS = {
       <path d="M5.5 21c.5-3.5 2.7-5.3 6.5-5.3s6 1.8 6.5 5.3" />
     </>
   ),
+  speaker: (
+    <>
+      <path d="M11 5 6.5 8.8H3.5v6.4h3L11 19V5Z" />
+      <path d="M15.2 9.4a3.7 3.7 0 0 1 0 5.2M18 6.6a7.6 7.6 0 0 1 0 10.8" />
+    </>
+  ),
+  stopCircle: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <rect x="9" y="9" width="6" height="6" rx="1.2" />
+    </>
+  ),
+  moon: <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z" />,
+  arrowUp: <path d="M12 19.5v-15M5.5 11 12 4.5l6.5 6.5" />,
+  comment: (
+    <>
+      <path d="M20.5 12.2c0 4-3.8 7.2-8.5 7.2-1 0-2-.15-2.9-.42L4 20.5l1.6-3.7A6.9 6.9 0 0 1 3.5 12.2C3.5 8.2 7.3 5 12 5s8.5 3.2 8.5 7.2Z" />
+    </>
+  ),
+  send: <path d="M20.5 3.5 10.8 13.2M20.5 3.5l-6.2 17-3.5-7.3-7.3-3.5 17-6.2Z" />,
+  community: (
+    <>
+      <circle cx="9" cy="8.5" r="3" />
+      <path d="M3 20c.5-3.2 2.5-4.9 6-4.9s5.5 1.7 6 4.9" />
+      <path d="M16.5 5.9a3 3 0 0 1 0 5.2" />
+      <path d="M18.2 14.4c1.7.6 2.8 1.9 3.1 3.9" />
+    </>
+  ),
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
   bell: (
     <>
@@ -195,9 +223,36 @@ const PATHS = {
       <path d="M15 6.5h5.5V12" />
     </>
   ),
+  store: (
+    <>
+      <path d="M4 9.5V19a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19V9.5" />
+      <path d="M3 9.5 4.8 4.4A1.5 1.5 0 0 1 6.2 3.5h11.6a1.5 1.5 0 0 1 1.4 1l1.8 5" />
+      <path d="M3 9.5h18M9.6 20.5v-5.2h4.8v5.2" />
+    </>
+  ),
+  navigation: <path d="M20.5 3.5 3.9 10.2a.6.6 0 0 0 .05 1.12l6.4 2.3 2.3 6.4a.6.6 0 0 0 1.12.05L20.5 3.5Z" />,
+  star: (
+    <path
+      fill="currentColor"
+      stroke="none"
+      d="M12 3.6l2.4 5.02 5.5.72-4.03 3.8 1.02 5.46L12 15.98l-4.89 2.62 1.02-5.46L4.1 9.34l5.5-.72L12 3.6Z"
+    />
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="M15.8 15.8 20.5 20.5" />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.2V12l3.2 1.9" />
+    </>
+  ),
 }
 
-export default function Icon({ name, className = '' }) {
+export default function Icon({ name, className = '', style }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -208,6 +263,7 @@ export default function Icon({ name, className = '' }) {
       strokeLinejoin="round"
       aria-hidden="true"
       className={className}
+      style={style}
     >
       {PATHS[name]}
     </svg>

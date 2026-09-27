@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'krishiai.profile'
+const STORAGE_KEY = 'cropcare.profile'
 
 /**
  * The onboarding flow carries its data forward via React Router's `location.state`, which

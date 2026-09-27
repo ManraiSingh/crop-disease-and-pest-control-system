@@ -40,7 +40,7 @@ export default function LandingPage() {
             <Leaf />
           </span>
           <span>
-            KRISHI<span>AI</span>
+            CROP<span>CARE</span>
           </span>
         </a>
         <div className="topbar-right">
@@ -122,7 +122,7 @@ export default function LandingPage() {
           </div>
         </aside>
       </section>
-      <section className="features" aria-label="Krishi AI benefits">
+      <section className="features" aria-label="Crop Care benefits">
         <article>
           <span className="feature-icon">◎</span>
           <div>

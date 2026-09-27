@@ -1,7 +1,7 @@
 
 /* Keep the main decisions visible in the center of the screen. */
 .farmer{right:4vw!important;bottom:-3vh!important;height:min(91vh,820px)!important}.features{bottom:clamp(86px,15vh,160px)!important}@media(max-width:1100px){.farmer{right:-5vw!important}}@media(max-height:700px) and (min-width:700px){.farmer{bottom:-4vh!important}.features{bottom:70px!important}}
-*{box-sizing:border-box}body{margin:0;color:#153226;font-family:'Poppins',sans-serif;overflow:hidden}.app-shell{position:relative;isolation:isolate;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:#aee5df url('/farm-landscape.png') center/cover no-repeat}.app-shell:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(244,255,253,.93) 0%,rgba(245,255,252,.72) 38%,rgba(218,251,247,.04) 74%),linear-gradient(180deg,rgba(11,66,77,.09),transparent 42%,rgba(11,78,47,.18))}.topbar{height:88px;width:min(1320px,86vw);margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;color:#0b543a;font:800 23px 'Poppins';letter-spacing:.3px;text-decoration:none}.brand>span:last-child span{color:#4dbd67}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#0d6e47;color:#eaffde;box-shadow:0 9px 18px #13644331}.brand-mark svg{width:25px}.topbar-right{display:flex;align-items:center;gap:23px;font-size:13px;font-weight:600}.online{display:flex;align-items:center;gap:7px;background:#f6fffa9e;border:1px solid #ffffffaa;padding:9px 12px;border-radius:100px}.online i{width:7px;height:7px;border-radius:50%;background:#38bd6b;box-shadow:0 0 0 4px #42ca6829}.language{border:0;background:transparent;color:#234536;font:600 13px 'Poppins';cursor:pointer}.language b{margin-left:4px}.hero{position:relative;width:min(1320px,86vw);height:calc(100vh - 88px);height:calc(100svh - 88px);margin:auto;padding-top:clamp(28px,7vh,84px)}.copy{width:min(525px,43vw)}.eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.35px;color:#227954}.pulse{width:8px;height:8px;border-radius:50%;background:#4dbd67;box-shadow:0 0 0 5px #4dbd6726}.copy h1{font:800 clamp(44px,5vw,76px)/1.03 'Poppins';letter-spacing:-2.5px;margin:17px 0 20px;color:#123d2d}.copy h1 em{font-style:normal;color:#0b8654}.copy>p{max-width:460px;font-size:clamp(16px,1.35vw,19px);line-height:1.55;color:#406355;margin:0}.actions{display:flex;align-items:center;gap:24px;margin-top:31px}.primary{border:0;border-radius:13px;background:#08764b;color:#fff;padding:16px 18px 16px 22px;min-width:195px;display:flex;align-items:center;justify-content:space-between;font:700 15px 'Poppins';box-shadow:0 12px 22px #07543738;cursor:pointer;transition:.2s}.primary:hover{transform:translateY(-2px);background:#076640}.primary svg,.features article>svg{width:19px}.play{border:0;background:transparent;color:#174f3c;font:600 14px 'Poppins';cursor:pointer;display:flex;align-items:center;gap:9px}.play span{display:grid;place-items:center;width:30px;height:30px;border:1px solid #3e8a6c;border-radius:50%;font-size:10px;padding-left:2px}.toast{margin-top:15px;font-size:13px;color:#176b48;font-weight:600}.toast span{display:inline-grid;place-items:center;width:18px;height:18px;margin-right:6px;border-radius:50%;background:#38b86a;color:white}.trust{display:flex;align-items:center;gap:11px;margin-top:34px;font-size:12px;line-height:1.4;color:#5a766a}.trust b{color:#1e563f}.avatars{display:flex}.avatars i{font-style:normal;display:grid;place-items:center;width:27px;height:27px;margin-left:-7px;border:2px solid #eaf9f3;border-radius:50%;font:bold 9px 'Poppins';color:white;background:#d3735a}.avatars i:first-child{margin-left:0;background:#567fb3}.avatars i:nth-child(2){background:#b38356}.avatars i:nth-child(3){background:#5caa7e}.avatars i:last-child{background:#e6f6ee;color:#247353}.insight-card{position:absolute;z-index:3;top:clamp(40px,12vh,135px);left:min(39vw,590px);width:285px;padding:17px;background:#fafffcdd;backdrop-filter:blur(13px);border:1px solid #ffffffd9;border-radius:18px;box-shadow:0 18px 45px #20665426}.insight-head{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;letter-spacing:.8px;color:#407363}.insight-head span{display:flex;align-items:center;gap:5px}.insight-head svg{width:17px;color:#14865b}.insight-head b{font-size:9px;color:#169859;background:#ddf7e8;padding:4px 7px;border-radius:10px}.score{display:flex;align-items:center;gap:12px;padding:15px 0}.ring{display:grid;place-content:center;width:63px;height:63px;border-radius:50%;background:radial-gradient(closest-side,#fafffc 75%,transparent 76%),conic-gradient(#39b872 86%,#dff1e6 0)}.ring strong{font:700 19px 'Poppins';text-align:center}.ring small{text-align:center;font-size:8px;color:#7b978b}.score b{font-size:13px}.score p{font-size:10px;line-height:1.35;color:#6b887c;margin:4px 0 0}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ddece5;padding-top:11px}.metrics div{display:grid;gap:3px;border-right:1px solid #deede6;padding-left:8px}.metrics div:first-child{padding-left:0}.metrics div:last-child{border:0}.metrics span{color:#20a36a;font-size:14px}.metrics small{font-size:8px;color:#799286}.metrics b{font-size:10px}.farmer{position:absolute;z-index:2;right:-2vw;bottom:-9vh;height:min(88vh,790px);width:auto;filter:drop-shadow(0 20px 16px #0b4d2a4d)}.features{position:absolute;z-index:4;bottom:clamp(18px,5vh,55px);left:calc((100vw - min(1320px,86vw))/2);display:flex;gap:14px}.features article{width:264px;padding:16px 15px;display:flex;align-items:center;gap:10px;border:1px solid #ffffffaa;border-radius:13px;background:#fafffcb8;backdrop-filter:blur(9px);box-shadow:0 9px 20px #1a63441a}.feature-icon{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:12px;background:#d9f4e0;color:#0d8352;font:bold 20px 'Poppins'}.features b{font-size:14px}.features p{margin:3px 0 0;font-size:12px;color:#638072}.features article>svg{margin-left:auto;color:#358463;width:17px}@media(max-width:1100px){.insight-card{display:none}.farmer{right:-16vw;opacity:.78}.features article{width:232px}}@media(max-height:700px) and (min-width:700px){.topbar{height:64px}.hero{height:calc(100svh - 64px);padding-top:25px}.copy h1{font-size:clamp(38px,4.2vw,55px);margin:10px 0 12px}.copy>p{font-size:15px}.actions{margin-top:19px}.trust{margin-top:19px}.farmer{height:82vh;bottom:-7vh}.features{bottom:13px}.features article{padding:12px;width:214px}.insight-card{top:35px}}@media(max-width:699px){body{overflow:auto}.app-shell{height:auto;min-height:100svh}.topbar{height:70px;width:90vw}.online{display:none}.hero{height:auto;min-height:calc(100svh - 70px);width:90vw;padding:38px 0 230px}.copy{width:100%}.copy h1{font-size:48px}.farmer{height:390px!important;right:-35vw!important;bottom:-17px!important;opacity:.7}.features{position:relative;left:auto;bottom:auto;width:90vw;margin:-200px auto 28px;display:grid;grid-template-columns:1fr}.features article{width:100%}}
+*{box-sizing:border-box}body{margin:0;color:#153226;font-family:'Plus Jakarta Sans',sans-serif;overflow:hidden}.app-shell{position:relative;isolation:isolate;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:#aee5df url('/farm-landscape.png') center/cover no-repeat}.app-shell:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(244,255,253,.93) 0%,rgba(245,255,252,.72) 38%,rgba(218,251,247,.04) 74%),linear-gradient(180deg,rgba(11,66,77,.09),transparent 42%,rgba(11,78,47,.18))}.topbar{height:88px;width:min(1320px,86vw);margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;color:#0b543a;font:800 23px 'Plus Jakarta Sans';letter-spacing:.3px;text-decoration:none}.brand>span:last-child span{color:#4dbd67}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#0d6e47;color:#eaffde;box-shadow:0 9px 18px #13644331}.brand-mark svg{width:25px}.topbar-right{display:flex;align-items:center;gap:23px;font-size:13px;font-weight:600}.online{display:flex;align-items:center;gap:7px;background:#f6fffa9e;border:1px solid #ffffffaa;padding:9px 12px;border-radius:100px}.online i{width:7px;height:7px;border-radius:50%;background:#38bd6b;box-shadow:0 0 0 4px #42ca6829}.language{border:0;background:transparent;color:#234536;font:600 13px 'Plus Jakarta Sans';cursor:pointer}.language b{margin-left:4px}.hero{position:relative;width:min(1320px,86vw);height:calc(100vh - 88px);height:calc(100svh - 88px);margin:auto;padding-top:clamp(28px,7vh,84px)}.copy{width:min(525px,43vw)}.eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.35px;color:#227954}.pulse{width:8px;height:8px;border-radius:50%;background:#4dbd67;box-shadow:0 0 0 5px #4dbd6726}.copy h1{font:800 clamp(44px,5vw,76px)/1.03 'Plus Jakarta Sans';letter-spacing:-2.5px;margin:17px 0 20px;color:#123d2d}.copy h1 em{font-style:normal;color:#0b8654}.copy>p{max-width:460px;font-size:clamp(16px,1.35vw,19px);line-height:1.55;color:#406355;margin:0}.actions{display:flex;align-items:center;gap:24px;margin-top:31px}.primary{border:0;border-radius:13px;background:#08764b;color:#fff;padding:16px 18px 16px 22px;min-width:195px;display:flex;align-items:center;justify-content:space-between;font:700 15px 'Plus Jakarta Sans';box-shadow:0 12px 22px #07543738;cursor:pointer;transition:.2s}.primary:hover{transform:translateY(-2px);background:#076640}.primary svg,.features article>svg{width:19px}.play{border:0;background:transparent;color:#174f3c;font:600 14px 'Plus Jakarta Sans';cursor:pointer;display:flex;align-items:center;gap:9px}.play span{display:grid;place-items:center;width:30px;height:30px;border:1px solid #3e8a6c;border-radius:50%;font-size:10px;padding-left:2px}.toast{margin-top:15px;font-size:13px;color:#176b48;font-weight:600}.toast span{display:inline-grid;place-items:center;width:18px;height:18px;margin-right:6px;border-radius:50%;background:#38b86a;color:white}.trust{display:flex;align-items:center;gap:11px;margin-top:34px;font-size:12px;line-height:1.4;color:#5a766a}.trust b{color:#1e563f}.avatars{display:flex}.avatars i{font-style:normal;display:grid;place-items:center;width:27px;height:27px;margin-left:-7px;border:2px solid #eaf9f3;border-radius:50%;font:bold 9px 'Plus Jakarta Sans';color:white;background:#d3735a}.avatars i:first-child{margin-left:0;background:#567fb3}.avatars i:nth-child(2){background:#b38356}.avatars i:nth-child(3){background:#5caa7e}.avatars i:last-child{background:#e6f6ee;color:#247353}.insight-card{position:absolute;z-index:3;top:clamp(40px,12vh,135px);left:min(39vw,590px);width:285px;padding:17px;background:#fafffcdd;backdrop-filter:blur(13px);border:1px solid #ffffffd9;border-radius:18px;box-shadow:0 18px 45px #20665426}.insight-head{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;letter-spacing:.8px;color:#407363}.insight-head span{display:flex;align-items:center;gap:5px}.insight-head svg{width:17px;color:#14865b}.insight-head b{font-size:9px;color:#169859;background:#ddf7e8;padding:4px 7px;border-radius:10px}.score{display:flex;align-items:center;gap:12px;padding:15px 0}.ring{display:grid;place-content:center;width:63px;height:63px;border-radius:50%;background:radial-gradient(closest-side,#fafffc 75%,transparent 76%),conic-gradient(#39b872 86%,#dff1e6 0)}.ring strong{font:700 19px 'Plus Jakarta Sans';text-align:center}.ring small{text-align:center;font-size:8px;color:#7b978b}.score b{font-size:13px}.score p{font-size:10px;line-height:1.35;color:#6b887c;margin:4px 0 0}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ddece5;padding-top:11px}.metrics div{display:grid;gap:3px;border-right:1px solid #deede6;padding-left:8px}.metrics div:first-child{padding-left:0}.metrics div:last-child{border:0}.metrics span{color:#20a36a;font-size:14px}.metrics small{font-size:8px;color:#799286}.metrics b{font-size:10px}.farmer{position:absolute;z-index:2;right:-2vw;bottom:-9vh;height:min(88vh,790px);width:auto;filter:drop-shadow(0 20px 16px #0b4d2a4d)}.features{position:absolute;z-index:4;bottom:clamp(18px,5vh,55px);left:calc((100vw - min(1320px,86vw))/2);display:flex;gap:14px}.features article{width:264px;padding:16px 15px;display:flex;align-items:center;gap:10px;border:1px solid #ffffffaa;border-radius:13px;background:#fafffcb8;backdrop-filter:blur(9px);box-shadow:0 9px 20px #1a63441a}.feature-icon{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:12px;background:#d9f4e0;color:#0d8352;font:bold 20px 'Plus Jakarta Sans'}.features b{font-size:14px}.features p{margin:3px 0 0;font-size:12px;color:#638072}.features article>svg{margin-left:auto;color:#358463;width:17px}@media(max-width:1100px){.insight-card{display:none}.farmer{right:-16vw;opacity:.78}.features article{width:232px}}@media(max-height:700px) and (min-width:700px){.topbar{height:64px}.hero{height:calc(100svh - 64px);padding-top:25px}.copy h1{font-size:clamp(38px,4.2vw,55px);margin:10px 0 12px}.copy>p{font-size:15px}.actions{margin-top:19px}.trust{margin-top:19px}.farmer{height:82vh;bottom:-7vh}.features{bottom:13px}.features article{padding:12px;width:214px}.insight-card{top:35px}}@media(max-width:699px){body{overflow:auto}.app-shell{height:auto;min-height:100svh}.topbar{height:70px;width:90vw}.online{display:none}.hero{height:auto;min-height:calc(100svh - 70px);width:90vw;padding:38px 0 230px}.copy{width:100%}.copy h1{font-size:48px}.farmer{height:390px!important;right:-35vw!important;bottom:-17px!important;opacity:.7}.features{position:relative;left:auto;bottom:auto;width:90vw;margin:-200px auto 28px;display:grid;grid-template-columns:1fr}.features article{width:100%}}
 
 /* Border reset, the one piece of Tailwind's preflight we actually need.
    Tailwind is loaded without preflight (see shared/theme.css), so `border-width` defaults to
@@ -22,5 +22,275 @@ h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dt, dd, fieldset { margin: 0;
    Tailwind is loaded without its preflight (see shared/theme.css), so form controls keep the
    browser's own font unless we tell them to inherit; without this the weather day <select>,
    every button and every onboarding input fall back to the system UI font. */
-body { font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif; }
+body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
 button, input, select, textarea, optgroup { font-family: inherit; }
+
+/* =========================================================
+   TAP FEEDBACK
+
+   Every control springs under the finger and bounces back.
+   The press is quick and linear-ish; the release runs on an
+   overshooting curve, which is what reads as "bubbly" rather
+   than as a plain shrink.
+
+   Applied globally so the whole product feels the same, and
+   dropped entirely for anyone who asks for reduced motion.
+========================================================= */
+
+button,
+[role='button'],
+select,
+a.tap {
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 180ms ease-out;
+}
+
+button:active,
+[role='button']:active,
+select:active,
+a.tap:active {
+  transform: scale(0.955);
+  filter: brightness(1.06);
+  transition:
+    transform 90ms cubic-bezier(0.4, 0, 1, 1),
+    filter 90ms ease-out;
+}
+
+/* Text fields shouldn't shrink, but they should light up on focus. */
+input,
+textarea {
+  transition:
+    border-color 180ms ease-out,
+    box-shadow 220ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button,
+  [role='button'],
+  select,
+  a.tap,
+  input,
+  textarea {
+    transition: none;
+  }
+
+  button:active,
+  [role='button']:active,
+  select:active,
+  a.tap:active {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* =========================================================
+   ENTRANCE
+
+   The welcome screen introduces itself one line at a time
+   rather than appearing all at once. Delays are set per
+   element at the call site, so the order lives with the
+   markup it describes.
+========================================================= */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise-in 640ms cubic-bezier(0.22, 0.8, 0.28, 1) both;
+  /* Order lives with the markup: set --d on the element to stagger it. */
+  animation-delay: var(--d, 0ms);
+}
+
+/* The photograph settles rather than slides — it is the ground, not a line of text. */
+
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.photo-in {
+  animation: photo-in 1100ms cubic-bezier(0.22, 0.8, 0.28, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .stagger > *,
+  .photo-in,
+  .launch-mark,
+  .launch-mark svg path,
+  .launch-word,
+  .launch-sub {
+    animation: none;
+  }
+
+  /* The launch screen itself is skipped in JS; these are belt and braces. */
+  .launch-ring,
+  .launch-sweep {
+    display: none;
+  }
+}
+
+/* =========================================================
+   STAGGERED LISTS
+
+   Children of a `.stagger` arrive one after another. The delay
+   is capped a few rows in: past that the wait stops reading as
+   rhythm and starts reading as lag, and a long feed would take
+   several seconds to finish appearing.
+========================================================= */
+
+.stagger > * {
+  animation: rise-in 560ms cubic-bezier(0.22, 0.8, 0.28, 1) both;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 55ms; }
+.stagger > *:nth-child(3) { animation-delay: 110ms; }
+.stagger > *:nth-child(4) { animation-delay: 165ms; }
+.stagger > *:nth-child(5) { animation-delay: 220ms; }
+.stagger > *:nth-child(6) { animation-delay: 275ms; }
+.stagger > *:nth-child(n + 7) { animation-delay: 320ms; }
+
+/* =========================================================
+   APP LAUNCH
+
+   The sequence that plays once when the app opens, over the
+   first screen. It is a mark being drawn, a scan pulsing out
+   from it, and the name arriving — then the whole thing lifts
+   off the screen that was already there underneath.
+
+   All of it is timed from a single origin so the beats stay in
+   step; changing one delay does not require re-tuning the rest.
+========================================================= */
+
+.launch {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(122% 78% at 50% 38%, #1a2712 0%, #0b1108 58%, #070b05 100%);
+  animation: launch-out 560ms cubic-bezier(0.7, 0, 0.84, 0) 1500ms both;
+}
+
+@keyframes launch-out {
+  to {
+    opacity: 0;
+    transform: scale(1.07);
+    filter: blur(3px);
+  }
+}
+
+/* The scan going out from the mark. Two rings, half a beat apart. */
+
+.launch-ring {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  border: 2px solid rgba(163, 230, 53, 0.45);
+  animation: launch-ring 1500ms cubic-bezier(0.2, 0.7, 0.3, 1) 260ms infinite;
+}
+
+.launch-ring:nth-child(2) {
+  animation-delay: 720ms;
+}
+
+@keyframes launch-ring {
+  from {
+    transform: scale(0.62);
+    opacity: 0.85;
+  }
+  to {
+    transform: scale(3.6);
+    opacity: 0;
+  }
+}
+
+/* The mark itself lands with an overshoot, then the leaf draws inside it. */
+
+.launch-mark {
+  animation: launch-mark 760ms cubic-bezier(0.2, 1.5, 0.4, 1) 120ms both;
+}
+
+@keyframes launch-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.36);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.launch-mark svg path {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+  animation: launch-draw 760ms cubic-bezier(0.32, 0.9, 0.36, 1) 360ms both;
+}
+
+@keyframes launch-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* A single pass of light across the screen, on the beat after the leaf finishes. */
+
+.launch-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(163, 230, 53, 0.14) 50%,
+    transparent 58%
+  );
+  transform: translateX(-130%);
+  animation: launch-sweep 980ms ease-in-out 820ms both;
+}
+
+@keyframes launch-sweep {
+  to {
+    transform: translateX(130%);
+  }
+}
+
+/* The name arrives; the line under it settles out of a wide track. */
+
+.launch-word {
+  animation: rise-in 640ms cubic-bezier(0.22, 0.8, 0.28, 1) 700ms both;
+}
+
+.launch-sub {
+  animation: launch-sub 900ms cubic-bezier(0.22, 0.8, 0.28, 1) 860ms both;
+}
+
+@keyframes launch-sub {
+  from {
+    opacity: 0;
+    letter-spacing: 0.55em;
+  }
+  to {
+    opacity: 0.5;
+    letter-spacing: 0.26em;
+  }
+}

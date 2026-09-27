@@ -2,7 +2,7 @@ import { GLASS_SHEEN, GLASS_SURFACE } from '../../lib/glass.js'
 import Icon from '../../lib/icons.jsx'
 import avatar from '../assets/avatar.jpg'
 import { useT } from '../../../i18n/context.js'
-import { formatLocation, formatName } from '../format.js'
+import { formatName, formatPlace } from '../format.js'
 
 /**
  * Centred profile card — avatar, name, location and status stack down the middle, which is what
@@ -28,7 +28,7 @@ export default function ProfileHeader({ profile }) {
         </span>
         <span className="flex items-center gap-1 text-xs text-white/70">
           <Icon name="pin" className="h-3.5 w-3.5 text-lime-300" />
-          {formatLocation(profile?.location, t('profile.noLocation'))}
+          {formatPlace(profile, t('profile.noLocation'))}
         </span>
         <span className="mt-0.5 inline-flex items-center gap-1 rounded-full border border-solid border-lime-200/30 bg-lime-300/20 px-3 py-1.5 text-[11px] font-bold text-lime-100">
           <Icon name="checkCircle" className="h-3.5 w-3.5" />

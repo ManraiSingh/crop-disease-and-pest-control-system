@@ -1,16 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { LanguageProvider } from './i18n/LanguageProvider.jsx'
 import AdvisoryPage from './app/advisory/AdvisoryPage.jsx'
+import CommunityPage from './app/community/CommunityPage.jsx'
+import PostDetailPage from './app/community/PostDetailPage.jsx'
 import HistoryPage from './app/history/HistoryPage.jsx'
 import HomePage from './app/home/HomePage.jsx'
 import AppShell from './app/layout/AppShell.jsx'
 import ProfilePage from './app/profile/ProfilePage.jsx'
 import ScanPage from './app/scan/ScanPage.jsx'
+import SeedMarketPage from './app/seeds/SeedMarketPage.jsx'
 import LandingPage from './landing/LandingPage.jsx'
 import AboutYourself from './onboarding/pages/AboutYourself.jsx'
 import AddField from './onboarding/pages/AddField.jsx'
 import AllSet from './onboarding/pages/AllSet.jsx'
 import CropDetails from './onboarding/pages/CropDetails.jsx'
+import PhoneLogin from './onboarding/pages/PhoneLogin.jsx'
 import Welcome from './onboarding/pages/Welcome.jsx'
 import PhoneDemoLayout from './shared/PhoneDemoLayout.jsx'
 
@@ -23,6 +27,7 @@ export default function App() {
 
           <Route element={<PhoneDemoLayout />}>
             <Route path="/onboarding/welcome" element={<Welcome />} />
+            <Route path="/onboarding/phone" element={<PhoneLogin />} />
             <Route path="/onboarding/about-you" element={<AboutYourself />} />
             <Route path="/onboarding/add-field" element={<AddField />} />
             <Route path="/onboarding/crop" element={<CropDetails />} />
@@ -30,8 +35,11 @@ export default function App() {
 
             <Route element={<AppShell />}>
               <Route path="/home" element={<HomePage />} />
+              <Route path="/community" element={<CommunityPage />} />
+              <Route path="/community/:postId" element={<PostDetailPage />} />
               <Route path="/advisory" element={<AdvisoryPage />} />
               <Route path="/scan" element={<ScanPage />} />
+              <Route path="/seeds" element={<SeedMarketPage />} />
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>

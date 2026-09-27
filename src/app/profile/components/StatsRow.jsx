@@ -13,7 +13,11 @@ export default function StatsRow({ profile }) {
 
   const stats = [
     { icon: 'field', value: profile?.fieldName ? '1' : '0', label: 'profile.fields' },
-    { icon: 'leaf', value: profile?.crop ? '1' : '0', label: 'profile.crops' },
+    {
+      icon: 'leaf',
+      value: String(profile?.crops?.length ?? (profile?.crop ? 1 : 0)),
+      label: 'profile.crops',
+    },
     { icon: 'calendar', value: formatDaysWithUs(profile?.joinedAt), label: 'profile.daysWithUs' },
   ]
 

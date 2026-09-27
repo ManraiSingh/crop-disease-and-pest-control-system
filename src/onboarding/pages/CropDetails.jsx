@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useT } from '../../i18n/context.js'
+import CropPicker from '../components/CropPicker.jsx'
 import OnboardingShell from '../components/OnboardingShell.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
 import SelectField from '../components/SelectField.jsx'
-
-const CROP_KEYS = [
-  'tomato', 'rice', 'wheat', 'cotton', 'sugarcane',
-  'onion', 'soybean', 'maize', 'chilli', 'potato',
-]
+/* One list of crops for the whole app — adding one here would only go stale. */
+import { CROP_KEYS } from '../../app/advisory/cropKnowledge.js'
 
 const VARIETY_KEYS = [
   { value: 'local', tKey: 'onboarding.vLocal' },
@@ -20,20 +18,40 @@ const VARIETY_KEYS = [
 export default function CropDetails() {
   const navigate = useNavigate()
   const { state } = useLocation()
-  const [crop, setCrop] = useState(state?.crop ?? '')
-  const [variety, setVariety] = useState(state?.variety ?? '')
   const t = useT()
 
-  const crops = CROP_KEYS.map((key) => ({ value: key, label: t(`crops.${key}`) }))
+  /*
+    Farmers grow more than one thing, so crops is a list. Selection order is
+    meaningful: the first pick is the main crop, which is what Home and the
+    government portal show as the primary. Older profiles only carry a single
+    `crop`, so seed from that when there is no list yet.
+  */
+  const [crops, setCrops] = useState(
+    state?.crops ?? (state?.crop ? [state.crop] : []),
+  )
+  const [variety, setVariety] = useState(state?.variety ?? '')
+
   const varieties = [
     { value: '', label: t('onboarding.selectVariety') },
     ...VARIETY_KEYS.map((v) => ({ value: v.value, label: t(v.tKey) })),
   ]
 
+  function toggleCrop(key) {
+    setCrops((current) =>
+      current.includes(key)
+        ? current.filter((item) => item !== key)
+        : [...current, key],
+    )
+  }
+
   function handleContinue(event) {
     event?.preventDefault()
-    if (!crop) return
-    navigate('/onboarding/all-set', { state: { ...state, crop, variety } })
+    if (!crops.length) return
+
+    navigate('/onboarding/all-set', {
+      // `crop` stays the main one so everything reading a single crop keeps working.
+      state: { ...state, crops, crop: crops[0], variety },
+    })
   }
 
   return (
@@ -44,14 +62,8 @@ export default function CropDetails() {
       onBack={() => navigate('/onboarding/add-field', { state })}
     >
       <form onSubmit={handleContinue} className="flex flex-col gap-4">
-        <SelectField
-          label={t('onboarding.crop')}
-          fieldIcon="leaf"
-          options={[{ value: '', label: t('onboarding.selectCrop') }, ...crops]}
-          value={crop}
-          onChange={(e) => setCrop(e.target.value)}
-          required
-        />
+        <CropPicker cropKeys={CROP_KEYS} selected={crops} onToggle={toggleCrop} />
+
         <SelectField
           label={t('onboarding.variety')}
           fieldIcon="leaf"
@@ -60,7 +72,7 @@ export default function CropDetails() {
           onChange={(e) => setVariety(e.target.value)}
         />
 
-        <PrimaryButton disabled={!crop}>{t('onboarding.continue')}</PrimaryButton>
+        <PrimaryButton disabled={!crops.length}>{t('onboarding.continue')}</PrimaryButton>
       </form>
     </OnboardingShell>
   )

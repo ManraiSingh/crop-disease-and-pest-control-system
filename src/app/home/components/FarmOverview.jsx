@@ -21,7 +21,7 @@ export default function FarmOverview() {
       <div className="pointer-events-none absolute -bottom-16 -left-10 h-40 w-40 rounded-full bg-emerald-300/10 blur-3xl" />
 
       <div className="relative">
-        <SectionHeader title={t('home.farmOverview')} action={t('common.viewAll')} className="mb-3" />
+        <SectionHeader title={t('home.farmOverview')} className="mb-3" />
       </div>
 
       <div className="relative grid grid-cols-2 gap-3">

@@ -1,131 +1,116 @@
-import { useNavigate } from "react-router-dom";
-import Icon from "../../app/lib/icons.jsx";
-import { GLASS_SHEEN, GLASS_SURFACE_SOFT } from "../../app/lib/glass.js";
-import { useT } from "../../i18n/context.js";
-import { STEPS } from "../steps.js";
-
-/** Illustrative figures for the welcome screen — replaced by the farmer's own once onboarded. */
-const HIGHLIGHTS = [
-  { icon: "field", label: "welcome.area", value: "15", unit: "welcome.acres" },
-  { icon: "sprout", label: "welcome.yield", value: "12", unit: "welcome.tons" },
-  { icon: "calendar", label: "welcome.plantAge", value: "44", unit: "welcome.days" },
-];
-
-const CARD = `${GLASS_SURFACE_SOFT} rounded-2xl`;
-
-/** Inset tile, a quarter more transparent than the dashboard's, to match the sheet. */
-const TILE =
-  "rounded-2xl border border-solid border-white/12 bg-white/6 backdrop-blur-md";
+import { useNavigate } from 'react-router-dom'
+import Icon from '../../app/lib/icons.jsx'
+import LanguagePicker from '../../i18n/LanguagePicker.jsx'
+import { useT } from '../../i18n/context.js'
 
 /**
- * The screen the flow opens on, before step 1. Sets the product up and shows what the app
- * tracks, then hands off to onboarding — so the first thing a farmer sees isn't a form.
+ * What the app actually covers. Real counts, not illustration: ten crops in
+ * cropKnowledge.js, thirty diseases in diseaseText.js, three locale files.
+ * The screen this replaced showed a farm's area and yield before the farmer had
+ * entered a farm — numbers that could only ever be made up.
+ */
+const PROOF = [
+  { value: '10', label: 'welcome.crops' },
+  { value: '30', label: 'welcome.diseases' },
+  { value: '3', label: 'welcome.languages' },
+]
+
+/**
+ * The screen the flow opens on.
+ *
+ * The photograph gets the top half and the words get the bottom, on solid
+ * ground — the version before this set lime type over a green field and asked
+ * the farmer to read it. Nothing here overlaps the image except the brand.
+ *
+ * Language sits on this screen rather than three steps in: it is the first
+ * choice a farmer needs to make, and every screen after it depends on it.
  */
 export default function Welcome() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const t = useT()
-  const start = () => navigate(STEPS[0].path);
+
+  // Sign-in first: the phone number entered there is the identity the rest of
+  // onboarding (and the government portal) keys this farmer's record to.
+  const start = () => navigate('/onboarding/phone')
 
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#16210e]">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/onboarding/welcome.jpg')" }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,14,5,0.82)_0%,rgba(8,18,7,0.45)_38%,rgba(6,14,5,0.86)_100%)]"
-      />
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0a0f08]">
+      {/* PHOTOGRAPH */}
+      <div aria-hidden="true" className="photo-in pointer-events-none absolute inset-x-0 top-0 h-[50%]">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/onboarding/welcome.jpg')" }}
+        />
+        {/* Fades the photograph into the ground the type sits on. */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,15,8,0.5)_0%,rgba(10,15,8,0)_26%,rgba(10,15,8,0.7)_66%,#0a0f08_88%)]" />
+      </div>
 
-      <div className="relative z-10 flex h-full flex-col px-4 pt-9 pb-5">
-        <div className={`${CARD} flex items-center gap-3 px-4 py-3`}>
-          <span aria-hidden="true" className={GLASS_SHEEN} />
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#5b8c2a]">
-            <Icon name="wheat" className="h-5 w-5 text-white" />
+      {/* BRAND + LANGUAGE */}
+      <header className="relative z-20 flex items-center justify-between px-5 pt-9">
+        <span className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-lime-400 shadow-[0_6px_18px_rgba(163,230,53,0.35)]">
+            <Icon name="leaf" className="h-[18px] w-[18px] text-[#12200c]" />
           </span>
-          <span className="h-8 w-px bg-white/15" />
-          <span className="text-sm font-semibold text-white">Wheat Spike</span>
-          <span className="ml-auto flex items-center gap-2">
-            <span className="text-lg font-bold text-white">20°C</span>
-            <Icon name="cloudSun" className="h-6 w-6 text-lime-200" />
+          <span className="text-[15px] font-semibold tracking-tight text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.55)]">
+            Crop Care
           </span>
-        </div>
+        </span>
 
-        <div className="mt-3 grid grid-cols-3 gap-2.5">
-          {HIGHLIGHTS.map((item) => (
-            <div key={item.label} className={`${TILE} px-3 py-3`}>
-              <span className="flex items-center gap-1.5">
-                <Icon
-                  name={item.icon}
-                  className="h-4 w-4 shrink-0 text-lime-300"
-                />
-                <span className="truncate text-[11px] text-white/70">
-                  {t(item.label)}
-                </span>
-              </span>
-              <p className="mt-1.5 text-xl font-bold text-white">
-                {item.value}
-                <span className="ml-1 text-[11px] font-medium text-white/55">
-                  {t(item.unit)}
-                </span>
-              </p>
+        <LanguagePicker triggerClassName="flex items-center gap-1 rounded-full border border-solid border-white/25 bg-white/12 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md" />
+      </header>
+
+      {/* THE PITCH */}
+      <div className="relative z-10 mt-auto px-6 pb-9">
+        <p className="rise flex w-fit items-center gap-1.5 rounded-full border border-solid border-lime-300/25 bg-lime-400/10 px-3 py-1.5 text-[11px] font-semibold tracking-[0.1em] text-lime-300 uppercase">
+          <Icon name="sparkle" className="h-3 w-3" />
+          {t('welcome.eyebrow')}
+        </p>
+
+        <h1
+          className="rise mt-4 text-[38px] leading-[1.14] font-semibold tracking-[-0.03em] text-white"
+          style={{ animationDelay: '80ms', textWrap: 'balance' }}
+        >
+          {t('welcome.headline')}
+        </h1>
+
+        <p
+          className="rise mt-5 max-w-[19rem] text-[14px] leading-relaxed text-white/60"
+          style={{ animationDelay: '160ms' }}
+        >
+          {t('welcome.blurb')}
+        </p>
+
+        {/* WHAT IT COVERS */}
+        <div
+          className="rise mt-7 flex items-stretch gap-5 border-t border-solid border-white/10 pt-5"
+          style={{ animationDelay: '240ms' }}
+        >
+          {PROOF.map((item) => (
+            <div key={item.label}>
+              <p className="text-[22px] leading-none font-semibold text-white">{item.value}</p>
+              <p className="mt-1.5 text-[11px] text-white/45">{t(item.label)}</p>
             </div>
           ))}
         </div>
 
-        {/* Tagline block. Kept separate from the wordmark below so each is positioned on its
-            own margins — the two used to share one vertically-centred stack, which meant
-            neither could move without shifting the other. */}
-        <div className="mt-20 text-center">
-          <p className="text-2xl leading-snug font-bold text-lime-400">
-            {t("welcome.tagline1")}
-          </p>
-          <p className="text-xl leading-snug font-bold text-white">
-            {t("welcome.tagline2")}
-          </p>
-
-          <div
-            aria-hidden="true"
-            className="mt-2.5 flex items-center justify-center gap-3"
-          >
-            <span className="h-px w-12 bg-gradient-to-r from-transparent to-lime-300/40" />
-            <Icon name="sprout" className="h-4 w-4 text-lime-300/70" />
-            <span className="h-px w-12 bg-gradient-to-l from-transparent to-lime-300/40" />
-          </div>
-        </div>
-
-        {/* Wordmark block, riding the bottom of the free space above the Get Started control. */}
-        <div className="mt-auto text-center">
-          <div className="mb-30">
-            <p className="text-[18px] font-semibold tracking-[0.35em] text-white/85 uppercase">
-              {t("welcome.welcomeTo")}
-            </p>
-            <h1 className="mt-1.5 text-[58px] leading-none font-extrabold tracking-tight text-white">
-              KRISHI <span className="text-lime-400">AI</span>
-            </h1>
-          </div>
-        </div>
-
-        <div
-          className={`${CARD} mt-8 flex items-center gap-3 rounded-full p-2.5`}
+        {/* GO */}
+        <button
+          type="button"
+          onClick={start}
+          className="rise mt-7 flex w-full items-center justify-center gap-2 rounded-2xl border-0 bg-lime-400 py-4 text-[15px] font-bold text-[#12200c] shadow-[0_10px_30px_rgba(163,230,53,0.22)]"
+          style={{ animationDelay: '320ms' }}
         >
-          <span aria-hidden="true" className={GLASS_SHEEN} />
-          <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#5b8c2a]">
-            <Icon name="sprout" className="h-7 w-7 text-white" />
-          </span>
-          <button
-            type="button"
-            onClick={start}
-            className="relative flex-1 border-0 bg-transparent py-2 text-center text-lg font-semibold text-white"
-          >
-            {t("welcome.getStarted")}
-          </button>
-          <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-solid border-white/15 bg-white/8 text-lime-300">
-            <Icon name="arrowRight" className="h-6 w-6" />
-          </span>
-        </div>
+          {t('welcome.getStarted')}
+          <Icon name="arrowRight" className="h-[18px] w-[18px]" />
+        </button>
+
+        <p
+          className="rise mt-3.5 text-center text-[11.5px] text-white/40"
+          style={{ animationDelay: '380ms' }}
+        >
+          {t('welcome.minute')}
+        </p>
       </div>
     </div>
-  );
+  )
 }

@@ -104,9 +104,9 @@ function normalizeForecast(raw) {
 
 /** Mock day shapes, keyed the same way the backend will be. */
 const MOCK_DAYS = {
-  today: { condition: 'Partly Cloudy', metrics: { humidity: '78%', clouds: '65%', uvIndex: 'Low' }, base: 20, rise: 1 },
-  tomorrow: { condition: 'Sunny', metrics: { humidity: '64%', clouds: '30%', uvIndex: 'High' }, base: 23, rise: 1 },
-  dayAfter: { condition: 'Light Rain', metrics: { humidity: '86%', clouds: '90%', uvIndex: 'Low' }, base: 18, rise: 0.5 },
+  today: { condition: 'Partly Cloudy', metrics: { humidity: '78%', clouds: '65%', uvIndex: 'home.uvLow' }, base: 20, rise: 1 },
+  tomorrow: { condition: 'Sunny', metrics: { humidity: '64%', clouds: '30%', uvIndex: 'home.uvHigh' }, base: 23, rise: 1 },
+  dayAfter: { condition: 'Light Rain', metrics: { humidity: '86%', clouds: '90%', uvIndex: 'home.uvLow' }, base: 18, rise: 0.5 },
 }
 
 /**
@@ -136,12 +136,117 @@ function mockForecast(dayKey) {
   return { condition: shape.condition, metrics: shape.metrics, hours }
 }
 
+
+/* ------------------------------------------------------------------ *
+ * Open-Meteo: real weather with no API key and no backend.
+ * Used whenever the farmer has given us a location but VITE_API_BASE_URL
+ * is not set yet. Falls back to mock data if the request fails.
+ * ------------------------------------------------------------------ */
+
+const OPEN_METEO = 'https://api.open-meteo.com/v1/forecast'
+
+/** WMO weather codes -> the plain condition strings conditionIcon() already understands. */
+function describeCode(code) {
+  if (code === 0) return 'Clear'
+  if (code === 1 || code === 2) return 'Partly Cloudy'
+  if (code === 3) return 'Overcast'
+  if (code === 45 || code === 48) return 'Fog'
+  if (code >= 51 && code <= 57) return 'Drizzle'
+  if (code >= 61 && code <= 67) return 'Rain'
+  if (code >= 71 && code <= 77) return 'Snow'
+  if (code >= 80 && code <= 82) return 'Rain Showers'
+  if (code >= 95) return 'Thunderstorm'
+  return 'Partly Cloudy'
+}
+
+function describeUv(value) {
+  if (!Number.isFinite(value)) return '—'
+  if (value < 3) return 'home.uvLow'
+  if (value < 6) return 'home.uvModerate'
+  if (value < 8) return 'home.uvHigh'
+  return 'home.uvVeryHigh'
+}
+
+/**
+ * Picks the 8-hour window to show: today starts two hours back so "now" sits inside it,
+ * other days start at 9 AM — same rule the mock uses, so the widget behaves identically.
+ */
+function windowStartIndex(times, dayOffset) {
+  const target = new Date()
+  if (dayOffset === 0) {
+    target.setHours(target.getHours() - 2, 0, 0, 0)
+  } else {
+    target.setDate(target.getDate() + dayOffset)
+    target.setHours(9, 0, 0, 0)
+  }
+  let best = 0
+  let bestGap = Infinity
+  times.forEach((time, i) => {
+    const gap = Math.abs(new Date(time).getTime() - target.getTime())
+    if (gap < bestGap) {
+      bestGap = gap
+      best = i
+    }
+  })
+  return Math.min(best, Math.max(times.length - HOURS_IN_WINDOW, 0))
+}
+
+async function fetchOpenMeteo({ day, latitude, longitude, signal }) {
+  const dayEntry = FORECAST_DAYS.find((entry) => entry.key === day) ?? FORECAST_DAYS[0]
+
+  const url = new URL(OPEN_METEO)
+  url.searchParams.set('latitude', String(latitude))
+  url.searchParams.set('longitude', String(longitude))
+  url.searchParams.set('hourly', 'temperature_2m,relative_humidity_2m,cloud_cover,weather_code')
+  url.searchParams.set('daily', 'uv_index_max')
+  url.searchParams.set('forecast_days', '4')
+  url.searchParams.set('timezone', 'auto')
+
+  const res = await fetch(url, { signal })
+  if (!res.ok) throw new Error(`Open-Meteo ${res.status}`)
+  const data = await res.json()
+
+  const times = data?.hourly?.time ?? []
+  if (!times.length) throw new Error('Open-Meteo: no hourly data')
+
+  const start = windowStartIndex(times, dayEntry.dayOffset)
+  const slice = (arr) => (arr ?? []).slice(start, start + HOURS_IN_WINDOW)
+
+  const temps = slice(data.hourly.temperature_2m)
+  const hours = slice(times).map((time, i) => ({ time, temp: temps[i] }))
+
+  const humidity = slice(data.hourly.relative_humidity_2m)[0]
+  const clouds = slice(data.hourly.cloud_cover)[0]
+  const code = slice(data.hourly.weather_code)[0]
+  const uv = data?.daily?.uv_index_max?.[dayEntry.dayOffset]
+
+  return {
+    condition: describeCode(code),
+    metrics: {
+      humidity: Number.isFinite(humidity) ? `${Math.round(humidity)}%` : '—',
+      clouds: Number.isFinite(clouds) ? `${Math.round(clouds)}%` : '—',
+      uvIndex: describeUv(uv),
+    },
+    hours,
+  }
+}
+
 /**
  * @param {{ day: string, latitude?: number, longitude?: number, signal?: AbortSignal }} params
  * @returns {Promise<{ condition: string, metrics: object, hours: {time: string, temp: number}[] }>}
  */
 export async function fetchForecast({ day = 'today', latitude, longitude, signal } = {}) {
-  if (!API_BASE) return normalizeForecast(mockForecast(day))
+  if (!API_BASE) {
+    // No backend yet. With a real location we can still show real weather; without one
+    // there is nothing to look up, so fall back to the generated sample day.
+    if (latitude == null || longitude == null) return normalizeForecast(mockForecast(day))
+    try {
+      return normalizeForecast(await fetchOpenMeteo({ day, latitude, longitude, signal }))
+    } catch (error) {
+      if (error.name === 'AbortError') throw error
+      return normalizeForecast(mockForecast(day))
+    }
+  }
 
   const url = new URL(WEATHER_ENDPOINTS.forecast, API_BASE)
   url.searchParams.set('day', day)

@@ -31,7 +31,10 @@ export default function WeatherMetrics({ metrics, surface = 'default' }) {
           <div key={key} className="flex flex-col items-center gap-1.5 px-1 text-center">
             <Icon name={METRIC_ICONS[key]} className="h-4 w-4 text-white" aria-hidden="true" />
             <dt className="text-[11px] text-white/60">{t(METRIC_LABELS[key])}</dt>
-            <dd className="text-base font-bold text-white">{value}</dd>
+            {/* Banded values (UV) arrive as translation keys; plain readings pass straight through. */}
+            <dd className="text-base font-bold text-white">
+              {typeof value === 'string' && value.includes('.') ? t(value) : value}
+            </dd>
           </div>
         ))}
       </dl>

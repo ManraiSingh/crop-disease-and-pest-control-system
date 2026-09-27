@@ -41,6 +41,7 @@ export default function WeatherCard({
   selectedDay,
   onDayChange,
   days,
+  place,
   surface = 'default',
 }) {
   const bare = surface === 'none'
@@ -63,7 +64,10 @@ export default function WeatherCard({
             <span aria-hidden="true" className="text-xl leading-none">
               ⛅
             </span>
-            <h2 className="text-base font-medium">{t('advisory.fWeather')}</h2>
+            <div className="min-w-0">
+              <h2 className="text-base leading-tight font-medium">{t('home.weather')}</h2>
+              {place && <p className="truncate text-[11px] text-white/60">{place}</p>}
+            </div>
           </div>
 
           <div className="relative">

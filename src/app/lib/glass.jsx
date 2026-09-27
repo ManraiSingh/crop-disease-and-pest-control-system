@@ -21,7 +21,10 @@ export function GlassCard({ as: Tag = 'section', strong = false, className = '',
 export function SectionHeader({ title, action = null, right = null, overPhoto = false, className = '' }) {
   return (
     <div className={`flex items-center justify-between gap-2 ${className}`}>
-      <h2 className={`text-sm font-bold text-white ${overPhoto ? 'drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]' : ''}`}>
+      <h2
+        className={`display text-[15px] ${overPhoto ? 'drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]' : ''}`}
+        style={{ color: 'var(--butter-200)', fontWeight: 700 }}
+      >
         {title}
       </h2>
       {right ?? (action ? <span className="text-[11px] font-semibold text-lime-300">{action}</span> : null)}

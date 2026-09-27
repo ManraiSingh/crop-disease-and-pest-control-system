@@ -18,11 +18,11 @@ export const SCAN_CARD_BACKGROUND = '/scan-crop-bg.jpg'
  * passed. Each consumer sets its own `rounded-*`.
  */
 export const GLASS_SURFACE =
-  'relative overflow-hidden border border-solid border-white/12 bg-[#2c3a1c]/55 shadow-[0_18px_40px_rgba(6,20,12,0.4)] backdrop-blur-xl'
+  'relative overflow-hidden canopy-surface'
 
 /** Darker pane, for cards that need more contrast (dense text, long lists). */
 export const GLASS_SURFACE_STRONG =
-  'relative overflow-hidden border border-solid border-white/12 bg-[#1d2814]/72 shadow-[0_18px_40px_rgba(6,20,12,0.45)] backdrop-blur-xl'
+  'relative overflow-hidden canopy-surface-strong'
 
 /**
  * Onboarding's sheet: the same material a quarter more transparent, so the farm photo behind
@@ -31,10 +31,10 @@ export const GLASS_SURFACE_STRONG =
  * by the order they're written.
  */
 export const GLASS_SURFACE_SOFT =
-  'relative overflow-hidden border border-solid border-white/12 bg-[#1d2814]/54 shadow-[0_18px_40px_rgba(6,20,12,0.45)] backdrop-blur-xl'
+  'relative overflow-hidden canopy-surface-soft'
 
 /** Small inset pill/tile inside a glass card (stat tiles, chips, icon buttons). */
-export const GLASS_INSET = 'rounded-2xl border border-solid border-white/12 bg-white/8 backdrop-blur-md'
+export const GLASS_INSET = 'canopy-inset'
 
 /**
  * Surface variants a card can render with. `none` strips the pane entirely, for a card being
@@ -47,5 +47,4 @@ export const GLASS_SURFACES = {
 }
 
 /** Specular highlight + shadowed far corner. Render as an aria-hidden overlay. */
-export const GLASS_SHEEN =
-  'pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_10%,rgba(255,255,255,0.16),transparent_46%),radial-gradient(circle_at_88%_88%,rgba(0,0,0,0.32),transparent_55%)]'
+export const GLASS_SHEEN = 'canopy-sheen'

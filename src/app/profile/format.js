@@ -18,8 +18,20 @@ export function formatDaysWithUs(joinedAt) {
   return String(Math.max(days, 0))
 }
 
-/** We only capture GPS coordinates during onboarding, not a geocoded place name. */
-export function formatLocation(location, fallback = 'Location not set') {
+/**
+ * Onboarding asks for a district and taluka rather than GPS, so the farmer's
+ * place is those two. Older profiles still carry a `location` object from the
+ * geolocation flow, so keep reading that as a fallback.
+ */
+export function formatPlace(profile, fallback = 'Location not set') {
+  if (profile?.taluka && profile?.district) return `${profile.taluka}, ${profile.district}`
+  if (profile?.district) return profile.district
+
+  const location = profile?.location
   if (!location) return fallback
-  return `${location.latitude.toFixed(2)}°, ${location.longitude.toFixed(2)}°`
+  if (location.place) return location.place
+  if (location.latitude != null && location.longitude != null) {
+    return `${location.latitude.toFixed(2)}°, ${location.longitude.toFixed(2)}°`
+  }
+  return fallback
 }

@@ -1,0 +1,153 @@
+/* =========================================================
+   SEED MARKET
+
+   Everything else in the app is olive glass over a farm photo
+   with a lime accent. A shop should not look like the rest of
+   the house, so the market has its own ground, its own paper
+   cards and a saffron accent — the farmer can tell at a glance
+   they have walked into somewhere they can buy things.
+
+   These are plain classes rather than Tailwind utilities on
+   purpose: the light-mode remap in app/lib/theme.css rewrites
+   `text-white/*` and `bg-white/*`, and the market's colours
+   must survive that untouched.
+========================================================= */
+
+[data-theme] {
+  --mk-ground: #17120b;
+  --mk-ground-2: #100c07;
+  --mk-card: #241b10;
+  --mk-card-2: #2f2415;
+  --mk-line: rgba(255, 214, 153, 0.14);
+  --mk-t1: #fdf3e3;
+  --mk-t2: rgba(253, 243, 227, 0.66);
+  --mk-t3: rgba(253, 243, 227, 0.42);
+  --mk-accent: #f5a524;
+  --mk-accent-soft: rgba(245, 165, 36, 0.16);
+  --mk-accent-ink: #241601;
+  --mk-open: #7ad48c;
+  --mk-shut: rgba(253, 243, 227, 0.42);
+  --mk-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='light'] {
+  --mk-ground: #fff8ee;
+  --mk-ground-2: #fdefdb;
+  --mk-card: #ffffff;
+  --mk-card-2: #fff4e3;
+  --mk-line: rgba(122, 82, 24, 0.13);
+  --mk-t1: #2b1c07;
+  --mk-t2: #6d5836;
+  --mk-t3: #9c876a;
+  --mk-accent: #b96a06;
+  --mk-accent-soft: rgba(185, 106, 6, 0.11);
+  --mk-accent-ink: #ffffff;
+  --mk-open: #1f7a3c;
+  --mk-shut: #9c876a;
+  --mk-shadow: 0 10px 26px rgba(120, 78, 20, 0.1);
+}
+
+/* ---------- ground ---------- */
+
+.mk-page {
+  background: linear-gradient(180deg, var(--mk-ground-2) 0%, var(--mk-ground) 34%, var(--mk-ground) 100%);
+  color: var(--mk-t1);
+}
+
+/* ---------- type ---------- */
+
+.mk-title {
+  font-size: 29px;
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--mk-t1);
+}
+
+.mk-t1 { color: var(--mk-t1); }
+.mk-t2 { color: var(--mk-t2); }
+.mk-t3 { color: var(--mk-t3); }
+.mk-accent-text { color: var(--mk-accent); }
+
+/* ---------- surfaces ---------- */
+
+.mk-card {
+  background: var(--mk-card);
+  border: 1px solid var(--mk-line);
+  box-shadow: var(--mk-shadow);
+}
+
+.mk-inset {
+  background: var(--mk-card-2);
+  border: 1px solid var(--mk-line);
+}
+
+.mk-line-top { border-top: 1px solid var(--mk-line); }
+
+/* ---------- chips ---------- */
+
+.mk-chip {
+  background: transparent;
+  border: 1px solid var(--mk-line);
+  color: var(--mk-t2);
+}
+
+.mk-chip[data-on='true'] {
+  background: var(--mk-accent);
+  border-color: var(--mk-accent);
+  color: var(--mk-accent-ink);
+}
+
+.mk-tag {
+  background: var(--mk-accent-soft);
+  color: var(--mk-accent);
+}
+
+/* ---------- buttons ---------- */
+
+.mk-btn {
+  background: var(--mk-accent);
+  color: var(--mk-accent-ink);
+  border: 0;
+}
+
+.mk-btn:disabled { opacity: 0.5; }
+
+.mk-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--mk-line);
+  color: var(--mk-t1);
+}
+
+/* ---------- search ---------- */
+
+.mk-search {
+  background: var(--mk-card);
+  border: 1px solid var(--mk-line);
+  color: var(--mk-t1);
+}
+
+.mk-search::placeholder {
+  color: var(--mk-t3);
+  opacity: 1;
+}
+
+/* ---------- vendor rows (the "near you" list) ---------- */
+
+.mk-open-dot { color: var(--mk-open); }
+.mk-shut-text { color: var(--mk-shut); }
+
+.mk-strike {
+  color: var(--mk-t3);
+  text-decoration: line-through;
+}
+
+/* ---------- sheet ---------- */
+
+.mk-sheet {
+  background: var(--mk-ground);
+  border-top: 1px solid var(--mk-line);
+  box-shadow: 0 -14px 40px rgba(0, 0, 0, 0.4);
+}
+
+.mk-scrim { background: rgba(10, 7, 3, 0.62); }
