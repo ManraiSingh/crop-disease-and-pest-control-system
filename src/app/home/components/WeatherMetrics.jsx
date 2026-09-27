@@ -9,7 +9,7 @@ const METRIC_ICONS = {
 }
 
 const METRIC_LABELS = {
-  humidity: 'advisory.humidity',
+  humidity: 'home.humidity',
   clouds: 'home.clouds',
   uvIndex: 'home.uvIndex',
 }

@@ -29,10 +29,13 @@ const TONES = {
   harvest: '#e8b53c',
 }
 
+/* The wash is black, not a tint of the badge's own colour. Tinting the badge with its own
+   hue lightened the ground toward the text it carries — "High" measured 2.5:1 that way.
+   Darkening the ground instead separates the badge AND lifts its label. */
 const RISK = {
-  high: { fg: '#ff6b6b', bg: 'rgba(255,107,107,0.14)', label: 'advisory.risk_high' },
-  watch: { fg: '#f5b73f', bg: 'rgba(245,183,63,0.14)', label: 'advisory.risk_watch' },
-  low: { fg: '#a8f033', bg: 'rgba(168,240,51,0.14)', label: 'advisory.risk_low' },
+  high: { fg: '#ff8a8a', bg: 'rgba(0,0,0,0.25)', label: 'advisory.risk_high' },
+  watch: { fg: '#f5b73f', bg: 'rgba(0,0,0,0.25)', label: 'advisory.risk_watch' },
+  low: { fg: '#a8f033', bg: 'rgba(0,0,0,0.25)', label: 'advisory.risk_low' },
 }
 
 /**

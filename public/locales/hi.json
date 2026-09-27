@@ -121,7 +121,8 @@
     "soilTemp": "मिट्टी का तापमान",
     "estimated": "अनुमानित",
     "awaitingSensor": "सेंसर की प्रतीक्षा",
-    "tapForDetail": "विवरण देखें"
+    "tapForDetail": "विवरण देखें",
+    "heroTagline": "आपका खेत, एक नज़र में।"
   },
   "advisory": {
     "title": "सलाह",

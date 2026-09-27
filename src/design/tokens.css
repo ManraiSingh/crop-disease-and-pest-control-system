@@ -1,204 +1,237 @@
 /**
- * Design tokens — "Plain".
+ * Design tokens — "Harvest".
  *
- * No glass, no blur, no noise. Every surface is a solid, opaque plane; separation comes from
- * value and space rather than translucency. The drama is in the typography: display sizes run
- * very large at very light weights, so a heading carries a screen on its own and the rest of
- * the page can stay almost empty.
+ * Warm paper, a serif that carries the page, and one deep green doing all the work.
  *
- * This is a touch product, so nothing depends on hover. Feedback is press-only — a control
- * responds when a finger is on it and springs back when it lifts.
+ * The rule that matters here: every surface token has a matching `--on-*` partner, and BOTH
+ * are defined in BOTH themes. A surface is never allowed to change value without the text on
+ * it changing too — that pairing is what stops dark text landing on a dark card. If you add a
+ * surface, add its partner in the same commit.
  *
- * Type is Anek Devanagari — a variable face from hairline to heavy carrying both Devanagari
- * and Latin. That dual coverage is non-negotiable: the app runs in Marathi and Hindi, and a
- * Latin-only display face collapses to a fallback the moment a farmer switches language.
+ * Display is Martel, a serif carrying full Devanagari; body is Anek Devanagari. The app runs
+ * in Marathi and Hindi, so a Latin-only serif would fall back the moment someone switches.
  */
 
 :root {
-  /* ---- paper: one ground, no gradients ---- */
-  --ground: #f7f7f4;
-  --surface: #ffffff;
-  --surface-sunk: #f0f0ec;
-  --line: #e4e4de;
+  /* ---- ground ---- */
+  --bg: #faf6ec;
+  --on-bg: #16241b;
+  --on-bg-mid: #5d6b60;
+  --on-bg-soft: #636e68;
 
-  /* ---- ink: four steps, nothing between ---- */
-  --ink: #0f0f0d;
-  --ink-mid: #6b6b63;
-  --ink-soft: #9c9c93;
-  --ink-invert: #ffffff;
+  --bg-soft: #f2ecdd;
+  --line: #e5ddc9;
 
-  /* ---- one accent, used sparingly ---- */
-  --accent: #1f6f3c;
-  --accent-soft: #eaf4ed;
+  /* ---- raised card ---- */
+  --card: #ffffff;
+  --on-card: #16241b;
+  --on-card-mid: #6b7a6e;
 
-  /* The ink surface is the same in BOTH themes — screens paint light text on it,
-     so inverting it per theme puts white on white. --on-pitch is that text. */
-  --pitch: #121210;
-  --on-pitch: #fafaf7;
-  --on-pitch-mid: rgba(250, 250, 247, 0.62);
-  --on-pitch-soft: rgba(250, 250, 247, 0.38);
-  --on-pitch-line: rgba(250, 250, 247, 0.14);
-  --on-pitch-fill: rgba(250, 250, 247, 0.08);
+  /* ---- deep green feature block ---- */
+  --feature: #0e3b2a;
+  --on-feature: #f4f1e6;
+  --on-feature-mid: rgba(244, 241, 230, 0.78);
+  --on-feature-line: rgba(244, 241, 230, 0.18);
 
-  /* ---- signal: reserved, never decorative ---- */
-  --alarm: #c4372e;
-  --alarm-soft: #fbeceb;
-  --warn: #b0741a;
-  --warn-soft: #fdf3e4;
+  /* ---- the one call to action ---- */
+  --cta: #0e3b2a;
+  --on-cta: #fbf8ef;
+
+  /* ---- accent: life, not decoration ---- */
+  --accent: #2c9e63;
+  --on-accent: #052013;
+  --accent-wash: #e6f3ea;
+
+  /* ---- signal ---- */
+  --alarm: #b4402f;
+  --on-alarm: #fdf3f1;
+  --alarm-wash: #fbeae7;
+  --warn: #a5701a;
+  --warn-wash: #fbf1e0;
 
   /* ---- type ---- */
-  --font: 'Anek Devanagari', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+  --serif: 'Martel', Georgia, serif;
+  --sans: 'Anek Devanagari', system-ui, -apple-system, sans-serif;
+  /* Figures get their own face: a grotesque against the serif display reads as data
+     rather than prose, and Martel's numerals were the weak part of that pairing. */
+  --num: 'Archivo', 'Anek Devanagari', system-ui, sans-serif;
 
-  /* ---- motion: one curve, one duration family ---- */
+  /* ---- motion ---- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --fast: 180ms;
   --base: 320ms;
   --slow: 520ms;
 
-  /* ---- elevation: almost none. A hairline does the work. ---- */
-  --lift: 0 1px 2px rgba(15, 15, 13, 0.04);
-  --lift-md: 0 6px 20px -8px rgba(15, 15, 13, 0.12);
+
+  /* ---- bento tiles. Each is a flat fill with its own ink. ---- */
+  --tile-hero: #0e3b2a;      --on-tile-hero: #f4f1e6;
+  /* The advisory masthead surface. Dark in BOTH themes on purpose: everything written on
+     it is fixed cream, so it must never track the theme upward the way --feature does. */
+  --plane-ink: #0e3b2a;
+  --tile-plain: #ffffff;     --on-tile-plain: #16241b;
+  --tile-warm: #e6b23c;      --on-tile-warm: #2a1f05;
+  --tile-cool: #d3e4d9;      --on-tile-cool: #10301f;
+  --tile-deep: #1b4d35;      --on-tile-deep: #eef4ef;
+  --tile-alarm: #97371e;     --on-tile-alarm: #fff3ee;
+
+  --lift: 0 1px 2px rgba(22, 36, 27, 0.05);
+  --lift-md: 0 10px 30px -12px rgba(22, 36, 27, 0.18);
 }
 
 [data-theme='dark'] {
-  --ground: #0e0e0c;
-  --surface: #171715;
-  --surface-sunk: #1f1f1c;
-  --line: #2a2a26;
+  --bg: #0f1411;
+  --on-bg: #f2efe4;
+  --on-bg-mid: #9aa59c;
+  --on-bg-soft: #7d8880;
 
-  --ink: #f4f4f0;
-  --ink-mid: #a0a098;
-  --ink-soft: #6e6e67;
-  --ink-invert: #0e0e0c;
-  --pitch: #121210;
-  --on-pitch: #fafaf7;
+  --bg-soft: #161d18;
+  --line: #27312a;
 
-  --accent: #7ec98f;
-  --accent-soft: #1b2b20;
+  --card: #1a211c;
+  --on-card: #f2efe4;
+  --on-card-mid: #98a29a;
 
-  --alarm: #e8766c;
-  --alarm-soft: #2c1917;
-  --warn: #d9a04a;
-  --warn-soft: #2a2015;
+  /* The feature block lifts rather than inverts, so its cream text still fits. */
+  --feature: #1d5741;
+  --on-feature: #f4f1e6;
+  --on-feature-mid: rgba(244, 241, 230, 0.78);
+  --on-feature-line: rgba(244, 241, 230, 0.18);
 
-  /* --pitch and --on-pitch are deliberately NOT redefined here. */
+  /* The CTA flips to a light fill with dark ink, staying the brightest thing on screen. */
+  --cta: #86d6ab;
+  --on-cta: #06210f;
 
-  --lift: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --lift-md: 0 6px 20px -8px rgba(0, 0, 0, 0.5);
+  --accent: #62c78e;
+  --on-accent: #06210f;
+  --accent-wash: #16281e;
+
+  --alarm: #e8897a;
+  --on-alarm: #2a120e;
+  --alarm-wash: #2a1512;
+  --warn: #d6a24f;
+  --warn-wash: #2a2114;
+
+
+  --tile-hero: #1d5741;      --on-tile-hero: #f4f1e6;
+  /* barely lifted off the page ground, which is how this panel read before it had a rule */
+  --plane-ink: #161d18;
+  --tile-plain: #1a211c;     --on-tile-plain: #f2efe4;
+  --tile-warm: #c8912a;      --on-tile-warm: #1c1405;
+  --tile-cool: #223a2c;      --on-tile-cool: #dfeee5;
+  --tile-deep: #16402e;      --on-tile-deep: #eef4ef;
+  --tile-alarm: #8e3722;     --on-tile-alarm: #ffeee8;
+
+  --lift: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --lift-md: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
 }
 
 /* ------------------------------------------------------------------ *
- * Type.
- *
- * The scale is deliberately wide: display is very large and very light,
- * body is small and plain. Nothing sits in the middle, which is what
- * keeps a screen from looking busy.
+ * Type. A serif carries every heading; the sans is for everything else.
  * ------------------------------------------------------------------ */
+/* The container the hero's `cqi` type scales against. Without this, cqi silently falls
+   back to the viewport — which on a real phone is wider than the padded content box, and
+   the longest greeting overflows. Set it on the screen's scroll container. */
+.screen-scroll {
+  container-type: inline-size;
+}
+
 .t-hero {
-  font-family: var(--font);
-  font-weight: 200;
-  font-size: clamp(40px, 13vw, 58px);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
+  font-family: var(--serif);
+  font-weight: 700;
+  /* cqi, not vw: the app lives in a fixed-width frame (the phone mock, and a real
+     device's safe area), so the hero has to scale to that frame rather than to the
+     browser window. Sized so the longest greeting — "Good afternoon," — still fits
+     on one line before the <br>. Falls back to the viewport where no container is set. */
+  font-size: clamp(30px, 11.5cqi, 44px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 .t-display {
-  font-family: var(--font);
-  font-weight: 200;
-  letter-spacing: -0.03em;
-  line-height: 1.04;
+  font-family: var(--serif);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
 .t-title {
-  font-family: var(--font);
-  font-weight: 500;
-  letter-spacing: -0.015em;
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .t-label {
-  font-family: var(--font);
+  font-family: var(--sans);
   font-weight: 500;
-  letter-spacing: 0;
 }
 
-.t-mono-label {
-  font-family: var(--font);
-  font-weight: 500;
+/* Tiny uppercase caption — "ORDER AGAIN" in the reference. */
+.t-caption {
+  font-family: var(--sans);
+  font-weight: 600;
   font-size: 11px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .t-num {
-  font-family: var(--font);
-  font-weight: 200;
-  letter-spacing: -0.04em;
+  font-family: var(--num);
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
 }
 
-/* Devanagari needs more room under the baseline and cannot go as tight. */
+/* Devanagari needs more leading and cannot take the same tracking. */
 :root:lang(hi) .t-hero,
 :root:lang(mr) .t-hero,
 :root:lang(hi) .t-display,
 :root:lang(mr) .t-display {
-  line-height: 1.26;
-  letter-spacing: -0.005em;
-  font-weight: 300;
+  line-height: 1.34;
+  letter-spacing: 0;
 }
 
 /* ------------------------------------------------------------------ *
- * Surfaces. Solid planes separated by a hairline.
+ * Surfaces.
  * ------------------------------------------------------------------ */
 .plane {
-  background: var(--surface);
+  background: var(--card);
+  color: var(--on-card);
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 22px;
 }
 
-.plane-sunk {
-  background: var(--surface-sunk);
-  border-radius: 20px;
+.plane-soft {
+  background: var(--bg-soft);
+  color: var(--on-bg);
+  border-radius: 22px;
 }
 
+.plane-feature {
+  background: var(--feature);
+  color: var(--on-feature);
+  border-radius: 26px;
+}
+
+/* The advisory masthead's surface.
+ *
+ * This was referenced by AdvisoryPage but had no rule anywhere, so the panel rendered with no
+ * background at all. Everything inside it is written in `--on-pitch*` — cream, fixed, because
+ * it expects a dark surface — which meant that in light mode the whole page was cream text on
+ * the cream page ground and could not be read. `--pitch`/`--on-pitch` is the fixed dark pair
+ * that does not flip with the theme, which is exactly what that content was written against.
+ */
 .plane-ink {
-  background: var(--pitch);
+  background: var(--plane-ink);
   color: var(--on-pitch);
-  border-radius: 20px;
+  border-radius: 26px;
 }
 
-/* Hairline between rows, inset so it starts under the text. */
 .rule {
   height: 1px;
   background: var(--line);
 }
-
-/* ------------------------------------------------------------------ *
- * The deck — cards overlapping so the stack reads as one object.
- * ------------------------------------------------------------------ */
-.deck {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.deck-card {
-  position: relative;
-  border-radius: 26px;
-}
-
-.deck-card + .deck-card {
-  margin-top: -18px;
-}
-
-.deck-card:nth-child(1) { z-index: 1; }
-.deck-card:nth-child(2) { z-index: 2; }
-.deck-card:nth-child(3) { z-index: 3; }
-.deck-card:nth-child(4) { z-index: 4; }
-.deck-card:nth-child(5) { z-index: 5; }
-.deck-card:nth-child(6) { z-index: 6; }
-.deck-card:nth-child(7) { z-index: 7; }
 
 /* ---- scan reticle ---- */
 .reticle {
@@ -213,10 +246,7 @@
 .reticle-br { bottom: 0; right: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 8px; }
 
 /* ------------------------------------------------------------------ *
- * Entrance.
- *
- * CSS rather than JS: an element whose visibility depends on a frame loop
- * is invisible if that loop stalls. `both` guarantees the end state.
+ * Entrance — CSS, so content is never hidden by a stalled frame loop.
  * ------------------------------------------------------------------ */
 @keyframes enter-rise {
   from { opacity: 0; transform: translateY(12px); }
@@ -228,21 +258,56 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Legacy surface names.
+ * Compatibility.
  *
- * Screens not yet rebuilt still import the GLASS_* constants. They now
- * resolve to plain planes so nothing is stranded on the old material.
+ * Screens not yet rebuilt still ask for the previous names. Mapping them
+ * here keeps every tab coherent instead of stranding half the app.
  * ------------------------------------------------------------------ */
+:root,
+[data-theme='dark'] {
+  --ground: var(--bg);
+  --surface: var(--card);
+  --surface-sunk: var(--bg-soft);
+  --ink: var(--on-bg);
+  --ink-mid: var(--on-bg-mid);
+  --ink-soft: var(--on-bg-soft);
+  --ink-invert: var(--on-feature);
+
+  /* --pitch is the constant dark surface; --on-pitch is always what sits on it. */
+  --pitch: var(--feature);
+  --on-pitch: var(--on-feature);
+  --on-pitch-mid: var(--on-feature-mid);
+  --on-pitch-soft: rgba(244, 241, 230, 0.7);
+  --on-pitch-line: var(--on-feature-line);
+  /* Darker than the panel, not lighter. This fill backs rows that carry light text, so a
+     cream wash moved the ground toward that text and cost contrast everywhere it was used —
+     the companion rows measured 4.45:1 and the risk badge on it 3.06:1. */
+  --on-pitch-fill: rgba(0, 0, 0, 0.22);
+
+  --paper: var(--card);
+  --paper-dim: var(--bg-soft);
+  --paper-edge: var(--line);
+
+  --lime: var(--accent-wash);
+  --lime-deep: var(--accent);
+  --green: var(--accent);
+  --green-deep: var(--feature);
+}
+
 .canopy-surface,
 .canopy-surface-strong,
-.canopy-surface-soft {
-  background: var(--surface);
+.canopy-surface-soft,
+.glass {
+  background: var(--card);
+  color: var(--on-card);
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 22px;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .canopy-inset {
-  background: var(--surface-sunk);
+  background: var(--bg-soft);
   border-radius: 16px;
 }
 
@@ -255,54 +320,17 @@
   display: none !important;
 }
 
-/* Glass is retired: anything still asking for it gets a plain plane. */
-.glass {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
 .scene { perspective: none; }
 .tilt-card { transform: none !important; }
 .layer-1, .layer-2, .layer-3 { transform: none; }
+
+.deck { position: relative; display: flex; flex-direction: column; }
+.deck-card { position: relative; border-radius: 22px; }
+.deck-card + .deck-card { margin-top: 10px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
-}
-
-/* ------------------------------------------------------------------ *
- * Compatibility aliases.
- *
- * Screens written against the previous palette still ask for --paper,
- * --lime and friends. Rather than edit six files, those names are mapped
- * onto the plain system here — so the deck's four steps become a quiet
- * tonal progression instead of a lime-to-black ramp.
- *
- * Text colour is fixed per step by the screens (dark on the pale step,
- * light on the three dark ones), so each value below has to keep that
- * contrast in BOTH themes.
- * ------------------------------------------------------------------ */
-:root {
-  --paper: var(--surface);
-  --paper-dim: var(--surface-sunk);
-  --paper-edge: var(--line);
-
-  /* The three deck heads, light to dark. Step 1 carries dark text; 2 and 3 carry light. */
-  --lime: #e6efe8;
-  --lime-deep: #1f6f3c;
-  --green: #3f7d57;
-  --green-deep: #24563c;
-}
-
-[data-theme='dark'] {
-  /* Step 1 still carries dark text, so it stays pale in dark mode too — only a
-     little dimmer, so the stack keeps its light-to-dark reading order. */
-  --lime: #cfdcd3;
-  --lime-deep: #7ec98f;
-  --green: #35664a;
-  --green-deep: #1f4433;
 }

@@ -20,8 +20,19 @@ import { SPRING } from '../../design/springs.js'
 // still opens from the Scan Crop card on Home.
 const NAV = [
   { key: 'home', tKey: 'nav.home', icon: 'home', to: '/home' },
-  { key: 'community', tKey: 'nav.community', icon: 'community', to: '/community' },
-  { key: 'advisory', tKey: 'nav.advisory', icon: 'leaf', to: '/advisory', primary: true },
+  {
+    key: 'community',
+    tKey: 'nav.community',
+    icon: 'community',
+    to: '/community',
+  },
+  {
+    key: 'advisory',
+    tKey: 'nav.advisory',
+    icon: 'leaf',
+    to: '/advisory',
+    primary: true,
+  },
   { key: 'history', tKey: 'nav.history', icon: 'history', to: '/history' },
   { key: 'me', tKey: 'nav.me', icon: 'profile', to: '/profile' },
 ]
@@ -36,9 +47,24 @@ const PAGE_TITLES = {
 }
 
 const NOTIFICATIONS = [
-  { key: 'disease', title: 'notif.diseaseTitle', body: 'notif.diseaseBody', time: 'notif.diseaseTime' },
-  { key: 'weather', title: 'notif.weatherTitle', body: 'notif.weatherBody', time: 'notif.weatherTime' },
-  { key: 'follow', title: 'notif.followTitle', body: 'notif.followBody', time: 'notif.followTime' },
+  {
+    key: 'disease',
+    title: 'notif.diseaseTitle',
+    body: 'notif.diseaseBody',
+    time: 'notif.diseaseTime',
+  },
+  {
+    key: 'weather',
+    title: 'notif.weatherTitle',
+    body: 'notif.weatherBody',
+    time: 'notif.weatherTime',
+  },
+  {
+    key: 'follow',
+    title: 'notif.followTitle',
+    body: 'notif.followBody',
+    time: 'notif.followTime',
+  },
 ]
 
 /** Header control — a hairline outline on paper, not a filled chip. */
@@ -52,9 +78,9 @@ const ctrlStyle = () => ({
 })
 
 /** The sprout mark — thin stroke, the way the reference draws its logo. */
-function Mark({ className = '' }) {
+function Mark({ className = '', style }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className={className} style={style} fill="none" aria-hidden="true">
       <path d="M12 21V11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
       <path
         d="M12 12C12 12 5.5 12 5.5 6C11 5 12 8.5 12 12Z"
@@ -174,7 +200,9 @@ export default function AppShell() {
               }
         }
       >
-        {inMarket && <div aria-hidden="true" className="mk-page pointer-events-none absolute inset-0" />}
+        {inMarket && (
+          <div aria-hidden="true" className="mk-page pointer-events-none absolute inset-0" />
+        )}
 
         <header className="relative z-40 flex items-center justify-between gap-3 px-5 pt-9 pb-2">
           {ownsHeader ? (
@@ -198,10 +226,7 @@ export default function AppShell() {
               transition={SPRING.settle}
             >
               <Mark className="h-6 w-6 shrink-0" style={{ color: 'var(--ink)' }} />
-              <span
-                className="t-label truncate text-[13px]"
-                style={{ color: 'var(--ink-mid)' }}
-              >
+              <span className="t-label truncate text-[13px]" style={{ color: 'var(--ink-mid)' }}>
                 {formatName(profile?.name) ?? t('app.farmer')}
               </span>
             </motion.span>
@@ -256,7 +281,10 @@ export default function AppShell() {
                   animate={{ scale: 1 }}
                   transition={SPRING.snap}
                   className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[9px] font-semibold"
-                  style={{ background: 'var(--alarm)', color: 'var(--on-pitch)' }}
+                  style={{
+                    background: 'var(--alarm)',
+                    color: 'var(--on-pitch)',
+                  }}
                 >
                   {unreadAlerts}
                 </motion.span>
@@ -273,7 +301,10 @@ export default function AppShell() {
                 aria-label="Close weather"
                 onClick={() => setPanel(null)}
                 className="absolute inset-0 z-30 border-0"
-                style={{ background: 'rgba(10, 14, 10, 0.4)', backdropFilter: 'blur(3px)' }}
+                style={{
+                  background: 'rgba(10, 14, 10, 0.4)',
+                  backdropFilter: 'blur(3px)',
+                }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -312,7 +343,10 @@ export default function AppShell() {
                 aria-label="Close notifications"
                 onClick={() => setPanel(null)}
                 className="absolute inset-0 z-30 border-0"
-                style={{ background: 'rgba(10, 14, 10, 0.4)', backdropFilter: 'blur(3px)' }}
+                style={{
+                  background: 'rgba(10, 14, 10, 0.4)',
+                  backdropFilter: 'blur(3px)',
+                }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -342,12 +376,22 @@ export default function AppShell() {
                         background: 'color-mix(in srgb, var(--alarm) 8%, transparent)',
                       }}
                     >
-                      <p className="t-label flex items-center gap-1.5 text-xs" style={{ color: 'var(--ink)' }}>
-                        <Icon name="warning" className="h-3.5 w-3.5 shrink-0" style={{ color: 'var(--alarm)' }} />
+                      <p
+                        className="t-label flex items-center gap-1.5 text-xs"
+                        style={{ color: 'var(--ink)' }}
+                      >
+                        <Icon
+                          name="warning"
+                          className="h-3.5 w-3.5 shrink-0"
+                          style={{ color: 'var(--alarm)' }}
+                        />
                         {t('notif.alertTitle', { disease: alert.disease })}
                       </p>
                       <p className="mt-0.5 text-[11px]" style={{ color: 'var(--ink-mid)' }}>
-                        {t('notif.alertBody', { taluka: alert.taluka, farm: alert.sourceFarm || '—' })}
+                        {t('notif.alertBody', {
+                          taluka: alert.taluka,
+                          farm: alert.sourceFarm || '—',
+                        })}
                       </p>
                       <p className="mt-1 text-[10px]" style={{ color: 'var(--ink-soft)' }}>
                         {alert.issuedBy} · {timeAgo(alert.createdAt, t)}
@@ -360,7 +404,10 @@ export default function AppShell() {
                       key={n.key}
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ ...SPRING.settle, delay: 0.04 * (alerts.length + i) }}
+                      transition={{
+                        ...SPRING.settle,
+                        delay: 0.04 * (alerts.length + i),
+                      }}
                       className="border-t px-4 py-2.5"
                       style={{ borderColor: 'var(--line)' }}
                     >
@@ -393,7 +440,7 @@ export default function AppShell() {
             circle so the primary action sits under the thumb. */}
         <nav
           aria-label="Main navigation"
-          className="relative z-20 mx-auto mb-4 flex items-center gap-1 rounded-full px-2 py-2"
+          className="relative z-20 mx-auto mb-3 flex items-center gap-1 rounded-full px-2 py-1.5"
           style={{ background: 'var(--pitch)', boxShadow: 'var(--lift-md)' }}
         >
           {NAV.map(({ key, tKey, icon, to, primary }) => (
@@ -435,7 +482,9 @@ export default function AppShell() {
                     <Icon
                       name={icon}
                       className="relative h-[20px] w-[20px]"
-                      style={{ color: isActive ? 'var(--on-pitch)' : 'var(--on-pitch-soft)' }}
+                      style={{
+                        color: isActive ? 'var(--on-pitch)' : 'var(--on-pitch-soft)',
+                      }}
                     />
                   </motion.span>
                 )

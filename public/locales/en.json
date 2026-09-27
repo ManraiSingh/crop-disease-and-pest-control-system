@@ -121,7 +121,8 @@
     "soilTemp": "Soil temp",
     "estimated": "Estimated",
     "awaitingSensor": "Awaiting sensor",
-    "tapForDetail": "Tap for detail"
+    "tapForDetail": "Tap for detail",
+    "heroTagline": "Your field, at a glance."
   },
   "advisory": {
     "title": "Advisory",

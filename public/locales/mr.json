@@ -121,7 +121,8 @@
     "soilTemp": "मातीचे तापमान",
     "estimated": "अंदाजे",
     "awaitingSensor": "सेन्सरची प्रतीक्षा",
-    "tapForDetail": "तपशील पहा"
+    "tapForDetail": "तपशील पहा",
+    "heroTagline": "तुमचं शेत, एका नजरेत."
   },
   "advisory": {
     "title": "सल्ला",

@@ -27,7 +27,7 @@ const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000 // re-fetch daily when online
  * device is keyed by this string, so a bump invalidates it immediately — without one,
  * users keep seeing the old wording until the cache expires on its own.
  */
-const LOCALE_VERSION = "2026-09-25c"
+const LOCALE_VERSION = "2026-09-28a"
 
 /** Ask the endpoint which languages exist, so the app never hardcodes the list either. */
 export async function loadLanguageIndex() {
@@ -92,7 +92,15 @@ export async function initI18n() {
         suffix: '}',
       },
 
-      react: { useSuspense: false },
+      react: {
+        useSuspense: false,
+        /* Without `bindI18nStore`, react-i18next only re-renders on `languageChanged`. With
+           suspense off, the first paint happens before the HTTP backend has answered, so on a
+           cold cache — every new install, and every device after a LOCALE_VERSION bump — the
+           app rendered English and never updated when the real bundle arrived. Binding to the
+           store's `added` event re-renders the moment the translations land. */
+        bindI18nStore: 'added',
+      },
     })
 
   return { languages: index.languages }
