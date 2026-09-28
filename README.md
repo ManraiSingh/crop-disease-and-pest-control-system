@@ -3,7 +3,7 @@
 A phone-first app that helps a farmer photograph a sick crop, find out what is wrong, and act
 on it — in their own language.
 
-**Smart India Hackathon 2026 · Problem Statement 26131 · Government of Maharashtra**
+
 
 ---
 
