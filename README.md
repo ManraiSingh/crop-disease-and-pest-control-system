@@ -50,7 +50,7 @@ weather is fetched for their actual coordinates.
 
 | Tab | What it does |
 | --- | --- |
-| **Home** | Today's state of the farm: soil, weather, farm figures, and any disease detected |
+| **Home** | A masthead (date, conditions, today's readings) then a bento grid. Scan leads on the widest tile, because that is what a farmer opens the app to do. Hero and grid fit one screen; the seed market is what the first scroll reveals. |
 | **Community** | Farmers post a problem with a photo; others answer |
 | **Scan** | Photograph a leaf → get a diagnosis |
 | **History** | Everything that has happened, grouped by day |
@@ -118,8 +118,20 @@ still works with no signal.
 > After editing any locale file, bump `LOCALE_VERSION` in `src/i18n/config.js`. Devices cache
 > translations, so without a bump users keep seeing the old wording for up to a day.
 
-Fonts are **Anek Devanagari**, which covers Latin and Devanagari. A Latin-only font would break
-the moment someone picks Marathi.
+> **Do not remove `bindI18nStore: 'added'`** from the `react` options in `src/i18n/config.js`.
+> Suspense is off, so the first paint happens before the HTTP backend answers. Without that
+> option react-i18next only re-renders on `languageChanged`, never on resources arriving — so
+> on a cold cache the app rendered English and never corrected itself. That is every new
+> install, and every device after a `LOCALE_VERSION` bump. It is invisible in development
+> because your own cache is already warm.
+
+Fonts are **Anek Devanagari** for text and **Martel** for display — both cover Latin and
+Devanagari. A Latin-only font would break the moment someone picks Marathi.
+
+Figures use **Archivo**, loaded as a digits-only subset (`text=0123456789%…` in the Google
+Fonts URL), so a third family costs about 2KB instead of a full download. Anything outside that
+character set falls back to the body face by design — which is why a Devanagari value like
+`कमी` in a number slot renders in Anek, not Archivo.
 
 ---
 
@@ -150,13 +162,26 @@ Everything visual comes from `src/design/`, so the app looks like one product:
 - **`motion.jsx`** + **`springs.js`** — the shared animation vocabulary
 - **`List.jsx`** — grouped lists, section captions, segmented controls
 - **`Illustrations.jsx`** — SVG illustrations (no image files)
+- **`CropGlyph.jsx`** — a drawn mark per crop, sized in `em` so it scales with the text
+  around it. These replaced emoji, which rendered differently on every phone and in several
+  cases were not even the right crop (rice was a bowl of cooked rice; cotton was a cloud).
 
 Two rules worth knowing before you edit colours:
 
-1. **`--pitch` is always the dark surface and `--on-pitch` is always what sits on it.** Never
-   paint text on `--pitch` using a token that flips with the theme — you get white on white.
-2. **Entrance animations are CSS, not JavaScript.** An element whose visibility depends on a
+1. **Every surface token has an `--on-*` partner, and both are defined in both themes.** A
+   surface must never change value without the text on it changing too. Almost every visual
+   bug in this project traced back to breaking that one rule.
+2. **A fixed surface needs a fixed token.** `.plane-ink` (the advisory masthead) once pointed
+   at `--pitch`, which resolves to `--feature` — and that gets *lighter* in dark mode, while
+   the cream text on it stayed put. It has its own `--plane-ink` value per theme now.
+3. **A wash must move away from the ink, not toward it.** Tinting a badge with its own colour,
+   or putting a light wash under light text, reduces contrast. This caused four separate
+   failures before the pattern was obvious.
+4. **Entrance animations are CSS, not JavaScript.** An element whose visibility depends on a
    JS frame loop disappears if that loop stalls.
+5. **Measure contrast, don't judge it.** Several screens that looked fine were well below
+   WCAG AA. Compute the ratio against the actual composited background, including any
+   `opacity` layered on top — that is what the eye cannot estimate.
 
 ---
 
@@ -176,4 +201,4 @@ Copy `.env.example` to `.env`. Everything is optional — the app runs without i
 
 React 19 · Vite · Tailwind CSS v4 · React Router · Motion · react-i18next · Firebase
 
-Planned backend: Flask/FastAPI serving the disease-detection model.
+Planned backend: Flask serving the disease-detection model.
