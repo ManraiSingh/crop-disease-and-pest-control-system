@@ -38,9 +38,7 @@ Open **http://localhost:5173**.
 
 ## What a farmer sees
 
-```
-Landing  →  Onboarding (6 steps)  →  The app (5 tabs)
-```
+
 
 **Onboarding** asks four things: name and language, field name and GPS location, crop, then a
 summary. What they enter is reused everywhere after — the dashboard greets them by name and the
